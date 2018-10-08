@@ -15,6 +15,16 @@
 \DeclareSIUnit\Molar{M}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% CUSTOM PACKAGES
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% Required to draw Fig. 1
+\usepackage{tikz}
+\usetikzlibrary{decorations.pathmorphing}
+\usetikzlibrary{shapes.symbols}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%% ARTICLE SETUP
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \title{Muller's Ratchet in Asexual Populations Doomed to Extinction}
@@ -62,8 +72,6 @@ Please provide an abstract of no more than 150 words. Your abstract should expla
 In the absence of back mutations, an asexual individual cannot produce offspring carrying fewer deleterious mutations than itself. Indeed, it is always possible that individual offspring will accrue additional deleterious mutations. 
 As a result, the class of individuals with the fewest deleterious mutations may, by chance, disappear irreversibly from the population, a phenomenon known as Muller's Ratchet
 \citep{Muller_The_1964, Felsenstein_The_1974, Haigh_The_1978}.  Successive ``clicks'' of the Ratchet will cause the fitness of asexual populations to decline.
-%gradually cause the fitness
-%The extinction of the least-loaded class is a ``click'' of the ratchet.  
 Muller's Ratchet has been invoked to explain 
 the evolution of sex \citep{Muller_The_1964, Felsenstein_The_1974, gor08},
 the accelerated rate of evolution of endosymbiotic bacteria \citep{mor96},
@@ -94,6 +102,55 @@ experiencing a high deleterious mutation rate,
 and mutations with milder deleterious effects (low $s$).
 Subsequent work has derived more accurate estimates of the rate of clicking of the Ratchet, both when $\hat n_k > 1$ \citep{Stephan_The_1993, gor00b, Gordo_On_2000, met13} and when $\hat n_k < 1$ \citep{Gessler_The_1995, Rouzine_The_2003, Rouzine_The_2008}. 
 
+
+\begin{figure*}
+  \centering
+	\begin{tikzpicture} 
+% Row 1
+		\node (par1)       at       (0, 0)       [circle, minimum size=9.5mm, fill=gray!50]      {\textcolor{white}{$k$}};
+		\node (off11)      at       (1.3, .75)   [circle, minimum size=9.5mm, fill=gray!50]      {\textcolor{white}{$k$}};
+		\node (off12)      at       (1.3, -.75)  [circle, minimum size=9.5mm, fill=gray!50]      {\textcolor{white}{$k$}};
+		\draw[-latex, ultra thick]  (par1)  to  (off11);
+		\draw[-latex, ultra thick]  (par1)  to  (off12);
+		\node (par2)       at       (3, 0)       [circle, minimum size=9.5mm, fill=gray!50]      {\textcolor{white}{$k$}};
+		\node (off21)      at       (4.3, .75)   [circle, minimum size=9.5mm, fill=gray!50]      {\textcolor{white}{$k$}};
+		\node (off22)      at       (4.3, -.75)  [circle, minimum size=9.5mm,fill=gray!85]      {\textcolor{white}{$k\!+\!1$}};
+		\draw[-latex, ultra thick]  (par2)  to  (off21);
+		\draw[-latex, ultra thick]  (par2)  to  (off22);
+        \node (par3)       at       (6, 0)       [circle, minimum size=9.5mm, fill=gray!50]      {\textcolor{white}{$k$}};
+		\node (off31)      at       (7.3, .75)   [circle, minimum size=9.5mm, fill=gray!85]      {\textcolor{white}{$k\!+\!1$}};
+		\node (off32)      at       (7.3, -.75)  [circle, minimum size=9.5mm, fill=gray!85]      {\textcolor{white}{$k\!+\!1$}};
+		\draw[-latex, ultra thick]  (par3)  to  (off31);
+		\draw[-latex, ultra thick]  (par3)  to  (off32);
+        \node (ind)        at       (9, 0)       [circle, minimum size=9.5mm, fill=gray!50]      {\textcolor{white}{$k$}};
+        \node (dead)       at       (10.3, 0)    [starburst, minimum size=3mm, fill=gray!50]      {\textcolor{gray!50}{$n$}};
+        \draw[-latex, ultra thick]  (ind)  to  (dead);
+% Row 2
+		\node (p1)  at       (0.65, -2)      {$P = \frac{\displaystyle w_k (1-u)^2}{\displaystyle 2}$};
+		\node (p2)  at       (3.65, -2)      {$P = w_k u (1-u)$};
+        \node (p3)  at       (6.65, -2)      {$P = \frac{\displaystyle w_k u^2}{\displaystyle 2}$};
+        \node (p4)  at       (9.65, -2)      {$P = 1-\frac{\displaystyle w_k}{\displaystyle 2}$};
+% Labels
+\huge
+		\node[right] (A)          at       (-.81, 1.04) [circle]  {\sf\textbf{A}};
+		\node[right] (B)          at       (2.19, 1.04) [circle]  {\sf\textbf{B}};
+		\node[right] (C)          at       (5.19, 1.04) [circle]  {\sf\textbf{C}};
+		\node[right] (D)          at       (8.19, 1.04) [circle]  {\sf\textbf{D}};
+	\end{tikzpicture}	
+
+ 	\caption{Multitype branching process.  At each time step, an individual of type $k$---i.e, with $k$ deleterious mutations (light gray)---can have one of four fates \textbf{(A--D)} with different probabilities, $P$ (see Table \ref{tab:pars}).  
+%
+\blue{It can either die \textbf{(D)}
+%
+or survive and split into two daughters \textbf{(A--C)}. 
+%
+The daughters inherit the $k$ mutations from their mother.
+%
+A daughter can acquire one additional mutation and become a type $k+1$ individual} (dark gray) \textbf{(B--C)}.}
+	\label{fig:branching}	
+\end{figure*}
+
+
 Beginning with Haigh's foundational study, most research on Muller's Ratchet (including all the papers cited so far) has assumed that population size remains constant as the population accumulates deleterious mutations.  
 This assumption is biologically unrealistic---if true, fitness would decline %indefinitely 
 \blue{continuously but the population would be immortal}
@@ -119,40 +176,59 @@ Second, the rate of mutation accumulation settles into a steady rate.  This phas
 %%%
 Third, when mean viability reaches $\overline w = 1/R$ (i.e., when $N R \, \overline w = \widehat N$) the population size begins to decline, triggering mutational meltdown.  During this phase the population is doomed to extinction.
 
-Thanks for using Overleaf to write your article. Your introduction goes here! Some examples of commonly used commands and features are listed below, to help you get started.
 
-Here's a second paragraph to test paragraph indents. \lipsum[1]
+\citet{lyn93} derived some analytical expressions to describe the dynamics of mutation accumulation during the first two phases and the times at which these two phases end.  
+However, they did not present any analytical results on the dynamics or duration of the meltdown (third) phase itself.
+%%%
+Here we model the mutational meltdown phase of Muller's Ratchet using a multi-type branching process.
+We derive an analytical approximation for the expected time to extinction under this model
+of populations doomed to extinction.  
+We find that extinction occurs more quickly in small populations, 
+experiencing a high deleterious mutation rate $(u)$, 
+and mutations with \emph{more severe} deleterious effects (high $s$).  
+Our results differ from predictions on the relationship between the severity of Muller's Ratchet and mutational parameters in populations of constant size.
+We also find that mutational meltdown, 
+although it does occur in doomed populations,
+is not an important determinant of time to extinction. 
+Rather, extinction time is approximately inversely proportional to $us$, that is, 
+the expected impact of mutations on fitness.
+
+%Thanks for using Overleaf to write your article. Your introduction goes here! Some examples of commonly used commands and features are listed below, to help you get started.
+
+%Here's a second paragraph to test paragraph indents. \lipsum[1]
 
 \section{Results (Level 1 heading)}
 
 \lipsum[2-3]
 
 \begin{table}[bt]
-\caption{\label{tab:example}Automobile Land Speed Records (GR 5-10).}
+\caption{\label{tab:pars}Variables and parameters.}
 % Use "S" column identifier to align on decimal point 
-\begin{tabular}{S l l l r}
+\begin{tabular}{S l}
 \toprule
-{Speed (mph)} & Driver          & Car                        & Engine    & Date     \\
+{Symbol} & Description     \\
 \midrule
-407.447     & Craig Breedlove & Spirit of America          & GE J47    & 8/5/63   \\
-413.199     & Tom Green       & Wingfoot Express           & WE J46    & 10/2/64  \\
-434.22      & Art Arfons      & Green Monster              & GE J79    & 10/5/64  \\
-468.719     & Craig Breedlove & Spirit of America          & GE J79    & 10/13/64 \\
-526.277     & Craig Breedlove & Spirit of America          & GE J79    & 10/15/65 \\
-536.712     & Art Arfons      & Green Monster              & GE J79    & 10/27/65 \\
-555.127     & Craig Breedlove & Spirit of America, Sonic 1 & GE J79    & 11/2/65  \\
-576.553     & Art Arfons      & Green Monster              & GE J79    & 11/7/65  \\
-600.601     & Craig Breedlove & Spirit of America, Sonic 1 & GE J79    & 11/15/65 \\
-622.407     & Gary Gabelich   & Blue Flame                 & Rocket    & 10/23/70 \\
-633.468     & Richard Noble   & Thrust 2                   & RR RG 146 & 10/4/83  \\
-763.035     & Andy Green      & Thrust SSC                 & RR Spey   & 10/15/97\\
+$u$            & Probability that an individual acquires a deleterious mutation (Figure \ref{fig:branching}).\\
+$s$            & Deleterious effect of a mutation (Equation \ref{eq:fit}).\\
+$w_k$          & Fitness of an individual of type $k$, i.e.\ with $k$ deleterious mutations (Equation \ref{eq:fit}).\\
+%$\varphi_k(x)$ & Probability generating function of the number of $k$-type offspring of a $k$-type individual (Equation \ref{eq:pgf}).\\
+$m_{i, j}$     & Expected number of offspring of type $j$ generated by an individual of type $i$ (Equation \\
+               & \ref{eq:m}).\\
+$n_0$          & Initial number of mutation-free individuals in the population.\\
+$n_k$          & Expected number of $k$-type individuals in the population.\\
+$N$            & Total population size (Equation \ref{eq:N}).\\
+$t_k$          & Expected extinction time of $k$-type individuals in generations, i.e.\ the $k$-th click of the \\
+               & Ratchet (Equation \ref{eq:tk}).\\
+$\Delta t_k$   & Interval between clicks $k-1$ and $k$ of the Ratchet (Equation \ref{eq:deltat}).\\
+$x_k$          & Expected number of $k$-type individuals at the extinction time of type $k-1$ (Equation \ref{eq:xk}).\\
+$\mathbf{T}$   & Expected extinction time of the entire population in generations (Equation \ref{eq:T}).\\
 \bottomrule
 \end{tabular}
 
-\medskip 
-Source: \url{https://www.sedl.org/afterschool/toolkits/science/pdf/ast_sci_data_tables_sample.pdf}
+%\medskip 
+%Source: \url{https://www.sedl.org/afterschool/toolkits/science/pdf/ast_sci_data_tables_sample.pdf}
 
-\tabledata{This is a description of a data source.}
+% \tabledata{This is a description of a data source.}
 
 \end{table}
 
