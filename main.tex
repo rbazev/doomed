@@ -53,6 +53,72 @@ Please provide an abstract of no more than 150 words. Your abstract should expla
 
 \section{Introduction}
 
+\medskip
+
+\begin{quotation}
+``All populations are doomed to eventual extinction.'' \citet{Lynch_MUTATION_1990}
+\end{quotation}
+
+In the absence of back mutations, an asexual individual cannot produce offspring carrying fewer deleterious mutations than itself. Indeed, it is always possible that individual offspring will accrue additional deleterious mutations. 
+As a result, the class of individuals with the fewest deleterious mutations may, by chance, disappear irreversibly from the population, a phenomenon known as Muller's Ratchet
+\citep{Muller_The_1964, Felsenstein_The_1974, Haigh_The_1978}.  Successive ``clicks'' of the Ratchet will cause the fitness of asexual populations to decline.
+%gradually cause the fitness
+%The extinction of the least-loaded class is a ``click'' of the ratchet.  
+Muller's Ratchet has been invoked to explain 
+the evolution of sex \citep{Muller_The_1964, Felsenstein_The_1974, gor08},
+the accelerated rate of evolution of endosymbiotic bacteria \citep{mor96},
+and the degeneration of Y-chromosomes \citep{Charlesworth_Model_1978, gor00b}.  
+
+%\red{\sout{The first formal model of Muller's Ratchet assumed a constant population size}} \citep{Haigh_The_1978}, \red{\sout{and this has been standard ever since}} \citep{Gessler_The_1995,Gordo_On_2000,Pamilo_1987}.
+%[R: deal with exceptions later. You have to explain the classic model first and then explain why it's not satisfactory.]. 
+%\sout{Given that populations subject to the ratchet are expected to decrease in absolute fitness, this assumption is not expected to hold true in general.} 
+\citet{Haigh_The_1978} %\red{\sout{'s model emphasized} 
+argued that the Ratchet should click at a rate inversely proportional to the size of the least-loaded class in a population.  If $k$ is the lowest number of deleterious mutations present in an individual in the population, 
+the size of the least-loaded class at mutation-selection-drift equilibrium is
+%
+\begin{equation}
+  \hat n_k = N e^{-U/s} \quad ,
+  \label{eq:haigh}
+\end{equation}
+%
+%\red{[R: this $n_0$ clashes with our notation later.]}
+%\red{\sout{as the most important quantity with respect to the rate of the ratchet,}} 
+where $N$ is the size of the population, $U$ is the 
+expected number of deleterious mutations
+per genome per generation, and $s$ is the deleterious effect of a mutation. 
+Haigh suggested that genetic drift causes the actual value of $n_k$ to deviate stochastically from $\hat n_k$.  The smaller the value of $\hat n_k$, the greater the probability that $n_k$ will hit zero, causing the Ratchet to click.  
+If $\hat n_k > 1$, then after a click of the Ratchet, the size of the new least-loaded class will go to a new equilibrium, $\hat n_{k+1}$, equal to $\hat n_k$ in Equation \ref{eq:haigh}. 
+Haigh concluded that Muller's Ratchet should click faster 
+in small populations, 
+experiencing a high deleterious mutation rate, 
+and mutations with milder deleterious effects (low $s$).
+Subsequent work has derived more accurate estimates of the rate of clicking of the Ratchet, both when $\hat n_k > 1$ \citep{Stephan_The_1993, gor00b, Gordo_On_2000, met13} and when $\hat n_k < 1$ \citep{Gessler_The_1995, Rouzine_The_2003, Rouzine_The_2008}. 
+
+Beginning with Haigh's foundational study, most research on Muller's Ratchet (including all the papers cited so far) has assumed that population size remains constant as the population accumulates deleterious mutations.  
+This assumption is biologically unrealistic---if true, fitness would decline %indefinitely 
+\blue{continuously but the population would be immortal}
+%without ever causing the population to go extinct 
+\citep{Lynch_MUTATION_1990, mel91}.  Lynch, Gabriel, and colleagues studied more realistic models where the fitness of an individual influences its fertility, and populations experience density-dependent regulation \citep{Lynch_MUTATION_1990, lyn93, Gabriel_MULLER_1993}.  They found that Muller's Ratchet causes population size to decline, which accelerates the Ratchet, which in turn further reduces population size.  This positive feedback results in a ``mutational meltdown'' that drives the population to extinction \citep{Lynch_MUTATION_1990, lyn93, Gabriel_MULLER_1993}.
+
+In one model, \citet{lyn93} considered a population of asexual organisms subject to a carrying capacity of $\widehat N$ individuals.  Each individual produces $R$ offspring.  The number of mutations is Poisson distributed with rate $U$.  The offspring then undergo viability selection with a probability of survival
+%
+\begin{equation}
+  w_k=(1-s)^{k} \quad ,
+  \label{eq:fit}
+\end{equation}
+%
+where
+$k \geq 0$ is the number of deleterious mutations in the individual offspring,  
+and $0 < s < 1$ is the deleterious effect of each mutation. 
+If the number of offspring surviving viability selection is $N' > \widehat N$, $N' - \widehat N$ individuals die and $\widehat N$ individuals survive, independently of their fitness; if $N' \leq \widehat N$, all $N'$ individuals survive.  
+Reproduction occurs after viability selection and density-dependent regulation.  Assuming that initially all individuals in the population are mutation-free and that $N R > \widehat N$, Muller's Ratchet proceeds in three phases in this model.  
+%%%
+First, mutations enter the population and accumulate rapidly.  As the distribution of mutation numbers approaches mutation-selection-drift equilibrium mutation accumulation slows down.
+%%%
+Second, the rate of mutation accumulation settles into a steady rate.  This phase proceeds as in the classic constant population size model of Muller's Ratchet \citep{Haigh_The_1978} and lasts while $N R \, \overline w \gtrsim \widehat N$.
+%%%
+Third, when mean viability reaches $\overline w = 1/R$ (i.e., when $N R \, \overline w = \widehat N$) the population size begins to decline, triggering mutational meltdown.  During this phase the population is doomed to extinction.
+
 Thanks for using Overleaf to write your article. Your introduction goes here! Some examples of commonly used commands and features are listed below, to help you get started.
 
 Here's a second paragraph to test paragraph indents. \lipsum[1]
@@ -258,7 +324,7 @@ Some filler text, because empty templates look really poorly. \lipsum[1]
 Additional information can be given in the template, such as to not include funder information in the acknowledgments section.
 
 \nocite{*} % This command displays all refs in the bib file. PLEASE DELETE IT BEFORE YOU SUBMIT YOUR MANUSCRIPT!
-\bibliography{elife-sample}
+\bibliography{bibliography}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%% APPENDICES
