@@ -115,8 +115,51 @@ experiencing a high deleterious mutation rate,
 and mutations with milder deleterious effects (low $s$).
 Subsequent work has derived more accurate estimates of the rate of clicking of the Ratchet, both when $\hat n_k > 1$ \citep{Stephan_The_1993, Gordo_On_2000, gor00b, neh12, met13} and when $\hat n_k < 1$ \citep{Gessler_The_1995, Rouzine_The_2003, Rouzine_The_2008}. 
 
+Beginning with Haigh's foundational study, most research on Muller's Ratchet (including all the papers cited in the previous paragraph) has assumed that the size of a population remains constant as it accumulates deleterious mutations.  
+This assumption is biologically unrealistic---if true, fitness would decline continuously but the population would be immortal \citep{Lynch_MUTATION_1990, mel91}.  Lynch, Gabriel, and colleagues studied more realistic models where the fitness of an individual influences its fertility and populations experience density-dependent regulation \citep{Lynch_MUTATION_1990, lyn93, Gabriel_MULLER_1993}.  They found that Muller's Ratchet causes population size to decline, which accelerates the Ratchet, which further reduces population size.  This positive feedback results in a ``mutational meltdown'' that drives the population to extinction \citep{Lynch_MUTATION_1990, lyn93, Gabriel_MULLER_1993}.
 
-\begin{figure*}
+In one model, \citet{lyn93} considered a population of asexual organisms subject to a carrying capacity of $\widehat N$ individuals.  Each individual produces $R$ offspring.  The number of mutations is Poisson distributed with rate $U$.  The offspring then undergo viability selection with a probability of survival
+%
+\begin{equation}
+  w_k=(1-s)^{k} \quad ,
+  \label{eq:fit}
+\end{equation}
+%
+where
+$k \geq 0$ is the number of deleterious mutations in the individual offspring,  
+and $0 < s < 1$ is the deleterious effect of each mutation. 
+If the number of offspring surviving viability selection is $N' > \widehat N$, $N' - \widehat N$ individuals die and $\widehat N$ individuals survive, independently of their fitness; if $N' \leq \widehat N$, all $N'$ individuals survive.  
+Reproduction occurs after viability selection and density-dependent regulation.  Assuming that initially all individuals in the population are mutation-free and that $N R > \widehat N$, Muller's Ratchet proceeds in three phases in this model.  
+%%%
+First, mutations enter the population and accumulate rapidly.  As the distribution of mutation numbers approaches mutation-selection-drift equilibrium mutation accumulation slows down.
+%%%
+Second, the rate of mutation accumulation settles into a steady rate.  This phase proceeds as in the classic constant population size model of Muller's Ratchet \citep{Haigh_The_1978} and lasts while $N R \, \overline w \gtrsim \widehat N$.
+%%%
+Third, when mean viability reaches $\overline w = 1/R$ (i.e., when $N R \, \overline w = \widehat N$) the population size begins to decline, triggering mutational meltdown.  During this phase the population is doomed to extinction.
+
+
+\citet{lyn93} derived some analytical expressions to describe the dynamics of mutation accumulation during the first two phases and the times at which these two phases end.  
+However, they did not present any analytical results on the dynamics or duration of the meltdown (third) phase itself.
+%%%
+Here we model the mutational meltdown phase of Muller's Ratchet using a multi-type branching process.
+We derive an analytical approximation for the expected time to extinction under this model
+of populations doomed to extinction.  
+We find that extinction occurs more quickly in small populations, 
+experiencing a high deleterious mutation rate $(u)$, 
+and mutations with \emph{more severe} deleterious effects (high $s$).  
+Our results differ from predictions on the relationship between the severity of Muller's Ratchet and mutational parameters in populations of constant size.
+We also find that mutational meltdown, 
+although it does occur in doomed populations,
+is not an important determinant of time to extinction. 
+Rather, extinction time is approximately inversely proportional to $us$, that is, 
+the expected impact of deleterious mutations on fitness.
+
+%Thanks for using Overleaf to write your article. Your introduction goes here! Some examples of commonly used commands and features are listed below, to help you get started.
+
+%Here's a second paragraph to test paragraph indents. \lipsum[1]
+
+
+\begin{figure*}[!ht]
   \centering
 	\begin{tikzpicture} 
 % Row 1
@@ -164,88 +207,12 @@ A daughter can acquire one additional mutation and become a type $k+1$ individua
 \end{figure*}
 
 
-Beginning with Haigh's foundational study, most research on Muller's Ratchet (including all the papers cited in the previous paragraph) has assumed that the size of a population remains constant as it accumulates deleterious mutations.  
-This assumption is biologically unrealistic---if true, fitness would decline continuously but the population would be immortal \citep{Lynch_MUTATION_1990, mel91}.  Lynch, Gabriel, and colleagues studied more realistic models where the fitness of an individual influences its fertility and populations experience density-dependent regulation \citep{Lynch_MUTATION_1990, lyn93, Gabriel_MULLER_1993}.  They found that Muller's Ratchet causes population size to decline, which accelerates the Ratchet, which further reduces population size.  This positive feedback results in a ``mutational meltdown'' that drives the population to extinction \citep{Lynch_MUTATION_1990, lyn93, Gabriel_MULLER_1993}.
-
-In one model, \citet{lyn93} considered a population of asexual organisms subject to a carrying capacity of $\widehat N$ individuals.  Each individual produces $R$ offspring.  The number of mutations is Poisson distributed with rate $U$.  The offspring then undergo viability selection with a probability of survival
-%
-\begin{equation}
-  w_k=(1-s)^{k} \quad ,
-  \label{eq:fit}
-\end{equation}
-%
-where
-$k \geq 0$ is the number of deleterious mutations in the individual offspring,  
-and $0 < s < 1$ is the deleterious effect of each mutation. 
-If the number of offspring surviving viability selection is $N' > \widehat N$, $N' - \widehat N$ individuals die and $\widehat N$ individuals survive, independently of their fitness; if $N' \leq \widehat N$, all $N'$ individuals survive.  
-Reproduction occurs after viability selection and density-dependent regulation.  Assuming that initially all individuals in the population are mutation-free and that $N R > \widehat N$, Muller's Ratchet proceeds in three phases in this model.  
-%%%
-First, mutations enter the population and accumulate rapidly.  As the distribution of mutation numbers approaches mutation-selection-drift equilibrium mutation accumulation slows down.
-%%%
-Second, the rate of mutation accumulation settles into a steady rate.  This phase proceeds as in the classic constant population size model of Muller's Ratchet \citep{Haigh_The_1978} and lasts while $N R \, \overline w \gtrsim \widehat N$.
-%%%
-Third, when mean viability reaches $\overline w = 1/R$ (i.e., when $N R \, \overline w = \widehat N$) the population size begins to decline, triggering mutational meltdown.  During this phase the population is doomed to extinction.
-
-
-\citet{lyn93} derived some analytical expressions to describe the dynamics of mutation accumulation during the first two phases and the times at which these two phases end.  
-However, they did not present any analytical results on the dynamics or duration of the meltdown (third) phase itself.
-%%%
-Here we model the mutational meltdown phase of Muller's Ratchet using a multi-type branching process.
-We derive an analytical approximation for the expected time to extinction under this model
-of populations doomed to extinction.  
-We find that extinction occurs more quickly in small populations, 
-experiencing a high deleterious mutation rate $(u)$, 
-and mutations with \emph{more severe} deleterious effects (high $s$).  
-Our results differ from predictions on the relationship between the severity of Muller's Ratchet and mutational parameters in populations of constant size.
-We also find that mutational meltdown, 
-although it does occur in doomed populations,
-is not an important determinant of time to extinction. 
-Rather, extinction time is approximately inversely proportional to $us$, that is, 
-the expected impact of mutations on fitness.
-
-%Thanks for using Overleaf to write your article. Your introduction goes here! Some examples of commonly used commands and features are listed below, to help you get started.
-
-%Here's a second paragraph to test paragraph indents. \lipsum[1]
-
-
 
 
 \section{Model}
 
 
 
-
-\begin{table}[bt]
-\caption{\label{tab:pars}Variables and parameters.}
-% Use "S" column identifier to align on decimal point 
-\begin{tabular}{S l}
-\toprule
-Symbol         & Description     \\
-\midrule
-$u$            & Probability that an individual acquires a deleterious mutation (\FIG{branching}).\\
-$s$            & Deleterious effect of a mutation (\EQ{fit}).\\
-$w_k$          & Fitness of an individual of type $k$, i.e.\ with $k$ deleterious mutations (\EQ{fit}).\\
-%$\varphi_k(x)$ & Probability generating function of the number of $k$-type offspring of a $k$-type individual (Equation \ref{eq:pgf}).\\
-$m_{i, j}$     & Expected number of offspring of type $j$ generated by an individual of type $i$ \\
-               & (\EQ{m}).\\
-$n_{0}$        & Initial number of mutation-free individuals in the population.\\
-$n_k$          & Expected number of $k$-type individuals in the population.\\
-$N$            & Total population size (\EQ{N}).\\
-$t_k$          & Expected extinction time of $k$-type individuals in generations, i.e.\ the $k$-th click of the \\
-               & Ratchet (\EQ{tk}).\\
-$\Delta t_k$   & Interval between clicks $k-1$ and $k$ of the Ratchet (\EQ{deltat}).\\
-$x_k$          & Expected number of $k$-type individuals at the extinction time of type $k-1$ \\
-               & (\EQ{xk}).\\
-$\mathbf{T}$   & Expected extinction time of the entire population in generations (\EQ{T}).\\
-\bottomrule
-\end{tabular}
-
-%\medskip 
-%Source: \url{https://www.sedl.org/afterschool/toolkits/science/pdf/ast_sci_data_tables_sample.pdf}
-
-% \tabledata{This is a description of a data source.}
-
-\end{table}
 
 \subsection{Branching process}
 
@@ -294,29 +261,41 @@ where $j=0,\,1,\,2,\,\ldots\;$
 For a proof, see Appendix 1.  
 
 
-\begin{figure*}[h!]
-\centering
-\includegraphics[width=.67\linewidth]{decay.pdf}
-\caption{Populations doomed to extinction.  
-%
-\textbf{(A)} Dynamics of population size, $N$, in 50 populations founded by $n_0=100$ mutation-free individuals and subject to mutations with deleterious effect $s=0.01$ and rate $u=0.01$.  Black vertical lines above the time axis indicate extinction times.
-%
-\textbf{(B)} Blue line shows mean $N$ based on stochastic simulations of $10^4$ replicate populations like those shown in \textbf{(A)}.  
-Light blue region indicates $\overline{N} \pm 1$ standard deviation (s.d.). If $\mathrm{s.d.} > \overline{N}$, the lower bound of the region was set to zero.  
-Red circles indicate expected population size (\EQ{N}) every 30 generations.
-%
-\textbf{(C)} Distribution of extinction times, $\mathbf{T}$, in the stochastic simulations described in \textbf{(B)} (8 replicate populations had $\mathbf{T} > 900$ and are not shown). 
-Blue line shows mean $\mathbf{T}$ based on the $10^4$ replicate populations.  
-Red line shows $\mathbf{T}$ calculated numerically (\EQ{T}) by assuming that $P(\tau_{k} > 0) = 0$.  
-%
-\textbf{(D)} Extinction times of populations with the same mutational parameters as those in \textbf{(A)} but with a range of initial populations sizes, $n_0$.
-%
-Blue line shows mean values of $\mathbf{T}$ based on stochastic simulations of $10^4$ replicate populations for 21 values of $n_0$ evenly spaced on a log-scale.
-%
-Red line shows $\mathbf{T}$ calculated numerically.
-}
-\label{fig:decay}
-\end{figure*}
+
+
+\begin{table}[!ht]
+\caption{\label{tab:pars}Variables and parameters.}
+% Use "S" column identifier to align on decimal point 
+\begin{tabular}{S l}
+\toprule
+Symbol         & Description     \\
+\midrule
+$u$            & Probability that an individual acquires a deleterious mutation (\FIG{branching}).\\
+$s$            & Deleterious effect of a mutation (\EQ{fit}).\\
+$w_k$          & Fitness of an individual of type $k$, i.e.\ with $k$ deleterious mutations (\EQ{fit}).\\
+%$\varphi_k(x)$ & Probability generating function of the number of $k$-type offspring of a $k$-type individual (Equation \ref{eq:pgf}).\\
+$m_{i, j}$     & Expected number of offspring of type $j$ generated by an individual of type $i$ \\
+               & (\EQ{m}).\\
+$n_{0}$        & Initial number of mutation-free individuals in the population.\\
+$n_k$          & Expected number of $k$-type individuals in the population.\\
+$N$            & Total population size (\EQ{N}).\\
+$t_k$          & Expected extinction time of $k$-type individuals in generations, i.e.\ the $k$-th click of the \\
+               & Ratchet (\EQ{tk}).\\
+$\Delta t_k$   & Interval between clicks $k-1$ and $k$ of the Ratchet (\EQ{deltat}).\\
+$x_k$          & Expected number of $k$-type individuals at the extinction time of type $k-1$ \\
+               & (\EQ{xk}).\\
+$\mathbf{T}$   & Expected extinction time of the entire population in generations (\EQ{T}).\\
+\bottomrule
+\end{tabular}
+
+%\medskip 
+%Source: \url{https://www.sedl.org/afterschool/toolkits/science/pdf/ast_sci_data_tables_sample.pdf}
+
+% \tabledata{This is a description of a data source.}
+
+\end{table}
+
+
 
 
 \subsection{Extinction time of individuals of type \emph{k}}
@@ -386,31 +365,28 @@ E[\tau_{k}(\tau_{k}-1)] & =  2\sum_{t=1}^{\infty}tP(\tau_{k}>t)\\[5pt]
 \end{align*}
 
 
-\begin{figure*}[h!]
+\begin{figure*}[ht!]
 \centering
-\includegraphics[width=\linewidth]{valid.pdf}
-\caption{
-Mutational parameters have different effects on extinction time in doomed populations and Muller's Ratchet in populations of constant size.
+\includegraphics[width=.67\linewidth]{decay.pdf}
+\caption{Populations doomed to extinction.  
 %
-\textbf{(A--B)} Values are expected extinction times, $\mathbf{T}$, in populations founded by $n_0=100$ mutation-free individuals but with different mutational parameters.
+\textbf{(A)} Dynamics of population size, $N$, in 50 populations founded by $n_0=100$ mutation-free individuals and subject to mutations with deleterious effect $s=0.01$ and rate $u=0.01$.  Black vertical lines above the time axis indicate extinction times.
 %
-\textbf{(A)} Mutations have deleterious effect $s=0.01$ and a range of mutation rates, $u$.
+\textbf{(B)} Blue line shows mean $N$ based on stochastic simulations of $10^4$ replicate populations like those shown in \textbf{(A)}.  
+Light blue region indicates $\overline{N} \pm 1$ standard deviation (s.d.). If $\mathrm{s.d.} > \overline{N}$, the lower bound of the region was set to zero.  
+Red circles indicate expected population size (\EQ{N}) every 30 generations.
 %
-\textbf{(B)} Mutations have rate $u=0.01$ and a range of deleterious effects, $s$.
+\textbf{(C)} Distribution of extinction times, $\mathbf{T}$, in the stochastic simulations described in \textbf{(B)} (8 replicate populations had $\mathbf{T} > 900$ and are not shown). 
+Blue line shows mean $\mathbf{T}$ based on the $10^4$ replicate populations.  
+Red line shows $\mathbf{T}$ calculated numerically (\EQ{T}) by assuming that $P(\tau_{k} > 0) = 0$.  
 %
-Red lines show $\mathbf{T}$ calculated numerically (\EQ{T}) by assuming that $P(\tau_{k} > 0) = 0$ for 41 values of the parameter being manipulated, evenly spaced on a log-scale.
+\textbf{(D)} Extinction times of populations with the same mutational parameters as those in \textbf{(A)} but with a range of initial populations sizes, $n_0$.
 %
-Blue lines show mean values of $\mathbf{T}$ based on stochastic simulations of $10^4$ replicate populations for 21 values of the parameter being manipulated, evenly spaced on a log-scale.
+Blue line shows mean values of $\mathbf{T}$ based on stochastic simulations of $10^4$ replicate populations for 21 values of $n_0$ evenly spaced on a log-scale.
 %
-Light blue regions indicate $\overline{\mathbf{T}} \pm 1\, \mathrm{s.d.}$  If $\mathrm{s.d.} > \overline{\mathbf{T}}$, the lower bound of the region was set to zero.
-%
-\textbf{(C)} Severity of Muller's Ratchet in populations of constant size and a deleterious mutation rate of $U = 0.01$ per genome per generation.  Values are the expected declines in mean fitness per thousand generations, $10^3 \times s/\Delta t$, for 101 values of $s$ evenly spaced on a log-scale.  
-$\Delta t$ is the time between clicks of the Ratchet calculated using the method of \citet{Gordo_On_2000, gor00b}.
-Dashed and solid lines indicate $\hat n_k < 10$ and $\hat n_k \geq 10$, respectively (\EQ{haigh}).  
-%
-The trend shown in \textbf{(C)} was confirmed by simulation (not shown).
+Red line shows $\mathbf{T}$ calculated numerically.
 }
-\label{fig:valid}
+\label{fig:decay}
 \end{figure*}
 
 
@@ -468,19 +444,6 @@ g_{j}(t) = \left\{\begin{array}{lll}
 %
 (see \EQ{mt}).
 
-\begin{figure*}[h!]
-\centering
-\includegraphics[width=\linewidth]{heat.pdf}
-\caption{High mutation rate and mutations of large effect accelerate extinction in doomed populations.  
-%
-\textbf{(A)} Expected extinction time, $\mathbf{T}$, of populations founded by $n_0=100$ mutation-free individuals and subject to mutations with deleterious effect $s$ and rate $u$.  $\mathbf{T}$ was calculated numerically (\EQ{T}) by assuming that $P(\tau_{k} > 0) = 0$ for $21\times21=441$ combinations of values of $s$ and $u$ evenly spaced on a log-scale.
-%
-\textbf{(B)} Expected extinction time of the mutation-free class, $t_0$ (\EQ{t0}), as a proportion of $\mathbf{T}$ for the populations shown in \textbf{(A)}. 
-%
-\textbf{(C)} Expected number of individuals with $k=1$ mutation at $t_0$, $x_1$ (\EQ{xk}), for the populations shown in \textbf{(A)}.
-}
-\label{fig:heat}
-\end{figure*}
 
 Now let $T_{k}$ be the extinction time for type $k$ and let $t_{k}=E[T_{k}]$. Then we have the approximation
 %
@@ -566,6 +529,34 @@ t_k - t_{k-1} < 10^{-6} \quad .
 \end{equation*}
 
 
+\begin{figure*}[ht!]
+\centering
+\includegraphics[width=\linewidth]{valid.pdf}
+\caption{
+Mutational parameters have different effects on extinction time in doomed populations and the severity of Muller's Ratchet in populations of constant size.
+%
+\textbf{(A--B)} Values are expected extinction times, $\mathbf{T}$, in populations founded by $n_0=100$ mutation-free individuals but with different mutational parameters.
+%
+\textbf{(A)} Mutations have deleterious effect $s=0.01$ and a range of mutation rates, $u$.
+%
+\textbf{(B)} Mutations have rate $u=0.01$ and a range of deleterious effects, $s$.
+%
+Red lines show $\mathbf{T}$ calculated numerically (\EQ{T}) by assuming that $P(\tau_{k} > 0) = 0$ for 41 values of the parameter being manipulated, evenly spaced on a log-scale.
+%
+Blue lines show mean values of $\mathbf{T}$ based on stochastic simulations of $10^4$ replicate populations for 21 values of the parameter being manipulated, evenly spaced on a log-scale.
+%
+Light blue regions indicate $\overline{\mathbf{T}} \pm 1\, \mathrm{s.d.}$  If $\mathrm{s.d.} > \overline{\mathbf{T}}$, the lower bound of the region was set to zero.
+%
+\textbf{(C)} Severity of Muller's Ratchet in populations of constant size and a deleterious mutation rate of $U = 0.01$ per genome per generation.  Values are the expected declines in mean fitness per thousand generations, $10^3 \times s/\Delta t$, for 101 values of $s$ evenly spaced on a log-scale.  
+$\Delta t$ is the time between clicks of the Ratchet calculated using the method of \citet{Gordo_On_2000, gor00b}.
+Dashed and solid lines indicate $\hat n_k < 10$ and $\hat n_k \geq 10$, respectively (\EQ{haigh}).  
+%
+The trend shown in \textbf{(C)} was confirmed by simulation (not shown).
+}
+\label{fig:valid}
+\end{figure*}
+
+
 \subsection{Large initial population size}
 
 
@@ -630,18 +621,18 @@ E\left[N(t+1)\right] - E\left[N(t)\right] \approx -n_0 u s t \quad
 \end{equation}
 
 
-
-\begin{figure*}[h!]
+\begin{figure*}[ht!]
 \centering
-\includegraphics[width=.71\linewidth]{melt.pdf}
-\caption{Mutational meltdown does not explain extinction time in doomed populations.  
+\includegraphics[width=\linewidth]{heat.pdf}
+\caption{High mutation rate and mutations of large effect accelerate extinction in doomed populations.  
 %
-\textbf{(A)} Circles denote time between clicks, $\Delta t_k$ (\EQ{deltat}).  Click $k$ indicates the extinction of $k$-type individuals.  Values of $t_0$ were calculated using \EQ{tk}; values of $t_1, t_2,$ and $t_3$ were calculated using \EQ{tk} by assuming that $P(\tau_{k} > 0) = 0$.
-Note that $\Delta t_k$ is displayed on a log-scale.  Each combination of mutational parameters results in populations having the same expected extinction time $(\mathbf{T} = 223.52)$.  Lines indicate linear regression fits (meltdown rates: $\beta = -3.20, -1.14$ and $-0.32$, respectively).
+\textbf{(A)} Expected extinction time, $\mathbf{T}$, of populations founded by $n_0=100$ mutation-free individuals and subject to mutations with deleterious effect $s$ and rate $u$.  $\mathbf{T}$ was calculated numerically (\EQ{T}) by assuming that $P(\tau_{k} > 0) = 0$ for $21\times21=441$ combinations of values of $s$ and $u$ evenly spaced on a log-scale.
 %
-\textbf{(B)} Meltdown rates, $\beta$, calculated as shown in \textbf{(A)} for $21\times21=441$ combinations of values of $s$ and $u$ evenly spaced on a log-scale.
+\textbf{(B)} Expected extinction time of the mutation-free class, $t_0$ (\EQ{t0}), as a proportion of $\mathbf{T}$ for the populations shown in \textbf{(A)}. 
+%
+\textbf{(C)} Expected number of individuals with $k=1$ mutation at $t_0$, $x_1$ (\EQ{xk}), for the populations shown in \textbf{(A)}.
 }
-\label{fig:melt}
+\label{fig:heat}
 \end{figure*}
 
 
@@ -682,7 +673,21 @@ Second, Muller's Ratchet may not determine extinction time in doomed populations
 We consider each of these possibilities in the next two sections.  
 
 
-\subsection{Mutational meltdown does not explain extinction time in doomed populations}
+\begin{figure*}[ht!]
+\centering
+\includegraphics[width=.71\linewidth]{melt.pdf}
+\caption{Mutational meltdown does not determine extinction time in doomed populations.  
+%
+\textbf{(A)} Circles denote time between clicks, $\Delta t_k$ (\EQ{deltat}).  Click $k$ indicates the extinction of $k$-type individuals.  Values of $t_0$ were calculated using \EQ{tk}; values of $t_1, t_2,$ and $t_3$ were calculated using \EQ{tk} by assuming that $P(\tau_{k} > 0) = 0$.
+Note that $\Delta t_k$ is displayed on a log-scale.  Each combination of mutational parameters results in populations having the same expected extinction time $(\mathbf{T} = 223.52)$.  Lines indicate linear regression fits (meltdown rates: $\beta = -3.20, -1.14$ and $-0.32$, respectively).
+%
+\textbf{(B)} Meltdown rates, $\beta$, calculated as shown in \textbf{(A)} for $21\times21=441$ combinations of values of $s$ and $u$ evenly spaced on a log-scale.
+}
+\label{fig:melt}
+\end{figure*}
+
+
+\subsection{Mutational meltdown does not determine extinction time}
 
 
 Lynch and colleagues have proposed that Muller's Ratchet accelerates in a doomed population as population size declines, driving the population to extinction---a phenomenon they called mutational meltdown \citep{Lynch_MUTATION_1990, lyn93, Gabriel_MULLER_1993}.  Does mutational meltdown determine extinction time? %If so, we would predict that fast extinction would be associated with faster meltdown.}
@@ -733,14 +738,14 @@ Most models of Muller's Ratchet have assumed a constant population size \citep{H
 This assumption is typically justified as resulting from density-dependent regulation of population size.
 However, the assumption of constant population size is unrealistic because it actually prevents populations from going extinct \citep{Lynch_MUTATION_1990, mel91}.  
 %
-In the first study to relax the assumption of constant population size, \citet{Lynch_MUTATION_1990} argued that Muller's ratchet generates a vicious cycle:
+In one of the earliest studies to relax the assumption of constant population size, \citet{Lynch_MUTATION_1990} argued that Muller's ratchet generates a vicious cycle:
 the Ratchet clicks, 
 which causes population size to decline, 
-which reduces the efficiency of natural selection,
+which strengthens drift and reduces the efficiency of natural selection,
 which in turn accelerates the Ratchet.  
-They proposed that this mutational meltdown causes populations to go extinct.
+They called this mechanism mutational meltdown and concluded that it causes populations to go extinct.  This view has become widespread, and mutational meltdown and extinction are assumed to be inextricably linked \citep[e.g.,][]{McFarland_Tug_2014, ban16}.
 
-
+Our results challenge the view of mutational meltdown introduced by \citet{Lynch_MUTATION_1990}.  Although doomed populations can experience mutational meltdown as measured by the acceleration of the Muller's Ratchet, the rate of mutational meltdown does not determine extinction time (\FIG{melt}).  Rather, extinction time is determined by the expected impact of deleterious mutations on fitness.  We propose
 
 %and that this generates a positive feedback where declines in population size , which causes the Ratchet to click faster, which causes the population size to decline further.  They called this mechanism mutational meltdown and proposed that it causes population extinction.
 
@@ -876,9 +881,7 @@ Really wide figures or tables, that take up the entire page, including the gutte
 %\end{fullwidth}
 %\end{figure}
 
-\subsection{Citations}
 
-LaTeX formats citations and references automatically using the bibliography records in your .bib file, which you can edit via the project menu. Use the \verb|\cite| command for an inline citation, like \cite{Aivazian917}, and the \verb|\citep| command for a citation in parentheses \citep{Aivazian917}. The LaTeX template uses a slightly-modified Vancouver bibliography style. If your manuscript is accepted, the eLife production team will re-format the references into the final published form. \emph{It is not necessary to attempt to format the reference list yourself to mirror the final published form.} Please also remember to \textbf{delete the line} \verb|\nocite{*}| in the template just before \verb|\bibliography{...}|; otherwise \emph{all} entries from your .bib file will be listed! 
 
 \begin{featurebox}
 \caption{This is an example feature box}
@@ -903,18 +906,6 @@ S_n = \frac{X_1 + X_2 + \cdots + X_n}{n}
 denote their mean. Then as $n$ approaches infinity, the random variables $\sqrt{n}(S_n - \mu)$ converge in distribution to a normal $\mathcal{N}(0, \sigma^2)$.
 
 \lipsum[3] 
-
-\begin{figure}
-\includegraphics[width=\linewidth]{elife-13214-fig7}
-\caption{A text-width example.}
-\label{fig:view}
-%% If the optional argument in the square brackets is "none", then the caption *will not appear in the main figure at all* and only the full caption will appear under the supplementary figure at the end of the manuscript.
-\figsupp[Shorter caption for main text.]{This is a supplementary figure's full caption, which will be used at the end of the manuscript.}{\includegraphics[width=6cm]{heat}}\label{figsupp:sf1}
-\figsupp{This is another supplementary figure.}{\includegraphics[width=6cm]{heat}}
-\videosupp{This is a description of a video supplement.}\label{videosupp:sv1}
-\figdata{This is a description of a data source.}\label{figdata:first}
-\figdata{This is another description of a data source.}\label{figdata:second}
-\end{figure}
 
 \subsection{Other Chemistry Niceties}
 
@@ -947,7 +938,6 @@ Some filler text, because empty templates look really poorly. \lipsum[1]
 
 Additional information can be given in the template, such as to not include funder information in the acknowledgments section.
 
-\nocite{*} % This command displays all refs in the bib file. PLEASE DELETE IT BEFORE YOU SUBMIT YOUR MANUSCRIPT!
 \bibliography{bibliography}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
