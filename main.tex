@@ -22,6 +22,11 @@
 \usepackage{tikz}
 \usetikzlibrary{decorations.pathmorphing}
 \usetikzlibrary{shapes.symbols}
+\usepackage{helvet}
+
+% Coloring text
+\usepackage{color}
+\newcommand{\blue}{\textcolor{blue}}
 
 % Vim macro to remove color or sout commands:
 % 1. place cursor at \ before command
@@ -62,12 +67,20 @@
 
 \maketitle
 
+
+
+
 \begin{abstract}
 Please provide an abstract of no more than 150 words. Your abstract should explain the main contributions of your article, and should not contain any material that is not included in the main text.
 \end{abstract}
 
 
+
+
 \section{Introduction}
+
+
+
 
 \medskip
 
@@ -83,11 +96,7 @@ the evolution of sex \citep{Muller_The_1964, Felsenstein_The_1974, gor08},
 the accelerated rate of evolution of endosymbiotic bacteria \citep{mor96},
 and the degeneration of Y-chromosomes \citep{Charlesworth_Model_1978, gor00b}.  
 
-%\red{\sout{The first formal model of Muller's Ratchet assumed a constant population size}} \citep{Haigh_The_1978}, \red{\sout{and this has been standard ever since}} \citep{Gessler_The_1995,Gordo_On_2000,Pamilo_1987}.
-%[R: deal with exceptions later. You have to explain the classic model first and then explain why it's not satisfactory.]. 
-%\sout{Given that populations subject to the ratchet are expected to decrease in absolute fitness, this assumption is not expected to hold true in general.} 
-\citet{Haigh_The_1978} %\red{\sout{'s model emphasized} 
-argued that the Ratchet should click at a rate inversely proportional to the size of the least-loaded class in a population.  If $k$ is the lowest number of deleterious mutations present in an individual in the population, 
+\citet{Haigh_The_1978} argued that the Ratchet should click at a rate inversely proportional to the size of the least-loaded class in a population.  If $k$ is the lowest number of deleterious mutations present in an individual in the population, 
 the size of the least-loaded class at mutation-selection-drift equilibrium is
 %
 \begin{equation}
@@ -95,8 +104,6 @@ the size of the least-loaded class at mutation-selection-drift equilibrium is
   \label{eq:haigh}
 \end{equation}
 %
-%\red{[R: this $n_0$ clashes with our notation later.]}
-%\red{\sout{as the most important quantity with respect to the rate of the ratchet,}} 
 where $N$ is the size of the population, $U$ is the 
 expected number of deleterious mutations
 per genome per generation, and $s$ is the deleterious effect of a mutation. 
@@ -144,7 +151,7 @@ Subsequent work has derived more accurate estimates of the rate of clicking of t
 		\node[right] (D)          at       (8.19, 1.04) [circle]  {\sf\textbf{D}};
 	\end{tikzpicture}	
 
- 	\caption{Multitype branching process.  At each time step, an individual of type $k$---i.e, with $k$ deleterious mutations (light gray)---can have one of four fates \textbf{(A--D)} with different probabilities, $P$ (see Table \ref{tab:pars}).  
+ 	\caption{Multitype branching process.  At each time step, an individual of type $k$---i.e, with $k$ deleterious mutations (light gray)---can have one of four fates \textbf{(A--D)} with different probabilities, $P$ (see \TABLE{pars}).  
 %
 It can either die \textbf{(D)}
 %
@@ -157,11 +164,8 @@ A daughter can acquire one additional mutation and become a type $k+1$ individua
 \end{figure*}
 
 
-Beginning with Haigh's foundational study, most research on Muller's Ratchet (including all the papers cited so far) has assumed that population size remains constant as the population accumulates deleterious mutations.  
-This assumption is biologically unrealistic---if true, fitness would decline %indefinitely 
-continuously but the population would be immortal
-%without ever causing the population to go extinct 
-\citep{Lynch_MUTATION_1990, mel91}.  Lynch, Gabriel, and colleagues studied more realistic models where the fitness of an individual influences its fertility, and populations experience density-dependent regulation \citep{Lynch_MUTATION_1990, lyn93, Gabriel_MULLER_1993}.  They found that Muller's Ratchet causes population size to decline, which accelerates the Ratchet, which in turn further reduces population size.  This positive feedback results in a ``mutational meltdown'' that drives the population to extinction \citep{Lynch_MUTATION_1990, lyn93, Gabriel_MULLER_1993}.
+Beginning with Haigh's foundational study, most research on Muller's Ratchet (including all the papers cited in the previous paragraph) has assumed that the size of a population remains constant as it accumulates deleterious mutations.  
+This assumption is biologically unrealistic---if true, fitness would decline continuously but the population would be immortal \citep{Lynch_MUTATION_1990, mel91}.  Lynch, Gabriel, and colleagues studied more realistic models where the fitness of an individual influences its fertility and populations experience density-dependent regulation \citep{Lynch_MUTATION_1990, lyn93, Gabriel_MULLER_1993}.  They found that Muller's Ratchet causes population size to decline, which accelerates the Ratchet, which further reduces population size.  This positive feedback results in a ``mutational meltdown'' that drives the population to extinction \citep{Lynch_MUTATION_1990, lyn93, Gabriel_MULLER_1993}.
 
 In one model, \citet{lyn93} considered a population of asexual organisms subject to a carrying capacity of $\widehat N$ individuals.  Each individual produces $R$ offspring.  The number of mutations is Poisson distributed with rate $U$.  The offspring then undergo viability selection with a probability of survival
 %
@@ -204,7 +208,11 @@ the expected impact of mutations on fitness.
 %Here's a second paragraph to test paragraph indents. \lipsum[1]
 
 
+
+
 \section{Model}
+
+
 
 
 \begin{table}[bt]
@@ -220,7 +228,7 @@ $w_k$          & Fitness of an individual of type $k$, i.e.\ with $k$ deleteriou
 %$\varphi_k(x)$ & Probability generating function of the number of $k$-type offspring of a $k$-type individual (Equation \ref{eq:pgf}).\\
 $m_{i, j}$     & Expected number of offspring of type $j$ generated by an individual of type $i$ \\
                & (\EQ{m}).\\
-$n_0$          & Initial number of mutation-free individuals in the population.\\
+$n_{0}$        & Initial number of mutation-free individuals in the population.\\
 $n_k$          & Expected number of $k$-type individuals in the population.\\
 $N$            & Total population size (\EQ{N}).\\
 $t_k$          & Expected extinction time of $k$-type individuals in generations, i.e.\ the $k$-th click of the \\
@@ -242,7 +250,7 @@ $\mathbf{T}$   & Expected extinction time of the entire population in generation
 \subsection{Branching process}
 
 
-A population consists of $N_k$ individuals with $k=0,\, 1,\, 2,\, \ldots$ deleterious mutations.  Below, we refer to individuals with $k$ deleterious mutations as having type $k$.
+A population consists of $N_k$ individuals with $k=0,\, 1,\, 2,\, \ldots$ deleterious mutations.  Below, we refer to individuals with $k$ deleterious mutations as belonging to type $k$.
 
 The size $N = \sum_i N_i$ of the population is allowed to change according to a discrete-time branching process.   
 Each generation, an individual of type $k$ reproduces by splitting into two daughters with probability $w_k/2$ and dies with probability $1 - w_k/2$ (\FIG{branching}), where $w_k$ is the fitness of an individual of type $k$ (\EQ{fit}). 
@@ -277,10 +285,11 @@ The mean reproduction matrix for generation $t$ is $M^{t}$, the $t$-th power of 
 Assuming the fitness function in \EQ{fit}, we can get an explicit form for the entries $m_{i,j}^{(t)}$ of $M^{t}$:
 %
 \begin{equation}
-  m^{(t)}_{k,k+j} = \displaystyle a^{t-j}b^{j}(1 - s)^{tk\,+\textstyle\frac{j(j-1)}{2}}\prod_{i=1}^{j}\frac{1 - (1 - s)^{t+1-i}}{1 - (1 - s)^{i}}
+  m^{(t)}_{k,k+j} = \displaystyle (1-u)^{t-j} u^{j}(1 - s)^{tk\,+\textstyle\frac{j(j-1)}{2}}\prod_{i=1}^{j}\frac{1 - (1 - s)^{t+1-i}}{1 - (1 - s)^{i}}
   \label{eq:mt}
 \end{equation}
-where $j=0,\,1,\,2,\,\ldots,\; a=m_{0,0}=1-u$, and $b=m_{0,1}=u$.
+where $j=0,\,1,\,2,\,\ldots\;$
+%,\; a=m_{0,0}=1-u$, and $b=m_{0,1}=u$.
 % 
 For a proof, see Appendix 1.  
 
@@ -290,21 +299,21 @@ For a proof, see Appendix 1.
 \includegraphics[width=.67\linewidth]{decay.pdf}
 \caption{Populations doomed to extinction.  
 %
-\textbf{(A)} Dynamics of population size, $N$, in 50 populations founded by $n_0=100$ mutation-free individuals and subject to mutations with deleterious effect $s=0.01$ and rate $u=0.01$.  Black vertical lines indicate extinction times.
+\textbf{(A)} Dynamics of population size, $N$, in 50 populations founded by $n_0=100$ mutation-free individuals and subject to mutations with deleterious effect $s=0.01$ and rate $u=0.01$.  Black vertical lines above the time axis indicate extinction times.
 %
 \textbf{(B)} Blue line shows mean $N$ based on stochastic simulations of $10^4$ replicate populations like those shown in \textbf{(A)}.  
 Light blue region indicates $\overline{N} \pm 1$ standard deviation (s.d.). If $\mathrm{s.d.} > \overline{N}$, the lower bound of the region was set to zero.  
 Red circles indicate expected population size (\EQ{N}) every 30 generations.
 %
-\textbf{(C)} Distribution of extinction times, \textbf{T}, in the stochastic simulations described in \textbf{(B)} (8 replicate populations had $\mathbf{T} > 900$ and are not shown). 
-Blue line shows mean \textbf{T} based on the $10^4$ replicate populations.  
-Red line shows \textbf{T} calculated numerically (\EQ{T}) by assuming that $P(\tau_{k} > 0) = 0$.  
+\textbf{(C)} Distribution of extinction times, $\mathbf{T}$, in the stochastic simulations described in \textbf{(B)} (8 replicate populations had $\mathbf{T} > 900$ and are not shown). 
+Blue line shows mean $\mathbf{T}$ based on the $10^4$ replicate populations.  
+Red line shows $\mathbf{T}$ calculated numerically (\EQ{T}) by assuming that $P(\tau_{k} > 0) = 0$.  
 %
 \textbf{(D)} Extinction times of populations with the same mutational parameters as those in \textbf{(A)} but with a range of initial populations sizes, $n_0$.
 %
-Blue line shows mean values of \textbf{T} based on stochastic simulations of $10^4$ replicate populations for 21 values of $n_0$ evenly spaced on a log-scale.
+Blue line shows mean values of $\mathbf{T}$ based on stochastic simulations of $10^4$ replicate populations for 21 values of $n_0$ evenly spaced on a log-scale.
 %
-Red line shows \textbf{T} calculated numerically.
+Red line shows $\mathbf{T}$ calculated numerically.
 }
 \label{fig:decay}
 \end{figure*}
@@ -318,9 +327,9 @@ There are no individuals of type $i < k$ in the population.
 By a standard result from probability theory
 %
 \begin{equation*}
-E[\tau_k]=\sum_{t=0}^{\infty}P(\tau_k>t)
+E[\tau_k]=\sum_{t=0}^{\infty}P(\tau_k>t) \quad .
 \end{equation*}
-%
+
 The time of extinction of the entire type-$k$ subpopulation is the time of extinction of the $N_{k}$ independent subpopulations started from the ancestors. The p.g.f.\ of the number of $k$-type individuals in generation $t$ is given by the $t$-fold composition of $\varphi_k$ (\EQ{pgf}) with itself, denoted by $\varphi^{(t)}_k$. We get
 %
 $$\tau_{k}=\max\{\tau_{k,1},...,\tau_{k,N_{k}}\}$$
@@ -328,7 +337,7 @@ $$\tau_{k}=\max\{\tau_{k,1},...,\tau_{k,N_{k}}\}$$
 where $\tau_{k,j}$ is the time of extinction of the subpopulation started from the $j$th individual, $j=1,...,N_k$. If we let $Z_{t}^{(k,j)}$ denote the number of type-$k$ individuals in generation $t$ stemming from the $j$th individual we have the equivalence 
 %
 \begin{equation*}
-\tau_{k,j}\leq n \Leftrightarrow Z_{n}^{(k,j)}=0
+\tau_{k,j}\leq n \; \Leftrightarrow \; Z_{n}^{(k,j)}=0
 \end{equation*}
 %
 and get the conditional probability given $N_k$
@@ -348,7 +357,7 @@ E[\tau_{k}] = P(\tau_{k}>0) + E\left[\sum_{t=1}^{\infty}\left(1-\left(\varphi_{k
 %
 %\label{expected1}
 \end{equation*}
-%
+
 With $n_k=E[N_k]$, a first-order Taylor approximation gives 
 %
 \begin{equation}
@@ -383,20 +392,20 @@ E[\tau_{k}(\tau_{k}-1)] & =  2\sum_{t=1}^{\infty}tP(\tau_{k}>t)\\[5pt]
 \caption{
 Mutational parameters have different effects on extinction time in doomed populations and Muller's Ratchet in populations of constant size.
 %
-\textbf{(A--B)} Values are expected extinction times, \textbf{T}, in populations founded by $n_0=100$ mutation-free individuals but with different mutational parameters.
+\textbf{(A--B)} Values are expected extinction times, $\mathbf{T}$, in populations founded by $n_0=100$ mutation-free individuals but with different mutational parameters.
 %
 \textbf{(A)} Mutations have deleterious effect $s=0.01$ and a range of mutation rates, $u$.
 %
 \textbf{(B)} Mutations have rate $u=0.01$ and a range of deleterious effects, $s$.
 %
-Red lines show \textbf{T} calculated numerically (\EQ{T}) by assuming that $P(\tau_{k} > 0) = 0$ for 41 values of the parameter being manipulated, evenly spaced on a log-scale.
+Red lines show $\mathbf{T}$ calculated numerically (\EQ{T}) by assuming that $P(\tau_{k} > 0) = 0$ for 41 values of the parameter being manipulated, evenly spaced on a log-scale.
 %
-Blue lines show mean values of \textbf{T} based on stochastic simulations of $10^4$ replicate populations for 21 values of the parameter being manipulated, evenly spaced on a log-scale.
+Blue lines show mean values of $\mathbf{T}$ based on stochastic simulations of $10^4$ replicate populations for 21 values of the parameter being manipulated, evenly spaced on a log-scale.
 %
 Light blue regions indicate $\overline{\mathbf{T}} \pm 1\, \mathrm{s.d.}$  If $\mathrm{s.d.} > \overline{\mathbf{T}}$, the lower bound of the region was set to zero.
 %
 \textbf{(C)} Severity of Muller's Ratchet in populations of constant size and a deleterious mutation rate of $U = 0.01$ per genome per generation.  Values are the expected declines in mean fitness per thousand generations, $10^3 \times s/\Delta t$, for 101 values of $s$ evenly spaced on a log-scale.  
-$\Delta t$ is the time between clicks of the Ratchet calculated using the method of \citet{gor00b, Gordo_On_2000}.
+$\Delta t$ is the time between clicks of the Ratchet calculated using the method of \citet{Gordo_On_2000, gor00b}.
 Dashed and solid lines indicate $\hat n_k < 10$ and $\hat n_k \geq 10$, respectively (\EQ{haigh}).  
 %
 The trend shown in \textbf{(C)} was confirmed by simulation (not shown).
@@ -464,9 +473,9 @@ g_{j}(t) = \left\{\begin{array}{lll}
 \includegraphics[width=\linewidth]{heat.pdf}
 \caption{High mutation rate and mutations of large effect accelerate extinction in doomed populations.  
 %
-\textbf{(A)} Expected extinction time, $\mathbf{T}$, of populations founded by $n_0=100$ mutation-free individuals and subject to mutations with deleterious effect $s$ and rate $u$.  \textbf{T} was calculated numerically (\EQ{T}) by assuming that $P(\tau_{k} > 0) = 0$ for $21\times21=441$ combinations of values of $s$ and $u$ evenly spaced on a log-scale.
+\textbf{(A)} Expected extinction time, $\mathbf{T}$, of populations founded by $n_0=100$ mutation-free individuals and subject to mutations with deleterious effect $s$ and rate $u$.  $\mathbf{T}$ was calculated numerically (\EQ{T}) by assuming that $P(\tau_{k} > 0) = 0$ for $21\times21=441$ combinations of values of $s$ and $u$ evenly spaced on a log-scale.
 %
-\textbf{(B)} Expected extinction time of the mutation-free class, $t_0$ (\EQ{t0}), as a proportion of \textbf{T} for the populations shown in \textbf{(A)}. 
+\textbf{(B)} Expected extinction time of the mutation-free class, $t_0$ (\EQ{t0}), as a proportion of $\mathbf{T}$ for the populations shown in \textbf{(A)}. 
 %
 \textbf{(C)} Expected number of individuals with $k=1$ mutation at $t_0$, $x_1$ (\EQ{xk}), for the populations shown in \textbf{(A)}.
 }
@@ -524,7 +533,7 @@ Second, because type $k$ may be extinct already at the time $T_{k-1}$ when type 
 We can place bounds on $P(\tau_{k}>0)$ by noting that
 %
 \begin{equation}
-\tau_{k} > 0 \Leftrightarrow X_{T_{k-1}}^{(k)} > 0
+\tau_{k} > 0 \; \Leftrightarrow \; X_{T_{k-1}}^{(k)} > 0
 \label{eq:tauk2}
 \end{equation}
 %
@@ -551,7 +560,7 @@ Because extinction of the whole population is irreversible, $P(\tau_{k} > 0)$ is
 P(\tau_k>0) \leq P(\tau_{k-1}>0) \quad .
 \end{equation*}
 %
-We calculate \textbf{T} numerically (\EQ{T}) by assuming that $P(\tau_{k} > 0) = 0$ and computing \EQ{tk} until the following criterion is met 
+We calculate $\mathbf{T}$ numerically (\EQ{T}) by assuming that $P(\tau_{k} > 0) = 0$ and computing \EQ{tk} until the following criterion is met 
 \begin{equation*}
 t_k - t_{k-1} < 10^{-6} \quad .
 \end{equation*}
@@ -569,10 +578,10 @@ t_0 = -\frac{\ln n_0 + c(n_0)}{\ln m_{0,0}} \quad ,
 \label{eq:jagers}
 \end{equation}
 %
-where $m_{0,0} = 1-u <1$ is the expected number of mutation-free offspring per mutation-free individual and $n_0$ is the initial number of mutation-free individuals.  Note that the value of $c$ depends on $u$ (e.g., for $u=0.01$ and 0.02, numerical estimates using \EQ{t0} and \EQ{jagers} yield $c=3.3737$ and 2.7058, respectively).
+where $m_{0,0} = 1-u <1$ is the expected number of mutation-free offspring per mutation-free individual and $n_0$ is the initial number of mutation-free individuals.  Note that the value of $c$ depends on $u$ (e.g., for $u=0.01$ and 0.02, numerical estimates using \EQ{t0} and \EQ{jagers} yield $c=3.3737$ and $2.7058$, respectively).
 
 \EQ{jagers} shows that $t_0$ grows logarithmically with $n_0$ 
-with a slope of $-1/\ln m_{0,0}$.  If $u$ is small, the slope is approximately $1/u$.  Thus, increasing initial population size delays extinction of the mutation-free class more when the mutation rate is low than when it is high.
+with a slope of $-1/\ln m_{0,0}$.  If $u$ is small, the slope becomes $\approx 1/u$.  Thus, increasing initial population size delays extinction of the mutation-free class more when the mutation rate is low than when it is high.
 
 The value of $t_0$ is not affected by the effects of mutations, $s$ (\EQ{t0} and \EQ{jagers}), because the rate at which individuals ``leave'' the mutation-free class is independent of $s$.  The selection coefficient does, however, affect the size of the new least-loaded class (i.e., individuals with $k=1$ mutation), $x_1$ (\EQ{xk}), and therefore the total time to extinction. 
 
@@ -645,25 +654,24 @@ Note that $\Delta t_k$ is displayed on a log-scale.  Each combination of mutatio
 
 \subsection{Small population size, high mutation rate, and mutations of large effect accelerate extinction}
 
-In our model, population size, $N$, can increase as well as decrease from generation to generation.  However, all increases are transient and the population will eventually go extinct (\FIG{decay}A).  The expected value of $N$ can be predicted accurately by \EQ{N} (\FIG{decay}B).  However, the dynamics of the expected value of $N$ are not sufficient to predict the time to extinction.  Two populations with different initial population sizes, $n_0$, will be expected to show the same $N/n_0$ at any time (because they will have the same $g_j(t)$, \EQ{N}), but the smaller population is expected to go extinct earlier (\FIG{decay}C and \ref{fig:decay}D).  \EQ{T} provides good estimates of extinction time, \textbf{T}, over a broad range of initial population sizes, $n_0$ (\FIG{decay}D), and mutational parameters (\FIG{valid}A and \ref{fig:valid}B).  
-(See Appendix 2 for an explanation of why \EQ{T} tends to overestimate the true value of \textbf{T}.)  
-Below, we focus on the numerical estimates of \textbf{T} based on \EQ{T}.
+In our model, population size, $N$, can increase as well as decrease from generation to generation.  However, all increases are transient and the population will eventually go extinct (\FIG{decay}A).  The expected value of $N$ can be predicted accurately by \EQ{N} (\FIG{decay}B).  However, the dynamics of the expected value of $N$ are not sufficient to predict the time to extinction.  Two populations with different initial population sizes, $n_0$, will be expected to show the same $N/n_0$ at any time (because they will have the same $g_j(t)$, \EQ{N}), but the smaller population is expected to go extinct earlier (\FIG{decay}C and \FIG{decay}D).  \EQ{T} provides good estimates of extinction time, $\mathbf{T}$, over a broad range of initial population sizes, $n_0$ (\FIG{decay}D), and mutational parameters (\FIG{valid}A and \FIG{valid}B).  
+(See Appendix 2 for an explanation of why \EQ{T} tends to overestimate the true value of $\mathbf{T}$.)  
+Below, we focus on the numerical estimates of $\mathbf{T}$ based on \EQ{T}.
 
-Our model has three parameters---$n_0$, $u$, and $s$---and all of them influence extinction time.  Smaller populations tend to go extinct faster.  \FIG{decay}D shows that \textbf{T} is approximately proportional to the logarithm of the initial population size, $n_0$.  
+Our model has three parameters---$n_0$, $u$, and $s$---and all of them influence extinction time.  Smaller populations tend to go extinct faster.  \FIG{decay}D shows that $\mathbf{T}$ is approximately proportional to the logarithm of the initial population size, $n_0$.  
 %
 When $n_0$ is large, $t_0 \propto \ln n_0$ (\EQ{jagers}) and $x_1$ is approximately constant (\EQ{x1}).
 Thus, $t_1, t_2, \ldots$ are also expected to approach constant values as $n_0\to\infty$.  Since
-$t_0$ grows logarithmically, this result implies that $t_0$ represents an increasing fraction of \textbf{T} as $n_0$ increases. 
-Therefore, we also expect \textbf{T} to grow logarithmically with $n_0$.
-
-
+$t_0$ grows logarithmically, this result implies that $t_0$ represents an increasing fraction of $\mathbf{T}$ as $n_0$ increases. 
+Therefore, we also expect $\mathbf{T}$ to grow logarithmically with $n_0$.
+%
 At a particular value of $n_0$, however, $t_0$ is not sufficient to explain the variation in total extinction time: 
-$t_0$ dominates \textbf{T} when $u/s$ is low, but not when it is high (\FIG{heat}B).  One reason for this pattern is that $x_1$ increases with $u/s$ (\EQ{x1}; \FIG{heat}C).
+$t_0$ dominates $\mathbf{T}$ when $u/s$ is low, but not when it is high (\FIG{heat}B).  One reason for this pattern is that $x_1$ increases with $u/s$ (\EQ{x1}; \FIG{heat}C).
 
 
 Mutations cause extinction in our model, but how do they influence extinction \textit{time}?  
 %
-One possibility is that \textbf{T} is determined by the severity of Muller's Ratchet. High mutation rate $(u)$ and mutations of large effect $(s)$ accelerate extinction in doomed populations (\FIG{valid} and \FIG{heat}A).  Mutational parameters act differently on Muller's Ratchet in populations of constant size: at certain mutation rates the severity of the Ratchet is maximal at intermediate mutational effects \citep{Gabriel_MULLER_1993, gor00b, Gordo_On_2000} (\FIG{valid}C).
+One possibility is that $\mathbf{T}$ is determined by the severity of Muller's Ratchet. High mutation rate and mutations of large effect accelerate extinction in doomed populations (\FIG{valid} and \FIG{heat}A).  Mutational parameters act differently on Muller's Ratchet in populations of constant size: at certain mutation rates the severity of the Ratchet is maximal at intermediate mutational effects \citep{Gabriel_MULLER_1993, Gordo_On_2000, gor00b} (\FIG{valid}C).
 %
 There are two possible explanations for this discrepancy.  
 %
@@ -694,13 +702,13 @@ To answer this question we need a way to measure the rate of mutational meltdown
 %
 be the interval between clicks $k-1$ and $k$ of the Ratchet, where $t_k$ denotes the time of the $k$-th click.  
 %
-In populations of constant size, $\Delta t_k$ is not expected to change with $k$ \citep{Haigh_The_1978, gor00b, Gordo_On_2000}.  
+In populations of constant size, $\Delta t_k$ is not expected to change with $k$ \citep{Haigh_The_1978, Gordo_On_2000, gor00b}.  
 %
 In contrast, under mutational meltdown $\Delta t_k$ is expected to decline with $k$.
 %
 We find that $\Delta t_k$ declines approximately exponentially with $k$ in doomed populations (\FIG{melt}A).  Thus, we use the rate of this decline, $\beta$, to measure the rate of mutational meltdown.
 
-\FIG{melt}A shows that doomed populations can experience strong mutational meltdown.  However, mutational meltdown does not determine extinction time.  Although the three scenarios summarized in \FIG{melt}A have widely different meltdown rates, they have the same expected extinction time, $\mathbf{T} = 223.52$.  The lack of correlation between \textbf{T} and $\beta$ is clear when we compare \FIG{heat}A and \FIG{melt}B.
+\FIG{melt}A shows that doomed populations can experience strong mutational meltdown.  However, mutational meltdown does not determine extinction time.  Although the three scenarios summarized in \FIG{melt}A have widely different meltdown rates, they have the same expected extinction time, $\mathbf{T} = 223.52$.  The lack of correlation between $\mathbf{T}$ and $\beta$ is clear when we compare \FIG{heat}A and \FIG{melt}B.
 
 
 \subsection{Extinction time is determined by the rate of fitness decline}
@@ -715,7 +723,43 @@ This explains why time to extinction declines with both $u$ and $s$ (\FIG{heat}A
 
 
 
+
 \section{Discussion}
+
+
+
+
+Most models of Muller's Ratchet have assumed a constant population size \citep{Haigh_The_1978, Gessler_The_1995, Gordo_On_2000, gor00b, Rouzine_The_2003, met13}.
+This assumption is typically justified as resulting from density-dependent regulation of population size.
+However, the assumption of constant population size is unrealistic because it actually prevents populations from going extinct \citep{Lynch_MUTATION_1990, mel91}.  
+%
+In the first study to relax the assumption of constant population size, \citet{Lynch_MUTATION_1990} argued that Muller's ratchet generates a vicious cycle:
+the Ratchet clicks, 
+which causes population size to decline, 
+which reduces the efficiency of natural selection,
+which in turn accelerates the Ratchet.  
+They proposed that this mutational meltdown causes populations to go extinct.
+
+
+
+%and that this generates a positive feedback where declines in population size , which causes the Ratchet to click faster, which causes the population size to decline further.  They called this mechanism mutational meltdown and proposed that it causes population extinction.
+
+%once enough deleterious mutations have 
+
+%extinction is caused by mutational meltdown
+
+%small populations random genetic drift will progressively overpower selection making it easier to fix. future mutations. This synergistic interaction, which we refer to as a mu- tational melt-down,
+
+%While attempting to 
+%
+%Early attempts to model Muller's Ratchet under variable population size showed that the assumption of constant population size has profound implications for the 
+
+%have tended to minimize its importance.  
+%
+%Second, it has important consequences for the evolutionary dynamics of populations.
+%\citep{Lynch_MUTATION_1990, Melzer_MUTATIONS_1991, lyn93, Gabriel_MULLER_1993}.  
+
+\newpage
 
 \begin{itemize}
 \item Lynch and Gabriel (1990), using simulations, also find that extinction time is a function of $us$.  
@@ -762,42 +806,42 @@ Guidelines can be included for standard research article sections, such as this 
 
 Use section and subsection commands to organize your document. \LaTeX{} handles all the formatting and numbering automatically. Use ref and label commands for cross-references.
 
-\subsection{Figures and Tables}
+%\subsection{Figures and Tables}
 
-Use the table and tabular commands for basic tables --- see \TABLE{example}, for example. 
+%Use the table and tabular commands for basic tables --- see \TABLE{example}, for example. 
 
-You can upload a figure (JPEG, PNG or PDF) using the project menu. To include it in your document, use the \verb|\includegraphics| command as in the code for \FIG{view}. 
+%You can upload a figure (JPEG, PNG or PDF) using the project menu. To include it in your document, use the \verb|\includegraphics| command as in the code for \FIG{view}. 
 
-For a half-width figure or table with text wrapping around it, use 
+%For a half-width figure or table with text wrapping around it, use 
 
-\begin{verbatim}
-\begin{wrapfigure}{l}{.46\textwidth}
-  \includegraphics[width=\hsize]{...}
-  \caption{...}\label{...}
-\end{wrapfigure}
-\end{verbatim}
+%\begin{verbatim}
+%\begin{wrapfigure}{l}{.46\textwidth}
+%  \includegraphics[width=\hsize]{...}
+%  \caption{...}\label{...}
+%\end{wrapfigure}
+%\end{verbatim}
 %
-as in \FIG{halfwidth}. For tables:
+%as in \FIG{halfwidth}. For tables:
 
-\begin{verbatim}
-\begin{wraptable}{l}{.46\textwidth}{
-  \begin{tabular}{...}
-  ...
-  \end{tabular}}
-  \caption{...}\label{...}
-\end{wraptable}
-\end{verbatim}
+%\begin{verbatim}
+%\begin{wraptable}{l}{.46\textwidth}{
+%  \begin{tabular}{...}
+%  ...
+%  \end{tabular}}
+%  \caption{...}\label{...}
+%\end{wraptable}
+%\end{verbatim}
 
-Be careful with these, though, as they may behave strangely near page boundaries, sectional headings, or in the neighbourhood of lists or too many floats.
+%Be careful with these, though, as they may behave strangely near page boundaries, sectional headings, or in the neighbourhood of lists or too many floats.
 
-Labels for main videos can be added with \verb|\video| e.g.
+% Labels for main videos can be added with \verb|\video| e.g.
 
-\video{Ths is a description of a main video.}\label{video:mv1}
-\video{Another!}
+%\video{Ths is a description of a main video.}\label{video:mv1}
+%\video{Another!}
 
-Labels for video supplements can be added within \texttt{figure} environments, after the \texttt{caption}, using the \verb|\videosupp| command: see \VIDEOSUPP[view]{sv1} for an example.
+%Labels for video supplements can be added within \texttt{figure} environments, after the \texttt{caption}, using the \verb|\videosupp| command: see \VIDEOSUPP[view]{sv1} for an example.
 
-If you use the following prefixes for your \verb|\label|:
+%If you use the following prefixes for your \verb|\label|:
 %
 \begin{description}
 \item[Figures] \texttt{fig:}, e.g.~\verb|\label{fig:view}|
@@ -815,22 +859,22 @@ you can then use the convenience commands \verb|\FIG{view}|, \verb|\FIGSUPP[view
 
 Really wide figures or tables, that take up the entire page, including the gutter space: use \verb|\begin{fullwidth}...\end{fullwidth}| as in \FIG{fullwidth}. And sometimes you may want to use feature boxes like \BOX{simple}.
 
-\begin{wrapfigure}{l}{.46\textwidth}
-\includegraphics[width=\hsize]{frog}
-\caption{A half-columnwidth image using wrapfigure, to be used sparingly. Note that using a wrapfigure before a sectional heading, near other floats or page boundaries is not recommended, as it may cause interesting layout issues. Use the optional argument to wrapfigure to control how many lines of text should be set half-width alongside it.}
-\label{fig:halfwidth}
-\end{wrapfigure}
+%\begin{wrapfigure}{l}{.46\textwidth}
+%\includegraphics[width=\hsize]{frog}
+%\caption{A half-columnwidth image using wrapfigure, to be used sparingly. Note that using a wrapfigure before a sectional heading, near other floats or page boundaries is not recommended, as it may cause interesting layout issues. Use the optional argument to wrapfigure to control how many lines of text should be set half-width alongside it.}
+%\label{fig:halfwidth}
+%\end{wrapfigure}
 
-Some filler text to sit alongside the half-width figure. \lipsum[1-2]
+%Some filler text to sit alongside the half-width figure. \lipsum[1-2]
 
-\begin{figure}
-\begin{fullwidth}
-\includegraphics[width=0.95\linewidth]{elife-18156-fig2}
-\caption{A very wide figure that takes up the entire page, including the gutter space.}
-\label{fig:fullwidth}
-\figsupp{There is no limit on the number of Figure Supplements for any one primary figure. Each figure supplement should be clearly labelled, Figure 1--Figure Supplement 1, Figure 1--Figure Supplement 2, Figure 2--Figure Supplement 1 and so on, and have a short title (and optional legend). Figure Supplements should be referred to in the legend of the associated primary figure, and should also be listed at the end of the article text file.}{\includegraphics[width=5cm]{frog}}
-\end{fullwidth}
-\end{figure}
+%\begin{figure}
+%\begin{fullwidth}
+%\includegraphics[width=0.95\linewidth]{heat}
+%\caption{A very wide figure that takes up the entire page, including the gutter space.}
+%\label{fig:fullwidth}
+%\figsupp{There is no limit on the number of Figure Supplements for any one primary figure. Each figure supplement should be clearly labelled, Figure 1--Figure Supplement 1, Figure 1--Figure Supplement 2, Figure 2--Figure Supplement 1 and so on, and have a short title (and optional legend). Figure Supplements should be referred to in the legend of the associated primary figure, and should also be listed at the end of the article text file.}{\includegraphics[width=5cm]{heat}}
+%\end{fullwidth}
+%\end{figure}
 
 \subsection{Citations}
 
@@ -865,8 +909,8 @@ denote their mean. Then as $n$ approaches infinity, the random variables $\sqrt{
 \caption{A text-width example.}
 \label{fig:view}
 %% If the optional argument in the square brackets is "none", then the caption *will not appear in the main figure at all* and only the full caption will appear under the supplementary figure at the end of the manuscript.
-\figsupp[Shorter caption for main text.]{This is a supplementary figure's full caption, which will be used at the end of the manuscript.}{\includegraphics[width=6cm]{frog}}\label{figsupp:sf1}
-\figsupp{This is another supplementary figure.}{\includegraphics[width=6cm]{frog}}
+\figsupp[Shorter caption for main text.]{This is a supplementary figure's full caption, which will be used at the end of the manuscript.}{\includegraphics[width=6cm]{heat}}\label{figsupp:sf1}
+\figsupp{This is another supplementary figure.}{\includegraphics[width=6cm]{heat}}
 \videosupp{This is a description of a video supplement.}\label{videosupp:sv1}
 \figdata{This is a description of a data source.}\label{figdata:first}
 \figdata{This is another description of a data source.}\label{figdata:second}
@@ -918,7 +962,7 @@ Additional information can be given in the template, such as to not include fund
 
 %% Sadly, we can't use floats in the appendix boxes. So they don't "float", but use \captionof{figure}{...} and \captionof{table}{...} to get them properly caption.
 \begin{center}
-\includegraphics[width=\linewidth,height=7cm]{frog}
+%\includegraphics[width=\linewidth,height=7cm]{frog}
 \captionof{figure}{This is a figure in the appendix}
 \end{center}
 
@@ -927,14 +971,14 @@ Additional information can be given in the template, such as to not include fund
 \lipsum[5-8]
 
 \begin{center}
-\includegraphics[width=\linewidth,height=7cm]{frog}
+%\includegraphics[width=\linewidth,height=7cm]{frog}
 \captionof{figure}{This is a figure in the appendix}
 \end{center}
 
 \end{appendixbox}
 
 \begin{appendixbox}
-\includegraphics[width=\linewidth,height=7cm]{frog}
+%\includegraphics[width=\linewidth,height=7cm]{frog}
 \captionof{figure}{This is a figure in the appendix}
 \end{appendixbox}
 \end{document}
