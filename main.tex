@@ -24,9 +24,19 @@
 \usetikzlibrary{shapes.symbols}
 \usepackage{helvet}
 
-% Coloring text
+% Annotating text
 \usepackage{color}
 \newcommand{\blue}{\textcolor{blue}}
+\usepackage[normalem]{ulem}
+
+% Proof
+\usepackage{amsthm}
+\newtheorem{lemma}{Lemma}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Q}{\mathbb{Q}}
 
 % Vim macro to remove color or sout commands:
 % 1. place cursor at \ before command
@@ -94,7 +104,8 @@ As a result, the class of individuals with the fewest deleterious mutations may,
 Muller's Ratchet has been invoked to explain 
 the evolution of sex \citep{Muller_The_1964, Felsenstein_The_1974, gor08},
 the accelerated rate of evolution of endosymbiotic bacteria \citep{mor96},
-and the degeneration of Y-chromosomes \citep{Charlesworth_Model_1978, gor00b}.  
+the degeneration of Y-chromosomes \citep{Charlesworth_Model_1978, gor00b},
+\blue{and cancer progression \citep{McFarland_Tug_2014}}.  
 
 \citet{Haigh_The_1978} argued that the Ratchet should click at a rate inversely proportional to the size of the least-loaded class in a population.  If $k$ is the lowest number of deleterious mutations present in an individual in the population, 
 the size of the least-loaded class at mutation-selection-drift equilibrium is
@@ -115,8 +126,9 @@ experiencing a high deleterious mutation rate,
 and mutations with milder deleterious effects (low $s$).
 Subsequent work has derived more accurate estimates of the rate of clicking of the Ratchet, both when $\hat n_k > 1$ \citep{Stephan_The_1993, Gordo_On_2000, gor00b, neh12, met13} and when $\hat n_k < 1$ \citep{Gessler_The_1995, Rouzine_The_2003, Rouzine_The_2008}. 
 
-Beginning with Haigh's foundational study, most research on Muller's Ratchet (including all the papers cited in the previous paragraph) has assumed that the size of a population remains constant as it accumulates deleterious mutations.  
-This assumption is biologically unrealistic---if true, fitness would decline continuously but the population would be immortal \citep{Lynch_MUTATION_1990, mel91}.  Lynch, Gabriel, and colleagues studied more realistic models where the fitness of an individual influences its fertility and populations experience density-dependent regulation \citep{Lynch_MUTATION_1990, lyn93, Gabriel_MULLER_1993}.  They found that Muller's Ratchet causes population size to decline, which accelerates the Ratchet, which further reduces population size.  This positive feedback results in a ``mutational meltdown'' that drives the population to extinction \citep{Lynch_MUTATION_1990, lyn93, Gabriel_MULLER_1993}.
+Beginning with Haigh's foundational study, most research on Muller's Ratchet (including all the papers \blue{cited in the previous paragraph}) has assumed that 
+\blue{the size of a population remains constant as deleterious mutations accumulate.}  
+This assumption is biologically unrealistic---if true, fitness would decline continuously but the population would be immortal \citep{Lynch_MUTATION_1990, mel91}.  Lynch, Gabriel, and colleagues studied more realistic models where the fitness of an individual influences its fertility and populations experience density-dependent regulation \citep{Lynch_MUTATION_1990, lyn93, Gabriel_MULLER_1993, lyn95}.  They found that Muller's Ratchet causes population size to decline, which accelerates the Ratchet, which further reduces population size.  This positive feedback results in a ``mutational meltdown'' that drives the population to extinction \citep{Lynch_MUTATION_1990, lyn93, Gabriel_MULLER_1993}. 
 
 In one model, \citet{lyn93} considered a population of asexual organisms subject to a carrying capacity of $\widehat N$ individuals.  Each individual produces $R$ offspring.  The number of mutations is Poisson distributed with rate $U$.  The offspring then undergo viability selection with a probability of survival
 %
@@ -139,7 +151,8 @@ Third, when mean viability reaches $\overline w = 1/R$ (i.e., when $N R \, \over
 
 
 \citet{lyn93} derived some analytical expressions to describe the dynamics of mutation accumulation during the first two phases and the times at which these two phases end.  
-However, they did not present any analytical results on the dynamics or duration of the meltdown (third) phase itself.
+However, they did not present any analytical \blue{theory} on the dynamics or duration of the meltdown (third) phase itself \citep[see also][]{Gabriel_MULLER_1993, lyn95}.
+\blue{Thus, the validity of the Lynch-Gabriel model of mutational meltdown is difficult to evaluate.}
 %%%
 Here we model the mutational meltdown phase of Muller's Ratchet using a multi-type branching process.
 We derive an analytical approximation for the expected time to extinction under this model
@@ -258,7 +271,7 @@ Assuming the fitness function in \EQ{fit}, we can get an explicit form for the e
 where $j=0,\,1,\,2,\,\ldots\;$
 %,\; a=m_{0,0}=1-u$, and $b=m_{0,1}=u$.
 % 
-For a proof, see Appendix 1.  
+For a proof, see \autoref{app:proof}.  
 
 
 
@@ -400,7 +413,7 @@ The expected number of offspring of type $k$ produced by an individual of type $
 If $m_{k,k}=1$ (the \emph{critical} case), the extinction time $\tau_k$ is finite but has an infinite mean and if $m_{k,k} > 1$ (the {\em supercritical} case), $\tau_k$ itself may assume the value $\infty$.  
 
 \EQ{m} shows that $m_{k,k} < 1$ (the {\em subcritical} case) for individuals of any type $k$ provided all mutations are deleterious $(0<s<1)$ and the mutation rate is nonzero $(u>0)$.  Thus, the expected extinction time of every type $k$ is finite.  
-In other words, the population is ``doomed to eventual extinction'' \citep{Lynch_MUTATION_1990}.  
+In other words, the population is doomed to eventual extinction.
 
 Start with a fixed number $n_{0}$ of mutation-free individuals and denote by $T_{0}$ the time (generation) of extinction of this class. Conditioned on $T_{0}$, the expected number of individuals in class 1 (those with $k=1$ mutation) is therefore 
 %
@@ -646,13 +659,15 @@ E\left[N(t+1)\right] - E\left[N(t)\right] \approx -n_0 u s t \quad
 \subsection{Small population size, high mutation rate, and mutations of large effect accelerate extinction}
 
 In our model, population size, $N$, can increase as well as decrease from generation to generation.  However, all increases are transient and the population will eventually go extinct (\FIG{decay}A).  The expected value of $N$ can be predicted accurately by \EQ{N} (\FIG{decay}B).  However, the dynamics of the expected value of $N$ are not sufficient to predict the time to extinction.  Two populations with different initial population sizes, $n_0$, will be expected to show the same $N/n_0$ at any time (because they will have the same $g_j(t)$, \EQ{N}), but the smaller population is expected to go extinct earlier (\FIG{decay}C and \FIG{decay}D).  \EQ{T} provides good estimates of extinction time, $\mathbf{T}$, over a broad range of initial population sizes, $n_0$ (\FIG{decay}D), and mutational parameters (\FIG{valid}A and \FIG{valid}B).  
-(See Appendix 2 for an explanation of why \EQ{T} tends to overestimate the true value of $\mathbf{T}$.)  
+(See \autoref{app:jensen} for an explanation of why \EQ{T} tends to overestimate the true value of $\mathbf{T}$.)  
 Below, we focus on the numerical estimates of $\mathbf{T}$ based on \EQ{T}.
 
 Our model has three parameters---$n_0$, $u$, and $s$---and all of them influence extinction time.  Smaller populations tend to go extinct faster.  \FIG{decay}D shows that $\mathbf{T}$ is approximately proportional to the logarithm of the initial population size, $n_0$.  
 %
 When $n_0$ is large, $t_0 \propto \ln n_0$ (\EQ{jagers}) and $x_1$ is approximately constant (\EQ{x1}).
-Thus, $t_1, t_2, \ldots$ are also expected to approach constant values as $n_0\to\infty$.  Since
+Thus, 
+\blue{$\Delta t_1, \Delta t_2, \ldots$ (\EQ{deltat})}
+are also expected to approach constant values as $n_0\to\infty$.  Since
 $t_0$ grows logarithmically, this result implies that $t_0$ represents an increasing fraction of $\mathbf{T}$ as $n_0$ increases. 
 Therefore, we also expect $\mathbf{T}$ to grow logarithmically with $n_0$.
 %
@@ -687,10 +702,10 @@ Note that $\Delta t_k$ is displayed on a log-scale.  Each combination of mutatio
 \end{figure*}
 
 
-\subsection{Mutational meltdown does not determine extinction time}
+\subsection{\blue{Low mutation rate and mutations of large effect accelerate mutational meltdown}}
 
-
-Lynch and colleagues have proposed that Muller's Ratchet accelerates in a doomed population as population size declines, driving the population to extinction---a phenomenon they called mutational meltdown \citep{Lynch_MUTATION_1990, lyn93, Gabriel_MULLER_1993}.  Does mutational meltdown determine extinction time? %If so, we would predict that fast extinction would be associated with faster meltdown.}
+Lynch and colleagues have proposed that Muller's Ratchet accelerates in a doomed population as population size declines, driving the population to extinction---a phenomenon they called mutational meltdown \citep{Lynch_MUTATION_1990, lyn93, Gabriel_MULLER_1993}.  
+\blue{Do doomed populations experience mutational meltdown?}
 
 To answer this question we need a way to measure the rate of mutational meltdown.  Let 
 %
@@ -707,17 +722,30 @@ To answer this question we need a way to measure the rate of mutational meltdown
 %
 be the interval between clicks $k-1$ and $k$ of the Ratchet, where $t_k$ denotes the time of the $k$-th click.  
 %
-In populations of constant size, $\Delta t_k$ is not expected to change with $k$ \citep{Haigh_The_1978, Gordo_On_2000, gor00b}.  
+In populations of constant size, 
+\blue{the Ratchet is expected to click at a steady rate over time, that is,}
+$\Delta t_k$ is not expected to change with $k$ \citep{Haigh_The_1978, Gordo_On_2000, gor00b}.  
 %
-In contrast, under mutational meltdown $\Delta t_k$ is expected to decline with $k$.
+In contrast, under mutational meltdown
+\blue{the Ratchet is expected to accelerate in successive clicks, that is,}
+$\Delta t_k$ is expected to decline with $k$.
 %
 We find that $\Delta t_k$ declines approximately exponentially with $k$ in doomed populations (\FIG{melt}A).  Thus, we use the rate of this decline, $\beta$, to measure the rate of mutational meltdown.
 
-\FIG{melt}A shows that doomed populations can experience strong mutational meltdown.  However, mutational meltdown does not determine extinction time.  Although the three scenarios summarized in \FIG{melt}A have widely different meltdown rates, they have the same expected extinction time, $\mathbf{T} = 223.52$.  The lack of correlation between $\mathbf{T}$ and $\beta$ is clear when we compare \FIG{heat}A and \FIG{melt}B.
+\blue{Mutational parameters have large effects on the rate of mutational meltdown.  Low mutation rate and mutations of large effect accelerate mutational meltdown (\FIG{melt}).  This result is consistent with the effects of mutational parameters on $\Delta t_0$ and $\Delta t_1$ in large populations (\EQ{jagers} and \EQ{x1}).  
+%
+Low values of $u$ increase $\Delta t_0$  and decrease $x_1$, and therefore $\Delta t_1$, causing the mutational meltdown to accelerate.  
+%
+High values of $s$ have no effect on $\Delta t_0$ but decrease $x_1$, and therefore $\Delta t_1$, also causing the meltdown to accelerate.}
 
 
 \subsection{Extinction time is determined by the rate of fitness decline}
 
+%\subsection{Mutational meltdown does not determine extinction time}
+
+Does mutational meltdown determine extinction time? 
+%
+\FIG{melt} shows that doomed populations can experience strong mutational meltdown.  However, mutational meltdown does not determine extinction time.  Although the three scenarios summarized in \FIG{melt}A have widely different meltdown rates, they have the same expected extinction time, $\mathbf{T} = 223.52$.  The lack of correlation between $\mathbf{T}$ and $\beta$ is clear when we compare \FIG{heat}A and \FIG{melt}B.
 
 The results so far indicate that Muller's ratchet does not determine extinction time in doomed populations.  So what does?
 %
@@ -734,46 +762,44 @@ This explains why time to extinction declines with both $u$ and $s$ (\FIG{heat}A
 
 
 
-Most models of Muller's Ratchet have assumed a constant population size \citep{Haigh_The_1978, Gessler_The_1995, Gordo_On_2000, gor00b, Rouzine_The_2003, met13}.
-This assumption is typically justified as resulting from density-dependent regulation of population size.
-However, the assumption of constant population size is unrealistic because it actually prevents populations from going extinct \citep{Lynch_MUTATION_1990, mel91}.  
+Most models of Muller's Ratchet have assumed that populations maintain a constant size as deleterious mutations accumulate \citep{Haigh_The_1978, Gessler_The_1995, Gordo_On_2000, gor00b, Rouzine_The_2003, met13}.
+This is typically justified as resulting from density-dependent regulation of population size.  
+However, the assumption is unrealistic because it actually prevents populations from ever going extinct \citep{Lynch_MUTATION_1990, mel91}.  
 %
-In one of the earliest studies to relax the assumption of constant population size, \citet{Lynch_MUTATION_1990} argued that Muller's ratchet generates a vicious cycle:
+In a series of studies relaxing the assumption of constant population size, Lynch, Gabriel, and colleagues argued that Muller's ratchet eventually generates a positive feedback where
 the Ratchet clicks, 
 which causes population size to decline, 
-which strengthens drift and reduces the efficiency of natural selection,
-which in turn accelerates the Ratchet.  
-They called this mechanism mutational meltdown and concluded that it causes populations to go extinct.  This view has become widespread, and mutational meltdown and extinction are assumed to be inextricably linked \citep[e.g.,][]{McFarland_Tug_2014, ban16}.
+which strengthens genetic drift relative to natural selection,
+which in turn accelerates the Ratchet \citep{Lynch_MUTATION_1990, lyn93, Gabriel_MULLER_1993}.  
+They called this vicious cycle mutational meltdown and concluded that it drives populations to extinction.  
+However, the lack of quantitative theory on the mutational meltdown has made it difficult to evaluate the Lynch-Gabriel hypothesis.
 
-Our results challenge the view of mutational meltdown introduced by \citet{Lynch_MUTATION_1990}.  Although doomed populations can experience mutational meltdown as measured by the acceleration of the Muller's Ratchet, the rate of mutational meltdown does not determine extinction time (\FIG{melt}).  Rather, extinction time is determined by the expected impact of deleterious mutations on fitness.  We propose
-
-%and that this generates a positive feedback where declines in population size , which causes the Ratchet to click faster, which causes the population size to decline further.  They called this mechanism mutational meltdown and proposed that it causes population extinction.
-
-%once enough deleterious mutations have 
-
-%extinction is caused by mutational meltdown
-
-%small populations random genetic drift will progressively overpower selection making it easier to fix. future mutations. This synergistic interaction, which we refer to as a mu- tational melt-down,
-
-%While attempting to 
+Our results challenge the Lynch-Gabriel hypothesis.  Although doomed populations can experience mutational meltdown---measured by the acceleration of the Muller's Ratchet---, the rate of mutational meltdown does not determine extinction time (\FIG{melt}A).  Therefore, the Lynch-Gabriel mutational meltdown cannot be a general \textit{cause} of extinction.  Rather, our results suggest that extinction time is determined by $us$, the expected impact of deleterious mutations on fitness.  
 %
-%Early attempts to model Muller's Ratchet under variable population size showed that the assumption of constant population size has profound implications for the 
-
-%have tended to minimize its importance.  
+The Lynch-Gabriel hypothesis emphasized the role of the change in the strength of genetic drift in causing mutational meltdown \citep[e.g., ``we refer to this synergism between mutation accumulation and random genetic drift as a mutational meltdown'';][]{lyn93}.  Our results indicate that extinction is driven by mutation pressure, not genetic drift.  
 %
-%Second, it has important consequences for the evolutionary dynamics of populations.
-%\citep{Lynch_MUTATION_1990, Melzer_MUTATIONS_1991, lyn93, Gabriel_MULLER_1993}.  
+We propose that the expression mutational meltdown \citep[now in common usage; e.g.,][]{Allen_Mutational_2009, McFarland_Tug_2014} be redefined to refer to extinction caused by mutation pressure.
 
-\newpage
+Evolution experiments have found evidence that real populations can experience  increased extinction risk when the mutation rate is high \citep{zey01a, ban16}.  For example, \citet{ban16} subjected populations of influenza A virus to high concentrations of favipiravir, a drug that increases the mutation rate of the virus, and observed that populations accumulated mutations rapidly and went extinct. 
+These experimental results are consistent with our interpretation of the mutational meltdown because increasing mutation rate causes faster extinction in our model.
+
+The relative theoretical neglect of the time to extinction of a doomed population (i.e., \textit{during} mutational meltdown) can probably be attributed to the expectation that it is quick relative to the time required for the population to become doomed \citep{lyn93, lyn95, Bull_Theory_2007}.  We believe this neglect is misplaced because the mutational meltdown phase is crucial for the fate of the population.  It is the last chance for the population to be rescued by beneficial mutations and escape extinction.  
+
+
+
+
+\subsection{Other potential topics}
+
+Below is a haphazard collection of topics to consider discussing.  Feel free to add some bullets.  I've crossed out things that we have already mentioned.
 
 \begin{itemize}
 \item Lynch and Gabriel (1990), using simulations, also find that extinction time is a function of $us$.  
 %
 \item Log dependence of extinction time on $n_0$, similar to a result in other stochastic models of population dynamics \citep{lan93, Jagers_On_2007}.  Lynch et al. (1993) also infer that for extinction time during the meltdown phase based on simulations.
 %
-\item Increasing $s$ accelerates extinction, counter the results of Lynch et al., who found that intermediate $s$ minimizes extinction time.  
+\item \sout{Increasing $s$ accelerates extinction, counter the results of Lynch et al., who found that intermediate $s$ minimizes extinction time.}  
 %
-\item Extinction does not necessarily imply meltdown even if the two are used interchangeably.
+\item \sout{Extinction does not necessarily imply meltdown even if the two are used interchangeably.}
 %
 \item Relative vs absolute fitness.
 %
@@ -785,11 +811,11 @@ Our results challenge the view of mutational meltdown introduced by \citet{Lynch
 %
 \item The assumption of lack of density-dependent regulation is realistic for populations that have just crossed into the doomed regime.
 %
-\item The doomed regime is intrinsically interesting because it constitutes the last chance for a population to be rescued by compensatory mutations.  For example, this is relevant for the case of cancer.  And for the evolution of sex where asexuals are thought to be more susceptible to extinction.
+\item \sout{The doomed regime is intrinsically interesting because it constitutes the last chance for a population to be rescued by compensatory mutations.}  For example, this is relevant for the case of cancer.  And for the evolution of sex where asexuals are thought to be more susceptible to extinction.
 %
 \item A more realistic regime: we can think of there being 2 regimes for the population depending on its size. 1) When the population is close to carrying capacity relative fitness dominates the dynamics. 2) When the population is well below capacity, absolute fitness dominates (roughly). The first click of the ratchet, therefore, depends on selection coefficient in the first regime but not the second. 
 %
-\item Lethal mutagenesis.  They also ignore the meltdown phase.
+\item Lethal mutagenesis.  \sout{They also ignore the meltdown phase.}
 %
 \item From the Tug-of-War paper:
 ``PARP inhibitors, which increase DNA damage in BRCA1/2-positive tumors, may already be curing patients by inducing mutational meltdown.''
@@ -802,14 +828,19 @@ Our results challenge the view of mutational meltdown introduced by \citet{Lynch
 
 \section{Methods and Materials}
 
-Guidelines can be included for standard research article sections, such as this one. 
+\begin{itemize}
+    \item Stochastic simulations.
+    \item Code availability
+\end{itemize}
 
-\lipsum[3]
+%Guidelines can be included for standard research article sections, such as this one. 
 
-\section{Some \LaTeX{} Examples}
-\label{sec:examples}
+%\lipsum[3]
 
-Use section and subsection commands to organize your document. \LaTeX{} handles all the formatting and numbering automatically. Use ref and label commands for cross-references.
+%\section{Some \LaTeX{} Examples}
+%\label{sec:examples}
+
+%Use section and subsection commands to organize your document. \LaTeX{} handles all the formatting and numbering automatically. Use ref and label commands for cross-references.
 
 %\subsection{Figures and Tables}
 
@@ -848,21 +879,7 @@ Use section and subsection commands to organize your document. \LaTeX{} handles 
 
 %If you use the following prefixes for your \verb|\label|:
 %
-\begin{description}
-\item[Figures] \texttt{fig:}, e.g.~\verb|\label{fig:view}|
-\item[Figure Supplements] \texttt{figsupp:}, e.g.~\verb|\label{figsupp:sf1}|\\
-(we'll assume \texttt{figsupp:sf1} is a figure supplement of \texttt{fig:view} in our example)
-\item[Figure source data] \texttt{figdata:}, e.g.~\verb|\label{figdata:first}|
-\item[Videos] \texttt{video:}, e.g.~\verb|\label{video:mv1}|
-\item[Video supplements] \texttt{videosupp:}, e.g.~\verb|\label{videosupp:sv1}|
-\item[Tables] \texttt{tab:}, e.g.~\verb|\label{tab:example}|
-\item[Equations] \texttt{eq:}, e.g.~\verb|\label{eq:CLT}|
-\item[Boxes] \texttt{box:}, e.g.~\verb|\label{box:simple}|
-\end{description}
-%
-you can then use the convenience commands \verb|\FIG{view}|, \verb|\FIGSUPP[view]{sf1}|, \verb|\TABLE{example}|, \verb|\EQ{CLT}|, \verb|\BOX{simple}|, \verb|\FIGDATA[view]{first}|, \verb|\VIDEO{mv1}| and \verb|{\VIDEOSUPP}[view]{sv1}| \emph{without} the label prefixes, to generate cross-references \FIG{view}, \FIGSUPP[view]{sf1},  \TABLE{example}, \EQ{CLT}, \BOX{simple}, \FIGDATA[view]{first}, \VIDEO{mv1} and \VIDEOSUPP[view]{sv1}. Alternatively, use \verb|\autoref| with the full label, e.g.~\autoref{first:app} (although this may not work correctly for figures and tables in the appendices or boxes nor supplements at present).
 
-Really wide figures or tables, that take up the entire page, including the gutter space: use \verb|\begin{fullwidth}...\end{fullwidth}| as in \FIG{fullwidth}. And sometimes you may want to use feature boxes like \BOX{simple}.
 
 %\begin{wrapfigure}{l}{.46\textwidth}
 %\includegraphics[width=\hsize]{frog}
@@ -883,60 +900,62 @@ Really wide figures or tables, that take up the entire page, including the gutte
 
 
 
-\begin{featurebox}
-\caption{This is an example feature box}
-\label{box:simple}
-This is a feature box. It floats!
-\medskip
+%\begin{featurebox}
+%\caption{This is an example feature box}
+%\label{box:simple}
+%This is a feature box. It floats!
+%\medskip
 
-\includegraphics[width=5cm]{example-image}
-\featurefig{`Figure' and `table' captions in feature boxes should be entered with \texttt{\textbackslash featurefig} and \texttt{\textbackslash featuretable}. They're not really floats.}
+%\includegraphics[width=5cm]{example-image}
+%\featurefig{`Figure' and `table' captions in feature boxes should be entered with \texttt{\textbackslash featurefig} and \texttt{\textbackslash featuretable}. They're not really floats.}
 
-\lipsum[1]
-\end{featurebox}
+%\lipsum[1]
+%\end{featurebox}
 
-\subsection{Mathematics}
+%\subsection{Mathematics}
 
-\LaTeX{} is great at typesetting mathematics. Let $X_1, X_2, \ldots, X_n$ be a sequence of independent and identically distributed random variables with $\text{E}[X_i] = \mu$ and $\text{Var}[X_i] = \sigma^2 < \infty$, and let
-\begin{equation}
-\label{eq:CLT}
-S_n = \frac{X_1 + X_2 + \cdots + X_n}{n}
-      = \frac{1}{n}\sum_{i}^{n} X_i
-\end{equation}
-denote their mean. Then as $n$ approaches infinity, the random variables $\sqrt{n}(S_n - \mu)$ converge in distribution to a normal $\mathcal{N}(0, \sigma^2)$.
+%\LaTeX{} is great at typesetting mathematics. Let $X_1, X_2, \ldots, X_n$ be a sequence of independent and identically distributed random variables with $\text{E}[X_i] = \mu$ and $\text{Var}[X_i] = \sigma^2 < \infty$, and let
+%\begin{equation}
+%\label{eq:CLT}
+%S_n = \frac{X_1 + X_2 + \cdots + X_n}{n}
+%     = \frac{1}{n}\sum_{i}^{n} X_i
+%\end{equation}
+%denote their mean. Then as $n$ approaches infinity, the random variables $\sqrt{n}(S_n - \mu)$ converge in distribution to a normal $\mathcal{N}(0, \sigma^2)$.
 
-\lipsum[3] 
+%\lipsum[3] 
 
-\subsection{Other Chemistry Niceties}
+%\subsection{Other Chemistry Niceties}
 
-You can use commands from the \texttt{mhchem} and \texttt{siunitx} packages. For example: \ce{C32H64NO7S}; \SI{5}{\micro\metre}; \SI{30}{\degreeCelsius}; \SI{5e-17}{\Molar}
+%You can use commands from the \texttt{mhchem} and \texttt{siunitx} packages. For example: \ce{C32H64NO7S}; \SI{5}{\micro\metre}; \SI{30}{\degreeCelsius}; \SI{5e-17}{\Molar}
 
-\subsection{Lists}
+%\subsection{Lists}
 
-You can make lists with automatic numbering \dots
+%You can make lists with automatic numbering \dots
 
-\begin{enumerate}
-\item Like this,
-\item and like this.
-\end{enumerate}
-\dots or bullet points \dots
-\begin{itemize} 
-\item Like this,
-\item and like this.
-\end{itemize}
-\dots or with words and descriptions \dots
-\begin{description}
-\item[Word] Definition
-\item[Concept] Explanation
-\item[Idea] Text
-\end{description}
+%\begin{enumerate}
+% \item Like this,
+% \item and like this.
+% \end{enumerate}
+% \dots or bullet points \dots
+% \begin{itemize} 
+% \item Like this,
+% \item and like this.
+% \end{itemize}
+% \dots or with words and descriptions \dots
+% \begin{description}
+% \item[Word] Definition
+% \item[Concept] Explanation
+% \item[Idea] Text
+% \end{description}
 
-Some filler text, because empty templates look really poorly. \lipsum[1]
+% Some filler text, because empty templates look really poorly. \lipsum[1]
 
 
 \section{Acknowledgments}
 
-Additional information can be given in the template, such as to not include funder information in the acknowledgments section.
+We thank Alex Stewart for helpful comments.  
+
+% Additional information can be given in the template, such as to not include funder information in the acknowledgments section.
 
 \bibliography{bibliography}
 
@@ -946,29 +965,101 @@ Additional information can be given in the template, such as to not include fund
 
 \appendix
 \begin{appendixbox}
-\label{first:app}
-\section{Firstly}
-\lipsum[1]
+\label{app:proof}
+\section{Proof of \EQ{mt}}
+Given real numbers $b$ and $x$ and $n \in \N$ (the nonnegative integers), let $A$ denote the ``almost diagonal'' $n \times n$ matrix
+\[
+A = \left( \begin{array}{ccccc} 1 & b \\ & x & bx \\ & & x^2 & bx^2 \\ & & & \ddots & \ddots \\ & & & & x^{n-1} \end{array} \right),
+\]
+whose $i^{th}$ row is simply $x^{i-1}$ multiplied by $( \begin{array}{cccccccccc} 0 & 0 & \cdots & 0 & 1 & b & 0 & 0 & 0 & \cdots \end{array} )$, the 1 occuring in the $i^{th}$ position.  Since $A$ is upper triangular, so is its $k^{th}$ power (for $k \in \N$), with diagonal entries
+\[
+A^k(i,i) = x^{k(i-1)}.
+\]
+The superdiagonal entries aren't quite as simple, but can also be expressed explicitly in terms of $x$, $k$ and $b$.
+
+\begin{lemma}\label{main}
+For $n, k \in \N$, $1 \le i \le n-1$ and $1 \le j \le n-i$ one has
+\[
+A^k(i,i+j) = b^j x^{\frac{j(j-1)}{2} + k(i-1)} \prod_{\ell = 1}^{j} \frac{x^{k+1- \ell} - 1}{x^{\ell} - 1},
+\]
+provided that we declare $x^0 = 1$.  
+\end{lemma}
+
+\begin{proof}
+We induct on $k$.  When $k=1$, for $j=1$ and any $i$ the given expression becomes
+\[
+bx^{k(i-1)} \frac{x-1}{x-1} = bx^{(i-1)} = A(i,i+1).
+\]
+When $j \ge 2$, then the $\ell = 2$ factor in the product is $\frac{x^{2-2}-1}{x^2-1}=0$, so that regardless of $i$ the entire expression becomes $0$, which again equals $A(i,i+j)$.  We conclude that the stated result holds for $k=1$.
+
+Now assume the result is true for some $k \ge 1$.  Since $A^{k+1} = A \cdot A^{k}$ and $A(i,\ell)=0$ unless $\ell \in \left\{ i , i+1 \right\}$,
+\small
+\[
+\begin{split}
+A^{k+1}(i,i+j) &= \sum_{\ell=1}^n A(i,\ell) A^k(\ell, i+j) \\
+  &= x^{i-1}A^k(i, i + j) + b x^{i-1}A^k(i+1,i+j) \\
+  &= x^{i-1} \left( A^k(i,i+j) + bA^k(i+1,(i+1)+(j-1))) \right).
+\end{split}
+\]
+\normalsize
+Using the inductive hypothesis\footnote{Strictly speaking, the inductive hypothesis will only apply to the term $A^k(i+1,(i+1)+(j-1))$ when $j \ge 2$.  However, if we adopt the convention that any empty product is equal to zero, the expression stated in the result agrees with $A^k(i+1,(i+1)+(j-1))$ when $j=1$ as well.} we obtain
+\small
+\[
+\begin{split}\hspace{-1.0cm}
+& A^{k+1}(i, i+j)\\ 
+& = b^j x^{i-1 + \frac{(j-1)(j-2)}{2}+ki} \left( \prod_{\ell=1}^{j-1} \frac{x^{k+1-\ell}-1}{x^{\ell}-1} \right) \left(x^{j-k-1}\frac{x^{k+1-j}}{x^j-1}+1  \right)\\
+   &=b^j x^{i-1 + \frac{(j-1)(j-2)}{2}+ki} \left( \prod_{\ell=1}^{j-1} \frac{x^{k+1-\ell}-1}{x^{\ell}-1} \right) \left( \frac{1-x^{j-k-1}+x^j-1}{x^j-1}  \right)\\
+   &=b^j x^{i-1 + \frac{(j-1)(j-2)}{2}+ki + j-k-1} \left( \prod_{\ell=1}^{j-1} \frac{x^{k+1-\ell}-1}{x^{\ell}-1} \right) \left( \frac{x^{k+1}-1}{x^j-1}  \right)\\
+   &=b^j x^{\frac{j(j-1)}{2} + (k+1)(i-1)}  \left( \prod_{\ell=1}^{j-1} \frac{x^{k+1-\ell}-1}{x^{\ell}-1} \right) \left( \frac{x^{k+1}-1}{x^j-1}  \right) \\
+   &=b^j x^{\frac{j(j-1)}{2} + (k+1)(i-1)}  \left( \prod_{\ell=1}^{j} \frac{1}{x^{\ell}-1} \right) \left(\prod_{\ell=0}^{j-1} (x^{k+1-\ell}-1)  \right) \\
+   &= b^j x^{\frac{j(j-1)}{2} + (k+1)(i-1)}  \left( \prod_{\ell=1}^{j} \frac{x^{(k+1) + 1-\ell} -1}{x^{\ell}-1} \right), 
+\end{split}
+\]
+\normalsize
+which shows that the formula holds for the exponent $k+1$.  This concludes the proof.
+\end{proof}
 
 %% Sadly, we can't use floats in the appendix boxes. So they don't "float", but use \captionof{figure}{...} and \captionof{table}{...} to get them properly caption.
-\begin{center}
-%\includegraphics[width=\linewidth,height=7cm]{frog}
-\captionof{figure}{This is a figure in the appendix}
-\end{center}
+% \begin{center}
+% %\includegraphics[width=\linewidth,height=7cm]{frog}
+% \captionof{figure}{This is a figure in the appendix}
+% \end{center}
 
-\section{Secondly}
+% \section{Secondly}
 
-\lipsum[5-8]
+% \lipsum[5-8]
 
-\begin{center}
-%\includegraphics[width=\linewidth,height=7cm]{frog}
-\captionof{figure}{This is a figure in the appendix}
-\end{center}
+% \begin{center}
+% %\includegraphics[width=\linewidth,height=7cm]{frog}
+% \captionof{figure}{This is a figure in the appendix}
+% \end{center}
 
 \end{appendixbox}
 
 \begin{appendixbox}
+
 %\includegraphics[width=\linewidth,height=7cm]{frog}
-\captionof{figure}{This is a figure in the appendix}
+% \captionof{figure}{This is a figure in the appendix}
+
+\section{Overestimation of \textbf{T}}
+\label{app:jensen}
+%\begin{figure}[h!]
+  %\includegraphics[width=0.5\textwidth]{TvsuMay28.pdf}
+%  \caption{Simulation and theoretical predictions of time to extinction $(T)$ for a range of mutation rates. Selection coefficient $(s)$ is $0.01$, and initial population size $(n_{0})$ is $100$ for all runs. Mean simulation results, taken from $10,000$ runs, are shown as circles, while analytical predictions are shown as triangles. Simulation standard deviations are shown as vertical lines. Theory is shown to be quite accurate, although the inaccuracy is consistently an overestimation. This is explained by a property of concave functions, namely, that $E[f(X)]<f(E[X])$.}
+%  \label{fig:sim}
+%\end{figure}
+As shown in the Theory section, an approximation is made in Equation \ref{eq:approx} in order to derive analytical expressions for click times ($t_k$) and time to extinction (\textbf{T}). 
+%That is, $$E[m_{0,k+j}^{(T_{k})}]\approx g_{k+j}(t_{k}).$$
+%In order to check that this approximation holds, we ran simulations of population runs according to the presented model. In each generation, every individual either splits or dies, and every offspring acquires a new mutation with probability $u$. A run ends when the population size is zero. 
+Figures \ref{fig:decay}D, \ref{fig:valid}A, and \ref{fig:valid}B show that the approximation is quite accurate over broad ranges of parameters but consistently overestimates \textbf{T}.
+
+Overestimation of \textbf{T} is partly explained by the concavity of $E[\tau_k]$ as a function of $x_k$ in Equation \ref{eq:tauk}. %(having discussed the extinction of consecutive classes, we now replace the original $n_{k}$ in Equation \ref{eq:tauk} with $x_k$). 
+The second derivative with respect to $x_k$ is 
+\begin{equation*}
+\frac{d^2E[\tau_k]}{d(x_k)^2} = -\sum \limits_{n=1}^\infty\ln^2\left(\varphi_{k}^{(n)}(0)\right)\left(\varphi_{k}^{(n)}(0)\right)^{x_{k}}
+\end{equation*}
+which is negative because both factors of each term in the sum are positive and hence the function is concave. By the reversed Jensen's inequality, for a concave function, $E[f(X)]<f(E[X])$, which implies that $E[\tau_k]$ is consistently overestimated, rendering total extinction time overestimated in turn. 
+
 \end{appendixbox}
+
 \end{document}
