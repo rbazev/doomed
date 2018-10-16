@@ -1,3 +1,4 @@
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%% ELIFE ARTICLE TEMPLATE
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -27,6 +28,7 @@
 % Annotating text
 \usepackage{color}
 \newcommand{\blue}{\textcolor{blue}}
+\newcommand{\red}{\textcolor{red}}
 \usepackage[normalem]{ulem}
 
 % Proof
@@ -105,7 +107,7 @@ Muller's Ratchet has been invoked to explain
 the evolution of sex \citep{Muller_The_1964, Felsenstein_The_1974, gor08},
 the accelerated rate of evolution of endosymbiotic bacteria \citep{mor96},
 the degeneration of Y-chromosomes \citep{Charlesworth_Model_1978, gor00b},
-\blue{and cancer progression \citep{McFarland_Tug_2014}}.  
+and cancer progression \citep{McFarland_Impact_2013, McFarland_Tug_2014}.  
 
 \citet{Haigh_The_1978} argued that the Ratchet should click at a rate inversely proportional to the size of the least-loaded class in a population.  If $k$ is the lowest number of deleterious mutations present in an individual in the population, 
 the size of the least-loaded class at mutation-selection-drift equilibrium is
@@ -124,10 +126,10 @@ Haigh concluded that Muller's Ratchet should click faster
 in small populations, 
 experiencing a high deleterious mutation rate, 
 and mutations with milder deleterious effects (low $s$).
-Subsequent work has derived more accurate estimates of the rate of clicking of the Ratchet, both when $\hat n_k > 1$ \citep{Stephan_The_1993, Gordo_On_2000, gor00b, neh12, met13} and when $\hat n_k < 1$ \citep{Gessler_The_1995, Rouzine_The_2003, Rouzine_The_2008}. 
+Subsequent work has derived more accurate estimates of the rate of clicking of the Ratchet, both when $\hat n_k > 1$ \citep{Stephan_The_1993, Gordo_On_2000, gor00b, Neher_Fluctuations_2012, met13} and when $\hat n_k < 1$ \citep{Gessler_The_1995, Rouzine_The_2003, Rouzine_The_2008}. 
 
-Beginning with Haigh's foundational study, most research on Muller's Ratchet (including all the papers \blue{cited in the previous paragraph}) has assumed that 
-\blue{the size of a population remains constant as deleterious mutations accumulate.}  
+Beginning with Haigh's foundational study, most research on Muller's Ratchet (including all the papers cited in the previous paragraph) has assumed that 
+the size of a population remains constant as deleterious mutations accumulate.  
 This assumption is biologically unrealistic---if true, fitness would decline continuously but the population would be immortal \citep{Lynch_MUTATION_1990, mel91}.  Lynch, Gabriel, and colleagues studied more realistic models where the fitness of an individual influences its fertility and populations experience density-dependent regulation \citep{Lynch_MUTATION_1990, lyn93, Gabriel_MULLER_1993, lyn95}.  They found that Muller's Ratchet causes population size to decline, which accelerates the Ratchet, which further reduces population size.  This positive feedback results in a ``mutational meltdown'' that drives the population to extinction \citep{Lynch_MUTATION_1990, lyn93, Gabriel_MULLER_1993}. 
 
 In one model, \citet{lyn93} considered a population of asexual organisms subject to a carrying capacity of $\widehat N$ individuals.  Each individual produces $R$ offspring.  The number of mutations is Poisson distributed with rate $U$.  The offspring then undergo viability selection with a probability of survival
@@ -151,8 +153,8 @@ Third, when mean viability reaches $\overline w = 1/R$ (i.e., when $N R \, \over
 
 
 \citet{lyn93} derived some analytical expressions to describe the dynamics of mutation accumulation during the first two phases and the times at which these two phases end.  
-However, they did not present any analytical \blue{theory} on the dynamics or duration of the meltdown (third) phase itself \citep[see also][]{Gabriel_MULLER_1993, lyn95}.
-\blue{Thus, the validity of the Lynch-Gabriel model of mutational meltdown is difficult to evaluate.}
+However, they did not present any analytical theory on the dynamics or duration of the meltdown (third) phase itself \citep[see also][]{Gabriel_MULLER_1993, lyn95}.
+Thus, the validity of the Lynch-Gabriel model of mutational meltdown is difficult to evaluate.
 %%%
 Here we model the mutational meltdown phase of Muller's Ratchet using a multi-type branching process.
 We derive an analytical approximation for the expected time to extinction under this model
@@ -164,7 +166,7 @@ Our results differ from predictions on the relationship between the severity of 
 We also find that mutational meltdown, 
 although it does occur in doomed populations,
 is not an important determinant of time to extinction. 
-Rather, extinction time is approximately inversely proportional to $us$, that is, 
+Rather, extinction time is approximately inversely proportional to the product $us$, that is, 
 the expected impact of deleterious mutations on fitness.
 
 %Thanks for using Overleaf to write your article. Your introduction goes here! Some examples of commonly used commands and features are listed below, to help you get started.
@@ -229,13 +231,13 @@ A daughter can acquire one additional mutation and become a type $k+1$ individua
 
 \subsection{Branching process}
 
-
 A population consists of $N_k$ individuals with $k=0,\, 1,\, 2,\, \ldots$ deleterious mutations.  Below, we refer to individuals with $k$ deleterious mutations as belonging to type $k$.
 
 The size $N = \sum_i N_i$ of the population is allowed to change according to a discrete-time branching process.   
-Each generation, an individual of type $k$ reproduces by splitting into two daughters with probability $w_k/2$ and dies with probability $1 - w_k/2$ (\FIG{branching}), where $w_k$ is the fitness of an individual of type $k$ (\EQ{fit}). 
+Each generation, an individual of type $k$ reproduces by splitting into two daughters with probability $w_k/2$ and dies with probability $1 - w_k/2$ (\FIG{branching}), where $w_k$ is the 
+expected number of offspring 
+of an individual of type $k$---i.e., its  \textit{absolute} fitness (\EQ{fit}). 
 We assume that all mutations have the same deleterious effect $s$ and do not interact epistatically.  
-Fitness is \textit{absolute} in our model.
 
 Any offspring may acquire one deleterious mutation with probability $u$. 
 Note that $u$ is defined differently from the mutation rate, $U$, in Haigh's model (\EQ{haigh}).
@@ -525,12 +527,12 @@ E[Y]  & =   E\left[Y|Y>0\right] P(Y>0)\nonumber\\
 %
 By \EQ{xk}, \EQ{tauk2}, and \EQ{exp} we get the bounds 
 %
-\begin{equation}
+\begin{equation*}
 %
 0 \leq P(\tau_{k} > 0) \leq \min(1,x_{k}) \quad .
-\label{eq:Pbounds}
+%\label{eq:Pbounds}
 %
-\end{equation}
+\end{equation*}
 Because extinction of the whole population is irreversible, $P(\tau_{k} > 0)$ is expected to decline for successive classes:
 \begin{equation*}
 P(\tau_k>0) \leq P(\tau_{k-1}>0) \quad .
@@ -666,7 +668,7 @@ Our model has three parameters---$n_0$, $u$, and $s$---and all of them influence
 %
 When $n_0$ is large, $t_0 \propto \ln n_0$ (\EQ{jagers}) and $x_1$ is approximately constant (\EQ{x1}).
 Thus, 
-\blue{$\Delta t_1, \Delta t_2, \ldots$ (\EQ{deltat})}
+$\Delta t_1, \Delta t_2, \ldots$ (\EQ{deltat})
 are also expected to approach constant values as $n_0\to\infty$.  Since
 $t_0$ grows logarithmically, this result implies that $t_0$ represents an increasing fraction of $\mathbf{T}$ as $n_0$ increases. 
 Therefore, we also expect $\mathbf{T}$ to grow logarithmically with $n_0$.
@@ -702,10 +704,10 @@ Note that $\Delta t_k$ is displayed on a log-scale.  Each combination of mutatio
 \end{figure*}
 
 
-\subsection{\blue{Low mutation rate and mutations of large effect accelerate mutational meltdown}}
+\subsection{Low mutation rate and mutations of large effect accelerate mutational meltdown}
 
 Lynch and colleagues have proposed that Muller's Ratchet accelerates in a doomed population as population size declines, driving the population to extinction---a phenomenon they called mutational meltdown \citep{Lynch_MUTATION_1990, lyn93, Gabriel_MULLER_1993}.  
-\blue{Do doomed populations experience mutational meltdown?}
+Do doomed populations experience mutational meltdown?
 
 To answer this question we need a way to measure the rate of mutational meltdown.  Let 
 %
@@ -723,20 +725,20 @@ To answer this question we need a way to measure the rate of mutational meltdown
 be the interval between clicks $k-1$ and $k$ of the Ratchet, where $t_k$ denotes the time of the $k$-th click.  
 %
 In populations of constant size, 
-\blue{the Ratchet is expected to click at a steady rate over time, that is,}
+the Ratchet is expected to click at a steady rate over time, that is,
 $\Delta t_k$ is not expected to change with $k$ \citep{Haigh_The_1978, Gordo_On_2000, gor00b}.  
 %
 In contrast, under mutational meltdown
-\blue{the Ratchet is expected to accelerate in successive clicks, that is,}
+the Ratchet is expected to accelerate in successive clicks, that is,
 $\Delta t_k$ is expected to decline with $k$.
 %
 We find that $\Delta t_k$ declines approximately exponentially with $k$ in doomed populations (\FIG{melt}A).  Thus, we use the rate of this decline, $\beta$, to measure the rate of mutational meltdown.
 
-\blue{Mutational parameters have large effects on the rate of mutational meltdown.  Low mutation rate and mutations of large effect accelerate mutational meltdown (\FIG{melt}).  This result is consistent with the effects of mutational parameters on $\Delta t_0$ and $\Delta t_1$ in large populations (\EQ{jagers} and \EQ{x1}).  
+Mutational parameters have large effects on the rate of mutational meltdown.  Low mutation rate and mutations of large effect accelerate mutational meltdown (\FIG{melt}).  This result is consistent with the effects of mutational parameters on $\Delta t_0$ and $\Delta t_1$ in large populations (\EQ{jagers} and \EQ{x1}).  
 %
-Low values of $u$ increase $\Delta t_0$  and decrease $x_1$, and therefore $\Delta t_1$, causing the mutational meltdown to accelerate.  
+Low values of $u$ increase $\Delta t_0$  and decrease $x_1$, and therefore $\Delta t_1$, causing mutational meltdown to accelerate.  
 %
-High values of $s$ have no effect on $\Delta t_0$ but decrease $x_1$, and therefore $\Delta t_1$, also causing the meltdown to accelerate.}
+High values of $s$ have no effect on $\Delta t_0$ but decrease $x_1$, and therefore $\Delta t_1$, also causing the meltdown to accelerate.
 
 
 \subsection{Extinction time is determined by the rate of fitness decline}
@@ -764,7 +766,7 @@ This explains why time to extinction declines with both $u$ and $s$ (\FIG{heat}A
 
 Most models of Muller's Ratchet have assumed that populations maintain a constant size as deleterious mutations accumulate \citep{Haigh_The_1978, Gessler_The_1995, Gordo_On_2000, gor00b, Rouzine_The_2003, met13}.
 This is typically justified as resulting from density-dependent regulation of population size.  
-However, the assumption is unrealistic because it actually prevents populations from ever going extinct \citep{Lynch_MUTATION_1990, mel91}.  
+However, the assumption is unrealistic because it prevents populations from ever going extinct \citep{Lynch_MUTATION_1990, mel91}.  
 %
 In a series of studies relaxing the assumption of constant population size, Lynch, Gabriel, and colleagues argued that Muller's ratchet eventually generates a positive feedback where
 the Ratchet clicks, 
@@ -776,15 +778,39 @@ However, the lack of quantitative theory on the mutational meltdown has made it 
 
 Our results challenge the Lynch-Gabriel hypothesis.  Although doomed populations can experience mutational meltdown---measured by the acceleration of the Muller's Ratchet---, the rate of mutational meltdown does not determine extinction time (\FIG{melt}A).  Therefore, the Lynch-Gabriel mutational meltdown cannot be a general \textit{cause} of extinction.  Rather, our results suggest that extinction time is determined by $us$, the expected impact of deleterious mutations on fitness.  
 %
-The Lynch-Gabriel hypothesis emphasized the role of the change in the strength of genetic drift in causing mutational meltdown \citep[e.g., ``we refer to this synergism between mutation accumulation and random genetic drift as a mutational meltdown'';][]{lyn93}.  Our results indicate that extinction is driven by mutation pressure, not genetic drift.  
+The Lynch-Gabriel hypothesis emphasized the role of the change in the strength of genetic drift in causing mutational meltdown \citep[e.g., ``we refer to this synergism between mutation accumulation and random genetic drift as a mutational meltdown'';][]{lyn93}.  
+Our results indicate that extinction in doomed populations is driven by mutation pressure, not genetic drift.  
 %
-We propose that the expression mutational meltdown \citep[now in common usage; e.g.,][]{Allen_Mutational_2009, McFarland_Tug_2014} be redefined to refer to extinction caused by mutation pressure.
+\citet{Gessler_The_1995}  identified a related phenomenon in the operation of Muller's Ratchet under constant population size: if the mutation rate is too high the Ratchet is driven by mutation pressure, not genetic drift.
+%
+We propose that the expression mutational meltdown---now in common usage \citep[e.g.,][]{Allen_Mutational_2009, McFarland_Tug_2014}---be revised to refer to extinction caused by mutation pressure.
 
-Evolution experiments have found evidence that real populations can experience  increased extinction risk when the mutation rate is high \citep{zey01a, ban16}.  For example, \citet{ban16} subjected populations of influenza A virus to high concentrations of favipiravir, a drug that increases the mutation rate of the virus, and observed that populations accumulated mutations rapidly and went extinct. 
-These experimental results are consistent with our interpretation of the mutational meltdown because increasing mutation rate causes faster extinction in our model.
+The extent to which real populations undergo mutational meltdown is unclear.  A population must first enter the doomed regime.  Models of Muller's ratchet in populations of constant size
+have identified two major risk factors that can drive populations into the doomed regime: long-term reductions in population size and increases in mutation rate   \citep{Lynch_MUTATION_1990, lyn93, Gabriel_MULLER_1993, lyn95}.  Population size could decline as a result of changes in the environment, such as, climate change, decreased food availability, and habitat loss or fragmentation.  For example, in the United Kingdom, the population sizes of 10 species of seed-eating birds have declined because of the use of herbicides and the shift from spring-sown to fall-sown cereals, both of which have reduced the availability of food for these birds \citep{new04}.  Increases in mutation rate have been observed directly in experimental populations.  For example, a population of \emph{Escherichia coli} adapting to a constant environment evolved a mutator mutation at $\sim 2.5 \times 10^4$  generations that increased mutation rate by $\sim 150$-fold \citep{bar09, wie13}.
+Increased mutation rate can even drive a large population into the doomed regime---a phenomenon known as lethal mutagenesis \citep{Bull_Theory_2007}.
 
-The relative theoretical neglect of the time to extinction of a doomed population (i.e., \textit{during} mutational meltdown) can probably be attributed to the expectation that it is quick relative to the time required for the population to become doomed \citep{lyn93, lyn95, Bull_Theory_2007}.  We believe this neglect is misplaced because the mutational meltdown phase is crucial for the fate of the population.  It is the last chance for the population to be rescued by beneficial mutations and escape extinction.  
+Evolution experiments have found evidence that real populations can experience  increased extinction risk when the mutation rate is high \citep{zey01a, ban16}.  
+For example, \citet{ban16} subjected populations of influenza A virus to high concentrations of favipiravir, a drug that increases the mutation rate of the virus, and observed that populations accumulated mutations rapidly and went extinct. 
+The results from both studies are broadly consistent with the occurrence of a mutational meltdown.  However, they do not allow us to distinguish between the Lynch-Gabriel model and ours.
 
+The relative theoretical neglect of the evolutionary dynamics in doomed populations is surprising given that it is central to understanding the long-term consequences of both Muller's ratchet \citep{Lynch_MUTATION_1990,lyn93,Gabriel_MULLER_1993,lyn95} and lethal mutagenesis \citep{Bull_Theory_2007, mat17}.  
+%
+In both cases, the duration of the meltdown phase was dismissed because it was predicted to be short relative to the time required for the population to \textit{become} doomed \citep{lyn93,lyn95,Bull_Theory_2007}.
+%
+However, we believe that this neglect of the meltdown phase is misplaced because it
+is an important phase in the life of a population---the last chance for the population to be rescued by beneficial mutations and avoid extinction.  The dynamics and duration of the meltdown phase are likely to be important determinants of the probability of evolutionary rescue.
+
+A central assumption of our model  is that individuals experience \textit{hard} selection \citep{wal75}.   
+The expected number of offspring of an individual is its absolute fitness, $w_k$ (\EQ{fit}), and is both density independent and frequency independent.  The Lynch-Gabriel models make similar assumptions during the mutational meltdown phase \citep{lyn93,lyn95}. 
+% 
+In contrast, classic models of Muller's Ratchet typically assume \textit{soft} selection \citep{wal75}.  Constant population size implies density dependence.  Selection is also frequency dependent: the expected number of offspring of an individual depends not only on its fitness, but on the fitness of other individuals in the population.
+%
+The difference in the mode of selection in these models explains the different effects of the deleterious effect of a mutation, $s$, on extinction time in our model, and on the severity of Muller's Ratchet in classic models.  In doomed populations, increasing $s$ accelerates extinction, albeit with diminishing returns (\FIG{decay}B and \FIG{heat}).  In models with soft selection, the Ratchet is most severe at an intermediate value of $s$ 
+\citep[\FIG{decay}C;][]{lyn95, Gordo_On_2000, gor00b}.  
+
+
+
+%\subsection{Idea in progress}
 
 
 
@@ -793,19 +819,19 @@ The relative theoretical neglect of the time to extinction of a doomed populatio
 Below is a haphazard collection of topics to consider discussing.  Feel free to add some bullets.  I've crossed out things that we have already mentioned.
 
 \begin{itemize}
-\item Lynch and Gabriel (1990), using simulations, also find that extinction time is a function of $us$.  
+\item \sout{Although drift is irrelevant in driving extinction, it nevertheless drives a population into the meltdown regime via Ratchet clicks in the Haigh regime}
 %
-\item Log dependence of extinction time on $n_0$, similar to a result in other stochastic models of population dynamics \citep{lan93, Jagers_On_2007}.  Lynch et al. (1993) also infer that for extinction time during the meltdown phase based on simulations.
+\item \sout{Lynch and Gabriel (1990), using simulations, also find that extinction time is a function of $us$.}  
+%
+\item Log dependence of extinction time on $n_0$ implies that large increases in $n_0$ cause only relatively small delays in ultimate extinction.   Similar to a result in other stochastic models of population dynamics \citep{lan93, Jagers_On_2007}.  Lynch et al. (1993) also infer that for extinction time during the meltdown phase based on simulations.
 %
 \item \sout{Increasing $s$ accelerates extinction, counter the results of Lynch et al., who found that intermediate $s$ minimizes extinction time.}  
 %
 \item \sout{Extinction does not necessarily imply meltdown even if the two are used interchangeably.}
 %
-\item Relative vs absolute fitness.
+\item \sout{Relative vs absolute fitness.}
 %
 \item We must consider variable mutational effects in the future.
-%
-\item Large increases in $n_0$ cause only relatively small delays in ultimate extinction. 
 %
 \item Doomed regime can arise either because of mutation accumulation via Muller's ratchet, or because of environmental change.
 %
@@ -815,7 +841,7 @@ Below is a haphazard collection of topics to consider discussing.  Feel free to 
 %
 \item A more realistic regime: we can think of there being 2 regimes for the population depending on its size. 1) When the population is close to carrying capacity relative fitness dominates the dynamics. 2) When the population is well below capacity, absolute fitness dominates (roughly). The first click of the ratchet, therefore, depends on selection coefficient in the first regime but not the second. 
 %
-\item Lethal mutagenesis.  \sout{They also ignore the meltdown phase.}
+\item \sout{Lethal mutagenesis.  They also ignore the meltdown phase.}
 %
 \item From the Tug-of-War paper:
 ``PARP inhibitors, which increase DNA damage in BRCA1/2-positive tumors, may already be curing patients by inducing mutational meltdown.''
@@ -1002,7 +1028,7 @@ A^{k+1}(i,i+j) &= \sum_{\ell=1}^n A(i,\ell) A^k(\ell, i+j) \\
 \end{split}
 \]
 \normalsize
-Using the inductive hypothesis\footnote{Strictly speaking, the inductive hypothesis will only apply to the term $A^k(i+1,(i+1)+(j-1))$ when $j \ge 2$.  However, if we adopt the convention that any empty product is equal to zero, the expression stated in the result agrees with $A^k(i+1,(i+1)+(j-1))$ when $j=1$ as well.} we obtain
+Using the inductive hypothesis\footnote{Strictly speaking, the inductive hypothesis will only apply to the term $A^k(i+1,(i+1)+(j-1))$ when $j \ge 2$.  However, if we adopt the convention that any empty product is equal to one, the expression stated in the result agrees with $A^k(i+1,(i+1)+(j-1))$ when $j=1$ as well.} we obtain
 \small
 \[
 \begin{split}\hspace{-1.0cm}
@@ -1048,7 +1074,7 @@ which shows that the formula holds for the exponent $k+1$.  This concludes the p
 %  \caption{Simulation and theoretical predictions of time to extinction $(T)$ for a range of mutation rates. Selection coefficient $(s)$ is $0.01$, and initial population size $(n_{0})$ is $100$ for all runs. Mean simulation results, taken from $10,000$ runs, are shown as circles, while analytical predictions are shown as triangles. Simulation standard deviations are shown as vertical lines. Theory is shown to be quite accurate, although the inaccuracy is consistently an overestimation. This is explained by a property of concave functions, namely, that $E[f(X)]<f(E[X])$.}
 %  \label{fig:sim}
 %\end{figure}
-As shown in the Theory section, an approximation is made in Equation \ref{eq:approx} in order to derive analytical expressions for click times ($t_k$) and time to extinction (\textbf{T}). 
+As shown in the Theory section, an approximation is made in \EQ{approx} in order to derive analytical expressions for click times ($t_k$) and time to extinction (\textbf{T}). 
 %That is, $$E[m_{0,k+j}^{(T_{k})}]\approx g_{k+j}(t_{k}).$$
 %In order to check that this approximation holds, we ran simulations of population runs according to the presented model. In each generation, every individual either splits or dies, and every offspring acquires a new mutation with probability $u$. A run ends when the population size is zero. 
 Figures \ref{fig:decay}D, \ref{fig:valid}A, and \ref{fig:valid}B show that the approximation is quite accurate over broad ranges of parameters but consistently overestimates \textbf{T}.
