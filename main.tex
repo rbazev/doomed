@@ -174,7 +174,7 @@ the expected impact of deleterious mutations on fitness.
 %Here's a second paragraph to test paragraph indents. \lipsum[1]
 
 
-\begin{figure*}[!ht]
+\begin{figure}[!ht]
   \centering
 	\begin{tikzpicture} 
 % Row 1
@@ -219,7 +219,7 @@ The daughters inherit the $k$ mutations from their mother.
 %
 A daughter can acquire one additional mutation and become a type $k+1$ individual (dark gray) \textbf{(B--C)}.}
 	\label{fig:branching}	
-\end{figure*}
+\end{figure}
 
 
 
@@ -368,7 +368,10 @@ in generation 1.
 
 In a similar way, we get the variance as
 %
-$$\mbox{Var}[\tau_{k}]=E[\tau_{k}(\tau_{k}-1)]+E[\tau_{k}]-E^{2}[\tau_{k}]$$
+\begin{equation}
+\mbox{Var}[\tau_{k}]=E[\tau_{k}(\tau_{k}-1)]+E[\tau_{k}]-E^{2}[\tau_{k}]
+\label{eq:var}
+\end{equation}
 %
 where
 %
@@ -380,7 +383,7 @@ E[\tau_{k}(\tau_{k}-1)] & =  2\sum_{t=1}^{\infty}tP(\tau_{k}>t)\\[5pt]
 \end{align*}
 
 
-\begin{figure*}[ht!]
+\begin{figure}[ht!]
 \centering
 \includegraphics[width=.67\linewidth]{decay.pdf}
 \caption{Populations doomed to extinction.  
@@ -402,7 +405,8 @@ Blue line shows mean values of $\mathbf{T}$ based on stochastic simulations of $
 Red line shows $\mathbf{T}$ calculated numerically.
 }
 \label{fig:decay}
-\end{figure*}
+\figsupp[Variance.]{Variance in part C.}{\includegraphics[width=0.33\linewidth]{decay2}}\label{figsupp:sf1}
+\end{figure}
 
 
 \subsection{Extinction time of the entire population}
@@ -417,15 +421,15 @@ If $m_{k,k}=1$ (the \emph{critical} case), the extinction time $\tau_k$ is finit
 \EQ{m} shows that $m_{k,k} < 1$ (the {\em subcritical} case) for individuals of any type $k$ provided all mutations are deleterious $(0<s<1)$ and the mutation rate is nonzero $(u>0)$.  Thus, the expected extinction time of every type $k$ is finite.  
 In other words, the population is doomed to eventual extinction.
 
-Start with a fixed number $n_{0}$ of mutation-free individuals and denote by $T_{0}$ the time (generation) of extinction of this class. Conditioned on $T_{0}$, the expected number of individuals in class 1 (those with $k=1$ mutation) is therefore 
-%
-\begin{equation}
-m_{0,1}^{(T_0)}
-\label{eq:mT0}
-\end{equation}
-%
+Start with a fixed number $n_{0}$ of mutation-free individuals and denote by $T_{0}$ the time (generation) of extinction of this class. Conditioned on $T_{0}$, the expected number of individuals in class 1 (those with $k=1$ mutation) is therefore $m_{0,1}^{(T_0)}$
+% 
+% \begin{equation*}
+% m_{0,1}^{(T_0)}
+% \label{eq:mT0}
+% \end{equation*}
+% 
 (see \EQ{mt})
-which we note is a function of the random variable $T_{0}$. Thus, the expected number of individuals in class 1 at the time of extinction of class 0 is obtained by taking the expected value in \EQ{mT0}. To this end, recall \EQ{mt} and define the function 
+which we note is a function of the random variable $T_{0}$. Thus, the expected number of individuals in class 1 at the time of extinction of class 0 is obtained by taking the expected value in $m_{0,1}^{(T_0)}$. To this end, recall \EQ{mt} and define the function 
 %
 \begin{equation*}
 g_1(\cdot)=m_{0,1}^{(\cdot)}
@@ -537,14 +541,10 @@ Because extinction of the whole population is irreversible, $P(\tau_{k} > 0)$ is
 \begin{equation*}
 P(\tau_k>0) \leq P(\tau_{k-1}>0) \quad .
 \end{equation*}
-%
-We calculate $\mathbf{T}$ numerically (\EQ{T}) by assuming that $P(\tau_{k} > 0) = 0$ and computing \EQ{tk} until the following criterion is met 
-\begin{equation*}
-t_k - t_{k-1} < 10^{-6} \quad .
-\end{equation*}
 
 
-\begin{figure*}[ht!]
+
+\begin{figure}[ht!]
 \centering
 \includegraphics[width=\linewidth]{valid.pdf}
 \caption{
@@ -569,7 +569,8 @@ Dashed and solid lines indicate $\hat n_k < 10$ and $\hat n_k \geq 10$, respecti
 The trend shown in \textbf{(C)} was confirmed by simulation (not shown).
 }
 \label{fig:valid}
-\end{figure*}
+\figsupp[Variance.]{Variance in parts A and B.}{\includegraphics[width=0.67\linewidth]{valid2}}\label{figsupp:sf2}
+\end{figure}
 
 
 \subsection{Large initial population size}
@@ -788,12 +789,12 @@ We propose that the expression mutational meltdown---now in common usage \citep[
 The extent to which real populations undergo mutational meltdown is unclear.  A population must first enter the doomed regime.  Models of Muller's ratchet in populations of constant size
 have identified two major risk factors that can drive populations into the doomed regime: long-term reductions in population size and increases in mutation rate   \citep{Lynch_MUTATION_1990, lyn93, Gabriel_MULLER_1993, lyn95}.  Population size could decline as a result of changes in the environment, such as, climate change, decreased food availability, habitat loss or fragmentation, 
 \red{and emergence of infectious diseases.  
-For example, the emergence of Devil Facial Tumour Disease, a transmissible cancer, has caused the size of the Tasmanian devil population to decline by $\sim 77\%$ within 5 years \citep{haw06, laz18}.  Devils are under risk of extinction \citep{mcc09}.} 
+For example, the emergence of Devil Facial Tumor Disease, a transmissible cancer, has caused the size of the Tasmanian devil population to decline by $\sim 77\%$ within 5 years \citep{haw06, laz18}.  Devils are under risk of extinction \citep{mcc09}.} 
 %in the United Kingdom, the population sizes of 10 species of seed-eating birds have declined because of the use of herbicides and the shift from spring-sown to fall-sown cereals, both of which have reduced the availability of food for these birds \citep{new04}.
-Increases in mutation rate have been observed directly in experimental populations.  For example, a population of \emph{Escherichia coli} adapting to a constant environment evolved a mutator mutation at $\sim 2.5 \times 10^4$  generations that increased mutation rate by $\sim 150$-fold \citep{bar09, wie13}.
+Increases in mutation rate have been observed directly in experimental populations.  For example, a population of \emph{Escherichia coli} adapting to a constant environment evolved a mutator mutation after $\sim 2.5 \times 10^4$  generations that increased mutation rate by $\sim 150$-fold \citep{bar09, wie13}.
 Increased mutation rate can even drive a large population into the doomed regime---a phenomenon known as lethal mutagenesis \citep{Bull_Theory_2007}.
 
-Evolution experiments have found evidence that real populations can experience  increased extinction risk when the mutation rate is high \citep{zey01a, ban16}.  
+Evolution experiments have revealed that real populations can experience  increased extinction risk when the mutation rate is high \citep{zey01a, ban16}.  
 For example, \citet{ban16} subjected populations of influenza A virus to high concentrations of favipiravir, a drug that increases the mutation rate of the virus, and observed that populations accumulated mutations rapidly and went extinct. 
 The results from both studies are broadly consistent with the occurrence of a mutational meltdown.  However, they do not allow us to distinguish between the Lynch-Gabriel model and ours.
 
@@ -857,6 +858,14 @@ Below is a haphazard collection of topics to consider discussing.  Feel free to 
 \newpage
 
 \section{Methods and Materials}
+
+\subsection{Numerical calculations}
+
+\subsubsection{Expected extinction time}
+We calculate $\mathbf{T}$ numerically (\EQ{T}) by assuming that $P(\tau_{k} > 0) = 0$ and computing \EQ{tk} until the following criterion is met 
+\begin{equation*}
+t_k - t_{k-1} < 10^{-6} \quad .
+\end{equation*}
 
 \begin{itemize}
     \item Stochastic simulations.
