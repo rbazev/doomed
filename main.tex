@@ -369,8 +369,8 @@ in generation 1.
 In a similar way, we get the variance as
 %
 \begin{equation}
-\mbox{Var}[\tau_{k}]=E[\tau_{k}(\tau_{k}-1)]+E[\tau_{k}]-E^{2}[\tau_{k}]
-\label{eq:var}
+\mathrm{Var}[\tau_{k}]=E[\tau_{k}(\tau_{k}-1)]+E[\tau_{k}]-E^{2}[\tau_{k}]
+\label{eq:vartauk}
 \end{equation}
 %
 where
@@ -384,28 +384,30 @@ E[\tau_{k}(\tau_{k}-1)] & =  2\sum_{t=1}^{\infty}tP(\tau_{k}>t)\\[5pt]
 
 
 \begin{figure}[ht!]
-\centering
 \includegraphics[width=.67\linewidth]{decay.pdf}
 \caption{Populations doomed to extinction.  
 %
 \textbf{(A)} Dynamics of population size, $N$, in 50 populations founded by $n_0=100$ mutation-free individuals and subject to mutations with deleterious effect $s=0.01$ and rate $u=0.01$.  Black vertical lines above the time axis indicate extinction times.
 %
 \textbf{(B)} Blue line shows mean $N$ based on stochastic simulations of $10^4$ replicate populations like those shown in \textbf{(A)}.  
-Light blue region indicates $\overline{N} \pm 1$ standard deviation (s.d.). If $\mathrm{s.d.} > \overline{N}$, the lower bound of the region was set to zero.  
+Light blue region indicates $\overline{N} \pm 1$ standard deviation (SD). If $\mathrm{SD}[N] > \overline{N}$, the lower bound of the region was set to zero.  
 Red circles indicate expected population size (\EQ{N}) every 30 generations.
 %
-\textbf{(C)} Distribution of extinction times, $\mathbf{T}$, in the stochastic simulations described in \textbf{(B)} (8 replicate populations had $\mathbf{T} > 900$ and are not shown). 
-Blue line shows mean $\mathbf{T}$ based on the $10^4$ replicate populations.  
-Red line shows $\mathbf{T}$ calculated numerically (\EQ{T}) by assuming that $P(\tau_{k} > 0) = 0$.  
+\textbf{(C)} Distribution of extinction times, $T$, in the stochastic simulations described in \textbf{(B)} (8 replicate populations had $T > 900$ and are not shown). 
+Blue line shows mean $T$ based on the $10^4$ replicate populations.  
+Red line shows $\mathbf{T}$ calculated numerically based on \EQ{T} (see \textbf{Methods and Materials}).  
 %
 \textbf{(D)} Extinction times of populations with the same mutational parameters as those in \textbf{(A)} but with a range of initial populations sizes, $n_0$.
 %
-Blue line shows mean values of $\mathbf{T}$ based on stochastic simulations of $10^4$ replicate populations for 21 values of $n_0$ evenly spaced on a log-scale.
+Blue line shows mean values of $T$ based on stochastic simulations of $10^4$ replicate populations for 21 values of $n_0$ evenly spaced on a log-scale.
 %
-Red line shows $\mathbf{T}$ calculated numerically.
-}
+Light blue region indicates $\overline{T} \pm  \mathrm{SD}[T]$. If $\mathrm{SD}[T] > \overline{T}$, the lower bound of the region was set to zero.  See \FIGSUPP[decay]{sf1} for more on the variability of $T$.
+%
+Red line shows $\mathbf{T}$ calculated numerically.}
 \label{fig:decay}
-\figsupp[Variance.]{Variance in part C.}{\includegraphics[width=0.33\linewidth]{decay2}}\label{figsupp:sf1}
+\figsupp[Variability of extinction time declines with population size.]{\textbf{Variability of extinction time declines with population size.}
+%
+Blue circles show coefficient of variation of $T$, CV$[T]$, for the data shown in \FIG{decay}D.  Red line shows CV$[T]$ calculated numerically using \EQ{CV} (see \textbf{Methods and Materials}).}{\includegraphics[width=0.33\linewidth]{decay2}}\label{figsupp:sf1}
 \end{figure}
 
 
@@ -475,7 +477,7 @@ the expected number of individuals of type $k+j$ at the extinction of type $k$ f
 %
 \begin{equation}
 %
-\mathbf{T} = \lim_{k\rightarrow\infty}t_{k} \quad .
+\mathbf{T} = E[T] = \lim_{k\rightarrow\infty}t_{k} \quad .
 %
 \label{eq:T}
 \end{equation}
@@ -509,10 +511,9 @@ t_{0} = 1+\sum_{t=1}^{\infty}\left(1-\left(\varphi_{k}^{(t)}(0)\right)^{n_{0}}\r
 \label{eq:t0}
 \end{equation}
 %
-When $k>0$, \EQ{tk} is an approximation for two reasons.  
-First, because $x_k$ is approximate (\EQ{xk}).
-Second, because type $k$ may be extinct already at the time $T_{k-1}$ when type $k-1$ goes extinct and, therefore, $P(\tau_{k}>0)<1$.
-We can place bounds on $P(\tau_{k}>0)$ by noting that
+When $k>0$, \EQ{tk} is an approximation (\EQ{tauk} and \EQ{xk}).
+\red{In addition, we do not have a closed form expression for $P(\tau_{k}>0)$ for $k>0$.
+We can, however,} place bounds on $P(\tau_{k}>0)$ by noting that
 %
 \begin{equation}
 \tau_{k} > 0 \; \Leftrightarrow \; X_{T_{k-1}}^{(k)} > 0
@@ -531,36 +532,34 @@ E[Y]  & =   E\left[Y|Y>0\right] P(Y>0)\nonumber\\
 %
 By \EQ{xk}, \EQ{tauk2}, and \EQ{exp} we get the bounds 
 %
-\begin{equation*}
+\begin{equation}
 %
 0 \leq P(\tau_{k} > 0) \leq \min(1,x_{k}) \quad .
-%\label{eq:Pbounds}
+\label{eq:bounds}
 %
-\end{equation*}
+\end{equation}
 Because extinction of the whole population is irreversible, $P(\tau_{k} > 0)$ is expected to decline for successive classes:
 \begin{equation*}
 P(\tau_k>0) \leq P(\tau_{k-1}>0) \quad .
 \end{equation*}
 
 
-
 \begin{figure}[ht!]
-\centering
 \includegraphics[width=\linewidth]{valid.pdf}
 \caption{
 Mutational parameters have different effects on extinction time in doomed populations and the severity of Muller's Ratchet in populations of constant size.
 %
-\textbf{(A--B)} Values are expected extinction times, $\mathbf{T}$, in populations founded by $n_0=100$ mutation-free individuals but with different mutational parameters.
+\textbf{(A--B)} Values are mean extinction times, $T$, in populations founded by $n_0=100$ mutation-free individuals but with different mutational parameters.
 %
 \textbf{(A)} Mutations have deleterious effect $s=0.01$ and a range of mutation rates, $u$.
 %
 \textbf{(B)} Mutations have rate $u=0.01$ and a range of deleterious effects, $s$.
 %
-Red lines show $\mathbf{T}$ calculated numerically (\EQ{T}) by assuming that $P(\tau_{k} > 0) = 0$ for 41 values of the parameter being manipulated, evenly spaced on a log-scale.
+Blue lines show mean values of $T$ based on stochastic simulations of $10^4$ replicate populations for 21 values of the parameter being manipulated, evenly spaced on a log-scale.
 %
-Blue lines show mean values of $\mathbf{T}$ based on stochastic simulations of $10^4$ replicate populations for 21 values of the parameter being manipulated, evenly spaced on a log-scale.
+Light blue regions indicate $\overline{T} \pm  \mathrm{SD}[T]$  If $\mathrm{SD}[T] > \overline{T}$, the lower bound of the region was set to zero (see \FIGSUPP[valid]{sf2} for more on the variability of $T$).
 %
-Light blue regions indicate $\overline{\mathbf{T}} \pm 1\, \mathrm{s.d.}$  If $\mathrm{s.d.} > \overline{\mathbf{T}}$, the lower bound of the region was set to zero.
+Red lines show $\mathbf{T}$ calculated numerically based on \EQ{T} (see \textbf{Methods and Materials}) for 41 values of the parameter being manipulated, evenly spaced on a log-scale.
 %
 \textbf{(C)} Severity of Muller's Ratchet in populations of constant size and a deleterious mutation rate of $U = 0.01$ per genome per generation.  Values are the expected declines in mean fitness per thousand generations, $10^3 \times s/\Delta t$, for 101 values of $s$ evenly spaced on a log-scale.  
 $\Delta t$ is the time between clicks of the Ratchet calculated using the method of \citet{Gordo_On_2000, gor00b}.
@@ -569,7 +568,9 @@ Dashed and solid lines indicate $\hat n_k < 10$ and $\hat n_k \geq 10$, respecti
 The trend shown in \textbf{(C)} was confirmed by simulation (not shown).
 }
 \label{fig:valid}
-\figsupp[Variance.]{Variance in parts A and B.}{\includegraphics[width=0.67\linewidth]{valid2}}\label{figsupp:sf2}
+\figsupp[Variability of extinction time declines with mutation rate and is approximately invariant with selection coefficient.]{\textbf{Variability of extinction time declines with mutation rate and is approximately invariant with selection coefficient.}
+%
+Blue circles show coefficient variation of $T$, CV$[T]$, for the data shown in the corresponding panel of \FIG{valid}.  Red line shows CV$[T]$ calculated numerically using \EQ{CV}  (see \textbf{Methods and Materials}).}{\includegraphics[width=0.67\linewidth]{valid2}}\label{figsupp:sf2}
 \end{figure}
 
 
@@ -637,19 +638,23 @@ E\left[N(t+1)\right] - E\left[N(t)\right] \approx -n_0 u s t \quad
 \end{equation}
 
 
-\begin{figure*}[ht!]
-\centering
+\begin{figure}[ht!]
 \includegraphics[width=\linewidth]{heat.pdf}
 \caption{High mutation rate and mutations of large effect accelerate extinction in doomed populations.  
 %
-\textbf{(A)} Expected extinction time, $\mathbf{T}$, of populations founded by $n_0=100$ mutation-free individuals and subject to mutations with deleterious effect $s$ and rate $u$.  $\mathbf{T}$ was calculated numerically (\EQ{T}) by assuming that $P(\tau_{k} > 0) = 0$ for $21\times21=441$ combinations of values of $s$ and $u$ evenly spaced on a log-scale.
+\textbf{(A)} Expected extinction time, $\mathbf{T}$, of populations founded by $n_0=100$ mutation-free individuals and subject to mutations with deleterious effect $s$ and rate $u$.  $\mathbf{T}$ was calculated numerically based on \EQ{T} (see \textbf{Materials and Methods}) for $21\times21=441$ combinations of values of $s$ and $u$ evenly spaced on a log-scale.  (See \FIGSUPP[heat]{sf3}A for the variability of $T$.)
 %
-\textbf{(B)} Expected extinction time of the mutation-free class, $t_0$ (\EQ{t0}), as a proportion of $\mathbf{T}$ for the populations shown in \textbf{(A)}. 
+\textbf{(B)} Expected extinction time of the mutation-free class, $t_0$ (\EQ{t0}), as a proportion of $\mathbf{T}$ for the populations shown in \textbf{(A)}.  (See \FIGSUPP[heat]{sf3}B for $t_0$.)
 %
 \textbf{(C)} Expected number of individuals with $k=1$ mutation at $t_0$, $x_1$ (\EQ{xk}), for the populations shown in \textbf{(A)}.
 }
 \label{fig:heat}
-\end{figure*}
+\figsupp[Variability of extinction time and extinction time of the mutation-free class.]{\textbf{Variability of extinction time and extinction time of the mutation-free class.}
+%
+\textbf{(A)} Coefficient of variation of $T$, CV$[T]$, calculated numerically using \EQ{CV} (see \textbf{Materials and Methods}).
+%
+\textbf{(B)} Expected extinction time of the mutation-free clas, $t_0$, used in \FIG{heat}B.}{\includegraphics[width=0.67\linewidth]{heat2}}\label{figsupp:sf3}
+\end{figure}
 
 
 
@@ -787,9 +792,8 @@ Our results indicate that extinction in doomed populations is driven by mutation
 We propose that the expression mutational meltdown---now in common usage \citep[e.g.,][]{Allen_Mutational_2009, McFarland_Tug_2014}---be revised to refer to extinction caused by mutation pressure.
 
 The extent to which real populations undergo mutational meltdown is unclear.  A population must first enter the doomed regime.  Models of Muller's ratchet in populations of constant size
-have identified two major risk factors that can drive populations into the doomed regime: long-term reductions in population size and increases in mutation rate   \citep{Lynch_MUTATION_1990, lyn93, Gabriel_MULLER_1993, lyn95}.  Population size could decline as a result of changes in the environment, such as, climate change, decreased food availability, habitat loss or fragmentation, 
-\red{and emergence of infectious diseases.  
-For example, the emergence of Devil Facial Tumor Disease, a transmissible cancer, has caused the size of the Tasmanian devil population to decline by $\sim 77\%$ within 5 years \citep{haw06, laz18}.  Devils are under risk of extinction \citep{mcc09}.} 
+have identified two major risk factors that can drive populations into the doomed regime: long-term reductions in population size and increases in mutation rate   \citep{Lynch_MUTATION_1990, lyn93, Gabriel_MULLER_1993, lyn95}.  Population size could decline as a result of changes in the environment, such as, climate change, decreased food availability, habitat loss or fragmentation, and emergence of infectious diseases.  
+For example, the emergence of Devil Facial Tumor Disease, a transmissible cancer, has caused the size of the Tasmanian devil population to decline by $\sim 77\%$ within 5 years \citep{haw06, laz18}.  Devils are under risk of extinction \citep{mcc09}. 
 %in the United Kingdom, the population sizes of 10 species of seed-eating birds have declined because of the use of herbicides and the shift from spring-sown to fall-sown cereals, both of which have reduced the availability of food for these birds \citep{new04}.
 Increases in mutation rate have been observed directly in experimental populations.  For example, a population of \emph{Escherichia coli} adapting to a constant environment evolved a mutator mutation after $\sim 2.5 \times 10^4$  generations that increased mutation rate by $\sim 150$-fold \citep{bar09, wie13}.
 Increased mutation rate can even drive a large population into the doomed regime---a phenomenon known as lethal mutagenesis \citep{Bull_Theory_2007}.
@@ -819,58 +823,101 @@ The difference in the mode of selection in these models explains the different e
 
 
 
-\subsection{Other potential topics}
+% \subsection{Other potential topics}
 
-Below is a haphazard collection of topics to consider discussing.  Feel free to add some bullets.  I've crossed out things that we have already mentioned.
+% Below is a haphazard collection of topics to consider discussing.  Feel free to add some bullets.  I've crossed out things that we have already mentioned.
 
-\begin{itemize}
-\item \sout{Although drift is irrelevant in driving extinction, it nevertheless drives a population into the meltdown regime via Ratchet clicks in the Haigh regime}
-%
-\item \sout{Lynch and Gabriel (1990), using simulations, also find that extinction time is a function of $us$.}  
-%
-\item Log dependence of extinction time on $n_0$ implies that large increases in $n_0$ cause only relatively small delays in ultimate extinction.   Similar to a result in other stochastic models of population dynamics \citep{lan93, Jagers_On_2007}.  Lynch et al. (1993) also infer that for extinction time during the meltdown phase based on simulations.
-%
-\item \sout{Increasing $s$ accelerates extinction, counter the results of Lynch et al., who found that intermediate $s$ minimizes extinction time.}  
-%
-\item \sout{Extinction does not necessarily imply meltdown even if the two are used interchangeably.}
-%
-\item \sout{Relative vs absolute fitness.}
-%
-\item We must consider variable mutational effects in the future.
-%
-\item Doomed regime can arise either because of mutation accumulation via Muller's ratchet, or because of environmental change.
-%
-\item The assumption of lack of density-dependent regulation is realistic for populations that have just crossed into the doomed regime.
-%
-\item \sout{The doomed regime is intrinsically interesting because it constitutes the last chance for a population to be rescued by compensatory mutations.}  For example, this is relevant for the case of cancer.  And for the evolution of sex where asexuals are thought to be more susceptible to extinction.
-%
-\item A more realistic regime: we can think of there being 2 regimes for the population depending on its size. 1) When the population is close to carrying capacity relative fitness dominates the dynamics. 2) When the population is well below capacity, absolute fitness dominates (roughly). The first click of the ratchet, therefore, depends on selection coefficient in the first regime but not the second. 
-%
-\item \sout{Lethal mutagenesis.  They also ignore the meltdown phase.}
-%
-\item From the Tug-of-War paper:
-``PARP inhibitors, which increase DNA damage in BRCA1/2-positive tumors, may already be curing patients by inducing mutational meltdown.''
-%
-\item In their other paper they claim that increasing $s$ has a bigger effect on shrinking a tumor than increasing $u$.  But our model suggests the opposite.
-\end{itemize}
-\textbf{}
+% \begin{itemize}
+% \item \sout{Although drift is irrelevant in driving extinction, it nevertheless drives a population into the meltdown regime via Ratchet clicks in the Haigh regime}
+% %
+% \item \sout{Lynch and Gabriel (1990), using simulations, also find that extinction time is a function of $us$.}  
+% %
+% \item Log dependence of extinction time on $n_0$ implies that large increases in $n_0$ cause only relatively small delays in ultimate extinction.   Similar to a result in other stochastic models of population dynamics \citep{lan93, Jagers_On_2007}.  Lynch et al. (1993) also infer that for extinction time during the meltdown phase based on simulations.
+% %
+% \item \sout{Increasing $s$ accelerates extinction, counter the results of Lynch et al., who found that intermediate $s$ minimizes extinction time.}  
+% %
+% \item \sout{Extinction does not necessarily imply meltdown even if the two are used interchangeably.}
+% %
+% \item \sout{Relative vs absolute fitness.}
+% %
+% \item We must consider variable mutational effects in the future.
+% %
+% \item Doomed regime can arise either because of mutation accumulation via Muller's ratchet, or because of environmental change.
+% %
+% \item The assumption of lack of density-dependent regulation is realistic for populations that have just crossed into the doomed regime.
+% %
+% \item \sout{The doomed regime is intrinsically interesting because it constitutes the last chance for a population to be rescued by compensatory mutations.}  For example, this is relevant for the case of cancer.  And for the evolution of sex where asexuals are thought to be more susceptible to extinction.
+% %
+% \item A more realistic regime: we can think of there being 2 regimes for the population depending on its size. 1) When the population is close to carrying capacity relative fitness dominates the dynamics. 2) When the population is well below capacity, absolute fitness dominates (roughly). The first click of the ratchet, therefore, depends on selection coefficient in the first regime but not the second. 
+% %
+% \item \sout{Lethal mutagenesis.  They also ignore the meltdown phase.}
+% %
+% \item From the Tug-of-War paper:
+% ``PARP inhibitors, which increase DNA damage in BRCA1/2-positive tumors, may already be curing patients by inducing mutational meltdown.''
+% %
+% \item In their other paper they claim that increasing $s$ has a bigger effect on shrinking a tumor than increasing $u$.  But our model suggests the opposite.
+% \end{itemize}
+% \textbf{}
 
-\newpage
+% \newpage
+
+
+
 
 \section{Methods and Materials}
 
+
+
+
 \subsection{Numerical calculations}
 
+\subsubsection{Expected extinction time of the mutation-free class}
+We calculated $t_0$ by computing \EQ{t0} until the following criterion was met 
+%
+\begin{equation*}
+\left(\varphi_{k}^{(t)}(0)\right)^{n_{0}} - \left(\varphi_{k}^{(t+1)}(0)\right)^{n_{0}} < 10^{-6} \quad .
+\end{equation*}
+%
+A similar criterion was applied when evaluating \EQ{tk} and \EQ{vartauk}. 
+
 \subsubsection{Expected extinction time}
-We calculate $\mathbf{T}$ numerically (\EQ{T}) by assuming that $P(\tau_{k} > 0) = 0$ and computing \EQ{tk} until the following criterion is met 
+We calculated $\mathbf{T}=E[T]$ (\EQ{T}) by computing \EQ{tk} until the following criterion was met 
+%
 \begin{equation*}
 t_k - t_{k-1} < 10^{-6} \quad .
 \end{equation*}
+%
+\red{We computed $\mathbf{T}$ for both bounds of $P(\tau_{k} > 0)$ when $k>0$ (\EQ{bounds}).  We present only results for the lower bound.  None of our conclusions would be changed by using the upper bound results instead (not shown).}
 
-\begin{itemize}
-    \item Stochastic simulations.
-    \item Code availability
-\end{itemize}
+\subsubsection{Variance in extinction time}
+
+We calculated the variance in extinction time by computing 
+%
+\begin{equation}
+    \mathrm{Var}[T] = \sum_{k=0}^\infty \mathrm{Var}[\tau_k] \quad ,
+    \label{eq:varT}
+\end{equation}
+%
+up to the same value of $k$ used to calculate $\mathbf{T}$ (see \EQ{vartauk}).  
+\red{Again, we only present results for the lower bound of $P(\tau_{k} > 0)$ when $k>0$ (\EQ{bounds}).}
+\EQ{varT} assumes that the extinction times of different classes are independent (i.e., we ignore the covariance terms).  
+This assumption was confirmed by simulations (not shown).
+
+\subsubsection{Coefficient of variation in extinction time}
+
+We calculated the coefficient of variation of extinction time by computing 
+%
+\begin{equation}
+    \mathrm{CV}[T] = \frac{\sqrt{\mathrm{Var}[T]}}{\mathbf{T}} \quad . 
+    \label{eq:CV}
+\end{equation}
+%
+The CV measures the variability relative to the mean.
+
+% \begin{itemize}
+%     \item Stochastic simulations.
+%     \item Code availability
+% \end{itemize}
 
 %Guidelines can be included for standard research article sections, such as this one. 
 
@@ -992,7 +1039,7 @@ t_k - t_{k-1} < 10^{-6} \quad .
 
 \section{Acknowledgments}
 
-We thank Alex Stewart for helpful comments.  
+We thank Alex Stewart, Ata Kalirad, and Erin Kelleher for discussions.  
 
 % Additional information can be given in the template, such as to not include funder information in the acknowledgments section.
 
