@@ -681,7 +681,7 @@ FUNCTION {format.names.auth}
         {
           nameptr #20
           #1 + =
-          numnames #20
+          numnames #21
           > and
             { "others" 't :=
               #1 'namesleft := }

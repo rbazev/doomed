@@ -25,13 +25,6 @@
 \usetikzlibrary{shapes.symbols}
 \usepackage{helvet}
 
-% Annotating text
-\usepackage{color}
-\newcommand{\blue}{\textcolor{blue}}
-\newcommand{\red}{\textcolor{red}}
-\newcommand{\org}{\textcolor{orange}}
-\usepackage[normalem]{ulem}
-
 % Proof
 \usepackage{amsthm}
 \newtheorem{lemma}{Lemma}
@@ -85,7 +78,7 @@
 
 \begin{abstract}
 %Please provide an abstract of no more than 150 words. Your abstract should explain the main contributions of your article, and should not contain any material that is not included in the main text.
-Asexual populations are expected to accumulate deleterious mutations through a process known as Muller's Ratchet.  Lynch and colleagues have proposed that the Ratchet eventually results in a vicious cycle of mutation accumulation and population decline that drives populations to extinction.  They called this phenomenon mutational meltdown.  Here, we analyze the  meltdown using a multitype branching process model where, in the presence of mutation, populations are doomed to extinction.  We find that extinction occurs more quickly in small populations, experiencing a high deleterious mutation rate, and mutations with more severe deleterious effects.  Our results differ from predictions on the relationship between the severity of Muller's Ratchet and mutational parameters in populations of constant size.  We also find that mutational meltdown, although it does occur in our populations, does not determine extinction time.  Rather, extinction time is approximately inversely proportional to the expected impact of deleterious mutations on fitness.
+Asexual populations are expected to accumulate deleterious mutations through a process known as Muller's Ratchet.  Lynch, Gabriel, and colleagues have proposed that the Ratchet eventually results in a vicious cycle of mutation accumulation and population decline that drives populations to extinction.  They called this phenomenon mutational meltdown.  Here, we analyze the  meltdown using a multitype branching process model where, in the presence of mutation, populations are doomed to extinction.  We find that extinction occurs more quickly in small populations, experiencing a high deleterious mutation rate, and mutations with more severe deleterious effects.  The effects of mutational parameters on extinction time in doomed populations differ from those on the severity of Muller's Ratchet in populations of constant size.  We also find that mutational meltdown, although it does occur in our model, does not determine extinction time.  Rather, extinction time is determined by the expected impact of deleterious mutations on fitness.
 \end{abstract}
 
 
@@ -108,7 +101,7 @@ As a result, the class of individuals with the fewest deleterious mutations may,
 \citep{Muller_The_1964, Felsenstein_The_1974, Haigh_The_1978}.  Successive ``clicks'' of the Ratchet will cause the fitness of asexual populations to decline.
 Muller's Ratchet has been invoked to explain 
 the evolution of sex \citep{Muller_The_1964, Felsenstein_The_1974, gor08},
-\blue{the extinction of small populations \citep{lyn93, lyn95},}
+the extinction of small populations \citep{lyn93, lyn95},
 the accelerated rate of evolution of endosymbiotic bacteria \citep{mor96},
 the degeneration of Y-chromosomes \citep{Charlesworth_Model_1978, gor00b},
 and cancer progression \citep{McFarland_Impact_2013, McFarland_Tug_2014}.  
@@ -488,8 +481,8 @@ t_{0} = 1+\sum_{t=1}^{\infty}\left(1-\left(\varphi_{k}^{(t)}(0)\right)^{n_{0}}\r
 \end{equation}
 %
 When $k>0$, \EQ{tk} is an approximation (\EQ{tauk} and \EQ{xk}).
-\red{In addition, we do not have a closed form expression for $P(\tau_{k}>0)$ for $k>0$.
-We can, however,} place bounds on $P(\tau_{k}>0)$ by noting that
+In addition, we do not have a closed form expression for $P(\tau_{k}>0)$ for $k>0$.
+We can, however, place bounds on $P(\tau_{k}>0)$ by noting that
 %
 \begin{equation}
 \tau_{k} > 0 \; \Leftrightarrow \; X_{T_{k-1}}^{(k)} > 0
@@ -532,7 +525,7 @@ Red circles indicate expected population size (\EQ{N}) every 30 generations.
 %
 \textbf{(C)} Distribution of extinction times, $T$, in the stochastic simulations described in \textbf{(B)}. 
 Blue line shows mean $T$ based on the $10^4$ replicate populations.  
-Red line shows $\mathbf{T}$ calculated numerically (see \textbf{Methods and Materials}).  
+Red line shows $\mathbf{T}$ calculated numerically (see \textbf{Materials and Methods}).  
 %
 \textbf{(D)} Extinction times of populations with the same mutational parameters as those in \textbf{(A)} but with a range of initial populations sizes, $n_0$.
 %
@@ -599,7 +592,7 @@ Blue lines show mean values of $T$ based on stochastic simulations of $10^4$ rep
 %
 Light blue regions indicate $\overline{T} \pm  \mathrm{SD}[T]$  If $\mathrm{SD}[T] > \overline{T}$, the lower bound of the region was set to zero (see \FIGSUPP[valid]{sf2} for more on the variability of $T$).
 %
-Red lines show $\mathbf{T}$ calculated numerically (see \textbf{Methods and Materials}) for 41 values of the parameter being manipulated, evenly spaced on a log-scale.
+Red lines show $\mathbf{T}$ calculated numerically (see \textbf{Materials and Methods}) for 41 values of the parameter being manipulated, evenly spaced on a log-scale.
 %
 \textbf{(C)} Severity of Muller's Ratchet in populations of constant size and a deleterious mutation rate of $U = 0.01$ per genome per generation.  Values are the expected declines in mean fitness per thousand generations, $10^3 \times s/\Delta t$, for 101 values of $s$ evenly spaced on a log-scale.  
 $\Delta t$ is the time between clicks of the Ratchet calculated using the method of \citet{Gordo_On_2000, gor00b}.
@@ -664,7 +657,7 @@ $\Delta t_1, \Delta t_2, \ldots$ (\EQ{deltat})
 are also expected to approach constant values as $n_0\to\infty$.  Since
 $t_0$ grows logarithmically, this result implies that $t_0$ represents an increasing fraction of $\mathbf{T}$ as $n_0$ increases. 
 Therefore, we also expect $\mathbf{T}$ to grow logarithmically with $n_0$. 
-\red{Variability in extinction time declines with $n_0$ (\FIGSUPP[decay]{sf1}).}
+Variability in extinction time declines with $n_0$ (\FIGSUPP[decay]{sf1}).
 
 At a particular value of $n_0$, however, $t_0$ is not sufficient to explain the variation in total extinction time for different mutational parameters: 
 $t_0$ dominates $\mathbf{T}$ when $u/s$ is low, but not when it is high (\FIG{heat}B and \FIGSUPP[heat]{sf3}A).  One reason for this pattern is that $x_1$ increases with $u/s$ (\EQ{x1}; \FIG{heat}C).
@@ -746,7 +739,7 @@ High values of $s$ have no effect on $\Delta t_0$ but decrease $x_1$, and theref
 \includegraphics[width=.71\linewidth]{melt.pdf}
 \caption{Mutational meltdown does not determine extinction time in doomed populations.  
 %
-\textbf{(A)} Circles denote time between clicks, $\Delta t_k$ (\EQ{deltat}).  Click $k$ indicates the extinction of $k$-type individuals.  Values of $t_0$ were calculated using \EQ{t0}; values of $t_1, t_2,$ and $t_3$ were calculated using \EQ{tk} (see \textbf{Methods and Materials}).
+\textbf{(A)} Circles denote time between clicks, $\Delta t_k$ (\EQ{deltat}).  Click $k$ indicates the extinction of $k$-type individuals.  Values of $t_0$ were calculated using \EQ{t0}; values of $t_1, t_2,$ and $t_3$ were calculated using \EQ{tk} (see \textbf{Materials and Methods}).
 Note that $\Delta t_k$ is displayed on a log-scale.  Each combination of mutational parameters results in populations having the same expected extinction time $(\mathbf{T} = 223.52)$.  Lines indicate linear regression fits of $\ln \Delta t_k$ on $k$ (meltdown rates: $\beta = -3.20, -1.14$ and $-0.32$, respectively).
 %
 \textbf{(B)} Meltdown rates, $\beta$, calculated as shown in \textbf{(A)} for $21\times21=441$ combinations of values of $s$ and $u$ evenly spaced on a log-scale.
@@ -762,7 +755,7 @@ Note that $\Delta t_k$ is displayed on a log-scale.  Each combination of mutatio
 Does mutational meltdown determine extinction time? 
 %
 \FIG{melt} shows that doomed populations can experience strong mutational meltdown.  However, mutational meltdown does not determine extinction time.  Although the three scenarios summarized in \FIG{melt}A have widely different meltdown rates, they have the same expected extinction time, $\mathbf{T} = 223.52$.  The lack of correlation between $\mathbf{T}$ and $\beta$ is clear when we compare \FIG{heat}A and \FIG{melt}B.
-\red{For a given extinction time, the meltdown rate is positively correlated to the \textit{variability} in extinction time (\FIGSUPP[valid]{sf2} and \FIGSUPP[heat]{sf3}B).}
+For a given extinction time, the meltdown rate is positively correlated to the \textit{variability} in extinction time (\FIGSUPP[valid]{sf2} and \FIGSUPP[heat]{sf3}B).
 
 The results so far indicate that Muller's Ratchet does not determine extinction time in doomed populations.  So what does?
 %
@@ -792,56 +785,56 @@ They called this vicious cycle mutational meltdown and concluded that it drives 
 However, the lack of quantitative theory on the mutational meltdown has made it difficult to evaluate the Lynch-Gabriel hypothesis.
 
 Our results challenge the Lynch-Gabriel hypothesis.  Although doomed populations can experience mutational meltdown---measured by the acceleration of the Muller's Ratchet---, the rate of mutational meltdown does not determine extinction time (\FIG{melt}A).  Therefore, the Lynch-Gabriel mutational meltdown is not a general \textit{cause} of extinction.  Rather, our results suggest that extinction time is determined by the expected impact of deleterious mutations on fitness.  
-\red{Interestingly, if we compare populations with the same expected extinction time but different mutational parameters, populations undergoing faster meltdown rate have more variable extinction times than populations undergoing slower meltdown  (\FIGSUPP[heat]{sf3}).}
+Interestingly, if we compare populations with the same expected extinction time but different mutational parameters, populations undergoing faster meltdown rate have more variable extinction times than populations undergoing slower meltdown  (\FIGSUPP[heat]{sf3}).
 
 The Lynch-Gabriel hypothesis emphasized the role of the change in the strength of genetic drift in causing mutational meltdown \citep[e.g., ``we refer to this synergism between mutation accumulation and random genetic drift as a mutational meltdown'';][]{lyn93}.  
 Our results indicate that extinction in doomed populations is driven by mutation pressure, not genetic drift.  
 %
 \citet{Gessler_The_1995}  identified a related phenomenon in the operation of Muller's Ratchet under constant population size: if the mutation rate is too high the Ratchet is driven by mutation pressure, not genetic drift.
 %
-\red{Since the expression ``mutational meltdown'' is now in common usage \citep[e.g.,][]{row03, Allen_Mutational_2009, McFarland_Tug_2014}, we propose that it be revised to refer to extinction caused by mutation pressure.}
+Since the expression ``mutational meltdown'' is now in common usage \citep[e.g.,][]{poo00, row03, Allen_Mutational_2009, McFarland_Tug_2014}, we propose that it be revised to refer to extinction caused by mutation pressure.
 
 The extent to which real populations undergo mutational meltdown is unclear.  A population must first enter the doomed regime.  Models of Muller's Ratchet in populations of constant size
 have identified three major risk factors that can drive populations into the doomed regime: long-term reductions in population size,  increases in mutation rate, 
-\blue{and intermediate deleterious effects of mutations}
+and intermediate deleterious effects of mutations
 \citep{Lynch_MUTATION_1990, lyn93, Gabriel_MULLER_1993, lyn95, McFarland_Impact_2013}.  Increased mutation rate can even drive a very large population into the doomed regime---a phenomenon known as lethal mutagenesis \citep{Bull_Theory_2007}.
-\org{Next, we consider the first two risk factors.}.
+Next, we consider the first two risk factors..
 
 Population size can decline as a result of changes in the environment, such as, climate change, decreased food availability, emergence of infectious diseases, and habitat loss or fragmentation.  
 For example, the emergence of Devil Facial Tumor Disease, a transmissible cancer, has caused the size of the Tasmanian devil population to decline by $\sim$77\% within 5 years \citep{haw06, laz18}.  As a result, the devils are under risk of extinction \citep{mcc09}. 
 %
-\blue{Our results indicate that increasing population size causes relatively small delays in extinction in doomed populations.  
+Our results indicate that increasing population size causes relatively small delays in extinction in doomed populations.  
 %
 $\mathbf{T}$ is approximately proportional to the logarithm of initial population size (\FIG{decay}D).  
 %
-Similar results have been obtained in other stochastic models of population dynamics \citep{lan93, Jagers_On_2007}.}
+Similar results have been obtained in other stochastic models of population dynamics \citep{lan93, Jagers_On_2007}.
 
 Increases in mutation rate have been observed directly in experimental populations.  For example, a population of \emph{Escherichia coli} adapting to a constant environment evolved a mutator mutation after $\sim$25,000  generations that increased mutation rate by $\sim$150-fold \citep{bar09, wie13}.
 %
 Evolution experiments have revealed that real populations can, indeed, experience  increased extinction risk when the mutation rate is high.  
 %
-\red{\citet{zey01a} allowed 12 populations of the yeast \textit{Saccharomyces cerevisiae} with genetically elevated mutation rate to evolve and found that two of them went extinct within 2,900 generations.  One of these populations went extinct shortly after a large decline in fitness.}
+\citet{zey01a} allowed 12 populations of the yeast \textit{Saccharomyces cerevisiae} with genetically elevated mutation rate to evolve and found that two of them went extinct within 2,900 generations.  One of these populations went extinct shortly after a large decline in fitness.
 %
-\citet{ban16} subjected two populations of influenza A virus to \red{gradually increasing} concentrations of favipiravir, a drug that increases the mutation rate of the virus, and observed that both populations accumulated mutations rapidly and went extinct. 
+\citet{ban16} subjected two populations of influenza A virus to gradually increasing concentrations of favipiravir, a drug that increases the mutation rate of the virus, and observed that both populations accumulated mutations rapidly and went extinct. 
 %
 The results from both of these studies are broadly consistent with the occurrence of a mutational meltdown.  However, they do not allow us to distinguish between the Lynch-Gabriel model and ours.
 
-\blue{The results described in the previous paragraph indicate that mutational meltdown might have clinical applications.  
+The results described in the previous paragraph indicate that mutational meltdown might have clinical applications.  
 %
 Mutagenic agents are being explored as antiviral drugs \citep{loe99, cro01, par01, ban16}.
 %
 Increased mutation rate in tumor cells has been found to correlate with improved outcomes for some cancers \citep{sil00, bir11, and16}.  
 %
-Several inhibitors of key components of the DNA-repair and DNA damage-response machinery \citep[e.g., PARP inhibitors,][]{lor15}, are currently being used to treat cancer, or are under preclinical or clinical development \citep{bro17}.}
+Several inhibitors of key components of the DNA-repair and DNA damage-response machinery \citep[e.g., PARP inhibitors,][]{lor15}, are currently being used to treat cancer, or are under preclinical or clinical development \citep{bro17}.
 
 The relative theoretical neglect of the evolutionary dynamics in doomed populations is surprising given that it is central to understanding the long-term consequences of both Muller's Ratchet \citep{Lynch_MUTATION_1990,lyn93,Gabriel_MULLER_1993,lyn95} and lethal mutagenesis \citep{Bull_Theory_2007, mat17}.  
 %
 In both cases, the duration of the meltdown phase was dismissed because it was predicted to be short relative to the time required for the population to \textit{become} doomed \citep{lyn93,lyn95,Bull_Theory_2007}.
 %
 However, we believe that this neglect of the meltdown phase is misplaced because it
-is an important phase in the life of a population---the last chance for the population to be rescued by beneficial mutations and avoid extinction.  The dynamics and duration of the meltdown phase are expected to be important determinants of the probability of evolutionary rescue.  \blue{For a given probability of beneficial mutation and selection coefficient of those mutations, populations that decline in size more slowly and retain higher proportions of mutation-free individuals for longer, are more likely to be rescued \citep{mar13}.  
+is an important phase in the life of a population---the last chance for the population to be rescued by beneficial mutations and avoid extinction.  The dynamics and duration of the meltdown phase are expected to be important determinants of the probability of evolutionary rescue.  For a given probability of beneficial mutation and selection coefficient of those mutations, populations that decline in size more slowly and retain higher proportions of mutation-free individuals for longer, are more likely to be rescued \citep{mar13}.  
 %
-Rescue of doomed populations may play an important role in cancer progression \citep{McFarland_Impact_2013, McFarland_Tug_2014}.}
+Rescue of doomed populations may play an important role in cancer progression \citep{McFarland_Impact_2013, McFarland_Tug_2014}.
 
 A central assumption of our model  is that individuals experience hard selection \citep{wal75}.   
 The expected number of offspring of an individual is its absolute fitness, $w_k$ (\EQ{fit}), and is both density independent and frequency independent.  The Lynch-Gabriel models make similar assumptions during the mutational meltdown phase \citep{lyn93,lyn95}. 
@@ -851,9 +844,9 @@ In contrast, classic models of Muller's Ratchet typically assume soft selection 
 The difference in the mode of selection in these models explains the different effects of the deleterious effect of a mutation, $s$, on extinction time in our model, and on the severity of Muller's Ratchet in classic models.  In doomed populations, increasing $s$ accelerates extinction, albeit with diminishing returns (\FIG{decay}B and \FIG{heat}).  In models with soft selection, the Ratchet is most severe at an intermediate value of $s$ 
 \citep[\FIG{decay}C;][]{lyn95, Gordo_On_2000, gor00b}.  
 
-\blue{In reality, populations do not necessarily experience either of the extremes of soft or hard selection.  Factors such as population structure, resource availability, and the mechanism of competition can modulate the ``softness'' of selection in complex ways; different genotypes in a population, and even different genes, can experience different softness of selection \citep{laf10, ho12}.  This raises the interesting question of how mutational meltdown operates in regimes of intermediate softness, or with a smooth transition between soft and hard selection as mutations accumulate.}
+In reality, populations do not necessarily experience either of the extremes of soft or hard selection.  Factors such as population structure, resource availability, and the mechanism of competition can modulate the ``softness'' of selection in complex ways; different genotypes in a population, and even different genes, can experience different softness of selection \citep{laf10, ho12}.  This raises the interesting question of how mutational meltdown operates in regimes of intermediate softness, or with a smooth transition between soft and hard selection as mutations accumulate.
 
-\blue{Our model includes at least three other simplifications that could have important consequences for the evolutionary dynamics of doomed populations.  
+Our model includes at least three other simplifications that could have important consequences for the evolutionary dynamics of doomed populations.  
 %
 First, the environment, and therefore selection, is constant.  \citet{Wardlaw_Temporal_2012} showed that temporal variation in selection can accelerate Muller's Ratchet in populations of constant size.
 %
@@ -861,8 +854,8 @@ Second, all mutations are deleterious.  Beneficial mutations could, potentially,
 %
 Third, individuals reproduce asexually.  Sex has been shown to slow down Muller's Ratchet dramatically in populations of constant size \citep{pam87, cha93}, and can delay extinction in large populations \citep{lyn95a}.
 %
-We believe that our model provides a promising framework to explore the consequences of relaxing these assumptions} 
-\org{for the fate of populations doomed to extinction}.
+We believe that our model provides a promising framework to explore the consequences of relaxing these assumptions 
+for the fate of populations doomed to extinction.
 
 
 % \subsection{Idea in progress}
@@ -910,7 +903,7 @@ We believe that our model provides a promising framework to explore the conseque
 
 
 
-\section{Methods and Materials}
+\section{Materials and Methods}
 
 
 
@@ -933,7 +926,7 @@ We calculated $\mathbf{T}=E[T]$ (\EQ{T}) by computing \EQ{tk} until the followin
 t_k - t_{k-1} < 10^{-6} \quad .
 \end{equation*}
 %
-\red{We computed $\mathbf{T}$ for both bounds of $P(\tau_{k} > 0)$ when $k>0$ (\EQ{bounds}).  We present only results for the lower bound.  None of our conclusions would be changed if we used the upper bound results instead (not shown).}
+We computed $\mathbf{T}$ for both bounds of $P(\tau_{k} > 0)$ when $k>0$ (\EQ{bounds}).  We present only results for the lower bound.  None of our conclusions would be changed if we used the upper bound results instead (not shown).
 
 \subsubsection{Variance in extinction time}
 
@@ -945,7 +938,7 @@ We calculated the variance in extinction time by computing
 \end{equation}
 %
 up to the same value of $k$ used to calculate $\mathbf{T}$ (see \EQ{vartauk}).  
-\red{Again, we only present results for the lower bound of $P(\tau_{k} > 0)$ when $k>0$ (\EQ{bounds}).}
+Again, we only present results for the lower bound of $P(\tau_{k} > 0)$ when $k>0$ (\EQ{bounds}).
 \EQ{varT} assumes that the extinction times of different classes are independent (i.e., we ignore the covariance terms).  
 This assumption was confirmed by simulations (not shown).
 
