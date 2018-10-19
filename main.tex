@@ -1192,9 +1192,9 @@ Figures \ref{fig:decay}D, \ref{fig:valid}A, and \ref{fig:valid}B show that the a
 Overestimation of \textbf{T} is partly explained by the concavity of $E[\tau_k]$ as a function of $x_k$ in Equation \ref{eq:tauk}. %(having discussed the extinction of consecutive classes, we now replace the original $n_{k}$ in Equation \ref{eq:tauk} with $x_k$). 
 The second derivative with respect to $x_k$ is 
 \begin{equation*}
-\frac{d^2E[\tau_k]}{d(x_k)^2} = -\sum \limits_{n=1}^\infty\ln^2\left(\varphi_{k}^{(n)}(0)\right)\left(\varphi_{k}^{(n)}(0)\right)^{x_{k}}
+\frac{d^2E[\tau_k]}{d x_k^2} = -\sum \limits_{t=1}^\infty\left( \left(\varphi_{k}^{(t)}(0)\right)^{x_{k}}\ln^2\left(\varphi_{k}^{(t)}(0)\right)\right)
 \end{equation*}
-which is negative because both factors of each term in the sum are positive and hence the function is concave. By the reversed Jensen's inequality, for a concave function, $E[f(X)]<f(E[X])$, which implies that $E[\tau_k]$ is consistently overestimated, rendering total extinction time overestimated in turn. 
+which is negative because both factors of each term in the sum are positive and hence the function is concave. By the reversed Jensen's inequality, for a concave function, $E[f(X)]<f(E[X])$, which implies that $E[\tau_k]$ is consistently overestimated by \EQ{tauk}.  Thus, \EQ{T} overestimates \textbf{T}. 
 
 \end{appendixbox}
 
