@@ -317,22 +317,24 @@ Let $\tau_k$ denote the time of extinction of individuals of type $k$ in a popul
 There are no individuals of type $i < k$ in the population.
 By a standard result from probability theory
 %
-\begin{equation*}
-E[\tau_k]=\sum_{t=0}^{\infty}P(\tau_k>t) \quad .
-\end{equation*}
+% \begin{equation*}
+\[ E[\tau_k]=\sum_{t=0}^{\infty}P(\tau_k>t) \quad . \]
+% \end{equation*}
 
 The time of extinction of the entire type-$k$ subpopulation is the time of extinction of the $N_{k}$ independent subpopulations started from the ancestors. The p.g.f.\ of the number of $k$-type individuals in generation $t$ is given by the $t$-fold composition of $\varphi_k$ (\EQ{pgf}) with itself, denoted by $\varphi^{(t)}_k$. We get
 %
-$$\tau_{k}=\max\{\tau_{k,1},...,\tau_{k,N_{k}}\}$$
+% \begin{equation*}
+\[ \tau_{k}=\max\{\tau_{k,1},...,\tau_{k,N_{k}}\} \]   
+% \end{equation*}
 %
 where $\tau_{k,j}$ is the time of extinction of the subpopulation started from the $j$th individual, $j=1,...,N_k$. If we let $Z_{t}^{(k,j)}$ denote the number of type-$k$ individuals in generation $t$ stemming from the $j$th individual we have the equivalence 
 %
-\begin{equation*}
-\tau_{k,j}\leq t \; \Leftrightarrow \; Z_{t}^{(k,j)}=0
-\end{equation*}
+% \begin{equation*}
+\[ \tau_{k,j}\leq t \; \Leftrightarrow \; Z_{t}^{(k,j)}=0 \]
+% \end{equation*}
 %
 and get the conditional probability given $N_k$
-%
+
 \begin{align*}
 %
 P(\tau_{k}>t|N_k) & =  1-P(\tau_{k}\leq t|N_k)\\[3pt]
@@ -342,12 +344,12 @@ P(\tau_{k}>t|N_k) & =  1-P(\tau_{k}\leq t|N_k)\\[3pt]
 %
 for $t>0$ which gives 
 %
-\begin{equation*}
+% \begin{equation*}
 %
-E[\tau_{k}] = P(\tau_{k}>0) + E\left[\sum_{t=1}^{\infty}\left(1-\left(\varphi_{k}^{(t)}(0)\right)^{N_{k}}\right)\right]
+\[ E[\tau_{k}] = P(\tau_{k}>0) + E\left[\sum_{t=1}^{\infty}\left(1-\left(\varphi_{k}^{(t)}(0)\right)^{N_{k}}\right)\right] \]
 %
 %\label{expected1}
-\end{equation*}
+% \end{equation*}
 
 With $n_k=E[N_k]$, a first-order Taylor approximation gives 
 %
@@ -371,7 +373,7 @@ In a similar way, we get the variance as
 \end{equation}
 %
 where
-%
+
 \begin{align*}
 %
 E[\tau_{k}(\tau_{k}-1)] & =  2\sum_{t=1}^{\infty}tP(\tau_{k}>t)\\[5pt]
@@ -402,13 +404,13 @@ Start with a fixed number $n_{0}$ of mutation-free individuals and denote by $T_
 (see \EQ{mt})
 which we note is a function of the random variable $T_{0}$. Thus, the expected number of individuals in class 1 at the time of extinction of class 0 is obtained by taking the expected value in $m_{0,1}^{(T_0)}$. To this end, recall \EQ{mt} and define the function 
 %
-\begin{equation*}
-g_1(\cdot)=m_{0,1}^{(\cdot)}
+% \begin{equation*}
+\[ g_1(\cdot)=m_{0,1}^{(\cdot)} \]
 %\label{g1defined}
-\end{equation*}
+% \end{equation*}
 %
 so that 
-%
+
 \begin{align*}
 %
 E\left[m_{0,1}^{(T_{0})}\right] &=  E[g_{1}(T_{0})]\\
@@ -490,7 +492,7 @@ We can, however, place bounds on $P(\tau_{k}>0)$ by noting that
 \end{equation}
 %
 and that if $Y$ is any random variable on $\{0, 1, 2, ...\}$ we have
-%
+
 \begin{align}
 %
 E[Y]  & =   E\left[Y|Y>0\right] P(Y>0)\nonumber\\
@@ -508,9 +510,9 @@ By \EQ{xk}, \EQ{tauk2}, and \EQ{exp} we get the bounds
 %
 \end{equation}
 Because extinction of the whole population is irreversible, $P(\tau_{k} > 0)$ is expected to decline for successive classes:
-\begin{equation*}
-P(\tau_k>0) \leq P(\tau_{k-1}>0) \quad .
-\end{equation*}
+% \begin{equation*}
+\[ P(\tau_k>0) \leq P(\tau_{k-1}>0) \quad . \]
+% \end{equation*}
 
 
 \begin{figure}[ht!]
@@ -561,7 +563,7 @@ with a slope of $-1/\ln m_{0,0}$.  If $u$ is small, the slope becomes $\approx 1
 The value of $t_0$ is not affected by the effects of mutations, $s$ (\EQ{t0} and \EQ{jagers}), because the rate at which individuals ``leave'' the mutation-free class is independent of $s$.  The selection coefficient does, however, affect the size of the new least-loaded class (i.e., individuals with $k=1$ mutation), $x_1$ (\EQ{xk}), and therefore the total time to extinction. 
 
 We now investigate the limiting behavior of $x_1$ as $n_0\to\infty$. By \EQ{xk} and \EQ{jagers} we get 
-%
+
 \begin{align}
 %
 x_{1} &\approx n_0 \, g_{1}(t_0) \nonumber \\[3pt]
@@ -913,18 +915,18 @@ for the fate of populations doomed to extinction.
 \subsubsection{Expected extinction time of the mutation-free class}
 We calculated $t_0$ by computing \EQ{t0} until the following criterion was met 
 %
-\begin{equation*}
-\left(\varphi_{k}^{(t)}(0)\right)^{n_{0}} - \left(\varphi_{k}^{(t+1)}(0)\right)^{n_{0}} < 10^{-6} \quad .
-\end{equation*}
+% \begin{equation*}
+\[ \left(\varphi_{k}^{(t)}(0)\right)^{n_{0}} - \left(\varphi_{k}^{(t+1)}(0)\right)^{n_{0}} < 10^{-6} \quad . \]
+% \end{equation*}
 %
 A similar criterion was applied when evaluating \EQ{vartauk} and \EQ{tk}. 
 
 \subsubsection{Expected extinction time}
 We calculated $\mathbf{T}=E[T]$ (\EQ{T}) by computing \EQ{tk} until the following criterion was met 
 %
-\begin{equation*}
-t_k - t_{k-1} < 10^{-6} \quad .
-\end{equation*}
+% \begin{equation*}
+\[ t_k - t_{k-1} < 10^{-6} \quad . \]
+% \end{equation*}
 %
 We computed $\mathbf{T}$ for both bounds of $P(\tau_{k} > 0)$ when $k>0$ (\EQ{bounds}).  We present only results for the lower bound.  None of our conclusions would be changed if we used the upper bound results instead (not shown).
 
