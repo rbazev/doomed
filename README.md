@@ -5,7 +5,7 @@
 * `README.md`: This file.
 * `main.tex`: LaTeX source for the manuscript.
 * `bibliography.bib`: Bibliography.
-* `elife.cls`: *eLife* LaTeX class.
+* `elife.cls`: *eLife* LaTeX class file.
 * `vancouver-elife.bst`: *eLife* bibliography style.
 * `figures`: Folder containing all figures except Figure 1.
 * `python`: Folder containing code and data to generate figures.
