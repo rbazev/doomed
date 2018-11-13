@@ -489,6 +489,10 @@ Red line shows $\mathbf{T}$ calculated numerically.}
 \figsupp[Variability of extinction time declines with population size.]{\textbf{Variability of extinction time declines with population size.}
 %
 Blue circles show coefficient of variation of $T$, CV$[T]$, for the data shown in \FIG{decay}D.  Red line shows CV$[T]$ calculated numerically using \EQ{CV}.}{\includegraphics[width=0.39\linewidth]{figures/fig2s1.pdf}}\label{figsupp:sf1}
+%
+\figdata{The code to generate these figures is in the Jupyter notebook \url{https://github.com/rbazev/doomed/blob/master/python/fig2.ipynb}.}\label{figdata:fig2a}
+%
+\figdata{The data to generate these figures is at \url{https://github.com/rbazev/doomed/blob/master/python/data/} (files named \texttt{fig2*}).}\label{figdata:fig2b}
 \end{figure}
 
 
@@ -568,6 +572,10 @@ Blue line shows mean values of $T$ based on stochastic simulations of $10^4$ rep
 Light blue region indicates $\overline{T} \pm  \mathrm{SD}[T]$. If $\mathrm{SD}[T] > \overline{T}$, the lower bound of the region was set to zero.  
 %
 \textbf{(B)} Variability of extinction times shown in \textbf{(A)}. Blue circles show coefficient variation of $T$, CV$[T]$.  Red line shows CV$[T]$ calculated numerically using \EQ{CV}.}{\includegraphics[width=0.67\linewidth]{figures/fig3s2.pdf}}\label{figsupp:sf3}
+%
+\figdata{The code to generate these figures is in the Jupyter notebook \url{https://github.com/rbazev/doomed/blob/master/python/fig3.ipynb}.}\label{figdata:fig3a}
+%
+\figdata{The data to generate these figures is at \url{https://github.com/rbazev/doomed/blob/master/python/data/} (files named \texttt{fig3*}).}\label{figdata:fig3b}
 \end{figure}
 
 
@@ -648,6 +656,8 @@ $t_0$ was calculated numerically (see \textbf{Materials and Methods}).
 \textbf{(A)} Expected extinction time of the mutation-free class, $t_0$, used in \FIG{heat}B.
 %
 \textbf{(B)} Coefficient of variation of $T$, CV$[T]$, calculated numerically using \EQ{CV}.}{\includegraphics[width=0.67\linewidth]{figures/fig4s1.pdf}}\label{figsupp:sf4}
+%
+\figdata{The code to generate these figures is in the Jupyter notebook \url{https://github.com/rbazev/doomed/blob/master/python/fig4.ipynb}.}\label{figdata:fig4}
 \end{figure}
 
 
@@ -690,7 +700,6 @@ High values of $s$ have no effect on $\Delta t_0$ but decrease $x_1$, and theref
 
 
 \begin{figure}[ht!]
-\centering
 \includegraphics[width=.71\linewidth]{figures/fig5.pdf}
 \caption{Mutational meltdown does not determine extinction time in doomed populations.  
 %
@@ -700,6 +709,8 @@ Note that $\Delta t_k$ is displayed on a log-scale.  Each combination of mutatio
 \textbf{(B)} Meltdown rates, $\beta$, calculated as shown in \textbf{(A)} for $21\times21=441$ combinations of values of $s$ and $u$ evenly spaced on a log-scale.
 }
 \label{fig:melt}
+%
+\figdata{The code to generate this figure is in the Jupyter notebook \url{https://github.com/rbazev/doomed/blob/master/python/fig5.ipynb}.}\label{figdata:fig5}
 \end{figure}
 
 
@@ -863,8 +874,7 @@ We calculated the coefficient of variation of extinction time by computing
 \subsection{Code availability}
 
 
-Numerical calculations and stochastic simulations of the branching process model were done using software written in Python 2.7.
-All code is available through \url{https://github.com/rbazev/doomed}.
+Numerical calculations and stochastic simulations of the branching process model were done using software written in Python 2.7 and available at \url{https://github.com/rbazev/doomed/blob/master/python/doomed.py}.
 
 
 
