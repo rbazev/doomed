@@ -3,10 +3,17 @@
 ## Contents
 
 * `README.md`: This file.
-* `bibliography.bib`: References.
+* `bibliography.bib`: Bibliography.
 * `elife.cls`: *eLife* LaTeX class.
 * `main.tex`: LaTeX source for the manuscript.
 * `vancouver-elife.bst`: *eLife* bibliography style.
+* `figures`: Folder containing all figures.
+* `python`: Folder containing code and data to generate figures.
+    * `doomed.py`: Python 2.7 code to do numerical calculations and run simulations.
+    * `fig2.ipynb`: Jupyter notebook to generate `../figures/fig2.pdf` and `../figures/fig2s1.pdf`
+    * `fig3.ipynb`: Jupyter notebook to generate `../figures/fig3.pdf`, `../figures/fig3s1.pdf`, and `../figures/fig3s2.pdf`
+    * `fig4.ipynb`: Jupyter notebook to generate `../figures/fig4.pdf` and `../figures/fig4s1.pdf`
+    * `fig5.ipynb`: Jupyter notebook to generate `../figures/fig5.pdf`
 
 
 ## History
