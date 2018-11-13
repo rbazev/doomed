@@ -3,11 +3,11 @@
 ## Contents
 
 * `README.md`: This file.
+* `main.tex`: LaTeX source for the manuscript.
 * `bibliography.bib`: Bibliography.
 * `elife.cls`: *eLife* LaTeX class.
-* `main.tex`: LaTeX source for the manuscript.
 * `vancouver-elife.bst`: *eLife* bibliography style.
-* `figures`: Folder containing all figures.
+* `figures`: Folder containing all figures except Figure 1.
 * `python`: Folder containing code and data to generate figures.
     * `doomed.py`: Python 2.7 code to do numerical calculations and run simulations.
     * `data`: Data to generate `figures/fig2.pdf`, `figures/fig2s1.pdf`, `figures/fig3.pdf`, `figures/fig3s1.pdf`, and `figures/fig3s2.pdf`
