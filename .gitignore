@@ -1,3 +1,4 @@
+.gitignore
 .DS_Store
 python/.ipynb*
 python/.DS_Store
