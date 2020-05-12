@@ -1,4 +1,4 @@
-species,U_hapl,s_hom,diploid,hom,method,source
+species,U,s,diploid,hom,method,source
 VSV,1.6,0.0022,FALSE,FALSE,BM,Halligan & Keightley 2009
 VSV,0.88,0.0024,FALSE,FALSE,BM,Halligan & Keightley 2009
 VSV,1.2,0.0022,FALSE,FALSE,BM,Halligan & Keightley 2009
@@ -46,4 +46,4 @@ C. elegans,0.0066,0.182,FALSE,FALSE,BM,Baer et al. 2005
 C. briggsae,0.074,0.051,FALSE,FALSE,BM,Baer et al. 2005
 C. briggsae,0.025,0.099,FALSE,FALSE,BM,Baer et al. 2005
 O. myriophila,0.0055,0.219,FALSE,FALSE,BM,Baer et al. 2005
-E. coli mutator,0.005,0.03,FALSE,FALSE,,
+E. coli mutator,0.005,0.03,FALSE,FALSE,ML*,Trindade et al. 2010
