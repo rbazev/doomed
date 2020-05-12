@@ -1,49 +1,53 @@
-species,U,s,diploid,hom,method,source
-VSV,1.6,0.0022,FALSE,FALSE,BM,Halligan & Keightley 2009
-VSV,0.88,0.0024,FALSE,FALSE,BM,Halligan & Keightley 2009
-VSV,1.2,0.0022,FALSE,FALSE,BM,Halligan & Keightley 2009
-phi6,0.03,0.093,FALSE,FALSE,ML*,Burch et al. 2007
-E. coli,1.70E-04,0.012,FALSE,FALSE,BM,Kibota & Lynch 1996
-S. cerevisiae,6.30E-05,0.061,TRUE,FALSE,ML,Joseph & Hall 2004
-S. cerevisiae,1.14E-03,0.086,TRUE,TRUE,Tetrad,Wloch et al. 2001
-S. cerevisiae,9.46E-05,0.217,FALSE,FALSE,ML,Zeyl & DeVisser 2001
-A. gloriosa,0.099,0.05,TRUE,TRUE,,
-A. douglasiana,0.073,0.18,TRUE,TRUE,,
-A. douglasiana,0.088,0.03,TRUE,TRUE,,
-A. thaliana,0.05,0.23,TRUE,TRUE,,
-A. thaliana,0.06,0.02,TRUE,TRUE,,
-A. thaliana,0.1,-0.0012,TRUE,TRUE,,
-C. elegans,0.0026,0.21,TRUE,TRUE,,
-C. elegans,0.0035,0.1,TRUE,TRUE,,
-C. elegans,0.0075,0.22,TRUE,TRUE,,
-C. elegans,0.018,0.058,TRUE,TRUE,,
-D. melanogaster,0.35,0.027,TRUE,TRUE,,
-D. melanogaster,0.011,0.19,TRUE,TRUE,,
-D. melanogaster,0.01,0.23,TRUE,TRUE,,
-D. melanogaster,0.02,0.1,TRUE,TRUE,,
-D. melanogaster,0.0031,0.25,TRUE,TRUE,,
-D. melanogaster,0.037,0.083,TRUE,TRUE,,
-D. melanogaster,0.0015,0.55,TRUE,TRUE,,
-D. melanogaster,0.022,0.16,TRUE,TRUE,,
-D. melanogaster,0.068,0.12,TRUE,TRUE,,
-D. melanogaster,0.012,0.23,TRUE,TRUE,,
-D. melanogaster,0.03,0.11,TRUE,TRUE,,
-D. melanogaster,0.039,0.11,TRUE,TRUE,,
-D. melanogaster,0.34,0.29,TRUE,TRUE,,
-D. melanogaster,0.1,0.33,TRUE,TRUE,,
-D. melanogaster,0.4,0.29,TRUE,TRUE,,
-D. melanogaster,0.03,0.26,TRUE,TRUE,,
-T. thermophila,0.0047,0.109,TRUE,TRUE,,
-T. thermophila,0.0205,0.0198,TRUE,TRUE,,
-T. thermophila,0.00337,0.325,TRUE,TRUE,,
-C. elegans,0.02,0.06,TRUE,TRUE,,
-D. pulicaria,0.157,0.082,FALSE,FALSE,,
-D. pulicaria,0.002,0.141,FALSE,FALSE,,
-D. pulicaria,0.015,0.022,FALSE,FALSE,,
-C. elegans,0.02,0.06,FALSE,FALSE,,
-C. elegans,0.0083,0.126,FALSE,FALSE,BM,Baer et al. 2005
-C. elegans,0.0066,0.182,FALSE,FALSE,BM,Baer et al. 2005
-C. briggsae,0.074,0.051,FALSE,FALSE,BM,Baer et al. 2005
-C. briggsae,0.025,0.099,FALSE,FALSE,BM,Baer et al. 2005
-O. myriophila,0.0055,0.219,FALSE,FALSE,BM,Baer et al. 2005
-E. coli mutator,0.005,0.03,FALSE,FALSE,ML*,Trindade et al. 2010
+species,mutator,U,s,diploid,hom,method,source
+VSV,FALSE,1.58,0.0022,FALSE,FALSE,BM,Elena & Moya 1999
+VSV,FALSE,0.884,0.0024,FALSE,FALSE,BM,Elena & Moya 1999
+VSV,FALSE,1.16,0.0022,FALSE,FALSE,BM,Elena & Moya 1999
+VSV,FALSE,NA,0.191,NA,FALSE,direct mutagenesis,Sanju‡n et al. 2004
+f1,FALSE,NA,0.111,NA,FALSE,direct mutagenesis,Peris et al. 2010
+phi6,FALSE,0.03,0.093,FALSE,FALSE,ML*,Burch et al. 2007
+E. coli,FALSE,1.70E-04,0.012,FALSE,FALSE,BM,Kibota & Lynch 1996
+E. coli,FALSE,NA,0.031,NA,FALSE,transposition,Elena et al. 1998
+E. coli,FALSE,NA,0.023,NA,FALSE,ML,Loewe et al. 2003
+E. coli,TRUE,0.005,0.03,FALSE,FALSE,ML*,Trindade et al. 2010
+S. cerevisiae,FALSE,6.30E-05,0.061,TRUE,FALSE,ML,Joseph & Hall 2004
+S. cerevisiae,FALSE,1.14E-03,0.086,TRUE,TRUE,Tetrad,Wloch et al. 2001
+S. cerevisiae,FALSE,9.46E-05,0.217,FALSE,FALSE,ML,Zeyl & DeVisser 2001
+A. gloriosa,FALSE,0.099,0.05,TRUE,TRUE,BM,
+A. douglasiana,FALSE,0.073,0.18,TRUE,TRUE,BM,
+A. douglasiana,FALSE,0.088,0.03,TRUE,TRUE,BM,
+A. thaliana,FALSE,0.05,0.23,TRUE,TRUE,BM,
+A. thaliana,FALSE,0.06,0.02,TRUE,TRUE,BM,
+A. thaliana,FALSE,0.1,-0.0012,TRUE,TRUE,BM,
+C. elegans,FALSE,0.0026,0.21,TRUE,TRUE,BM,
+C. elegans,FALSE,0.0035,0.1,TRUE,TRUE,BM,
+C. elegans,FALSE,0.0075,0.22,TRUE,TRUE,BM,
+C. elegans,FALSE,0.018,0.058,TRUE,TRUE,BM,
+D. melanogaster,FALSE,0.35,0.027,TRUE,TRUE,BM,
+D. melanogaster,FALSE,0.011,0.19,TRUE,TRUE,BM,
+D. melanogaster,FALSE,0.01,0.23,TRUE,TRUE,BM,
+D. melanogaster,FALSE,0.02,0.1,TRUE,TRUE,BM,
+D. melanogaster,FALSE,0.0031,0.25,TRUE,TRUE,BM,
+D. melanogaster,FALSE,0.037,0.083,TRUE,TRUE,BM,
+D. melanogaster,FALSE,0.0015,0.55,TRUE,TRUE,BM,
+D. melanogaster,FALSE,0.022,0.16,TRUE,TRUE,BM,
+D. melanogaster,FALSE,0.068,0.12,TRUE,TRUE,BM,
+D. melanogaster,FALSE,0.012,0.23,TRUE,TRUE,BM,
+D. melanogaster,FALSE,0.03,0.11,TRUE,TRUE,BM,
+D. melanogaster,FALSE,0.039,0.11,TRUE,TRUE,BM,
+D. melanogaster,FALSE,0.34,0.29,TRUE,TRUE,BM,
+D. melanogaster,FALSE,0.1,0.33,TRUE,TRUE,BM,
+D. melanogaster,FALSE,0.4,0.29,TRUE,TRUE,BM,
+D. melanogaster,FALSE,0.03,0.26,TRUE,TRUE,BM,
+T. thermophila,FALSE,0.0047,0.109,TRUE,TRUE,BM,
+T. thermophila,FALSE,0.0205,0.0198,TRUE,TRUE,BM,
+T. thermophila,FALSE,0.00337,0.325,TRUE,TRUE,BM,
+C. elegans,FALSE,0.02,0.06,TRUE,TRUE,BM,
+D. pulicaria,FALSE,0.157,0.082,FALSE,FALSE,BM,Latta et al. 2012
+D. pulicaria,FALSE,0.002,0.141,FALSE,FALSE,BM,Latta et al. 2012
+D. pulicaria,FALSE,0.015,0.022,FALSE,FALSE,BM,Latta et al. 2012
+C. elegans,FALSE,0.02,0.06,FALSE,FALSE,BM,
+C. elegans,FALSE,0.0083,0.126,FALSE,FALSE,BM,Baer et al. 2005
+C. elegans,FALSE,0.0066,0.182,FALSE,FALSE,BM,Baer et al. 2005
+C. briggsae,FALSE,0.074,0.051,FALSE,FALSE,BM,Baer et al. 2005
+C. briggsae,FALSE,0.025,0.099,FALSE,FALSE,BM,Baer et al. 2005
+O. myriophila,FALSE,0.0055,0.219,FALSE,FALSE,BM,Baer et al. 2005
