@@ -1,48 +1,48 @@
-,U_hapl,diploid,hom,s_hom,species,U,s
-0,1.6,False,False,0.0022,VSV,1.6,0.0022
-1,0.88,False,False,0.0024,VSV,0.88,0.0024
-2,1.2,False,False,0.0022,VSV,1.2,0.0022
-3,0.045,False,False,0.021,phi6,0.045,0.021
-4,0.00017,False,False,0.012,E. coli,0.00017,0.012
-5,6.3e-05,True,False,0.061,S. cerevisiae,0.000126,0.061
-6,0.099,True,True,0.05,A. gloriosa,0.198,0.025
-7,0.073,True,True,0.18,A. douglasiana,0.146,0.09
-8,0.088,True,True,0.03,A. douglasiana,0.176,0.015
-9,0.05,True,True,0.23,A. thaliana,0.1,0.115
-10,0.06,True,True,0.02,A. thaliana,0.12,0.01
-11,0.1,True,True,-0.0012,A. thaliana,0.2,-0.0006
-12,0.0026,True,True,0.21,C. elegans,0.0052,0.105
-13,0.0035,True,True,0.1,C. elegans,0.007,0.05
-14,0.0075,True,True,0.22,C. elegans,0.015,0.11
-15,0.018,True,True,0.058,C. elegans,0.036,0.029
-16,0.35,True,True,0.027,D. melanogaster,0.7,0.0135
-17,0.011,True,True,0.19,D. melanogaster,0.022,0.095
-18,0.01,True,True,0.23,D. melanogaster,0.02,0.115
-19,0.02,True,True,0.1,D. melanogaster,0.04,0.05
-20,0.0031,True,True,0.25,D. melanogaster,0.0062,0.125
-21,0.037,True,True,0.083,D. melanogaster,0.074,0.0415
-22,0.0015,True,True,0.55,D. melanogaster,0.003,0.275
-23,0.022,True,True,0.16,D. melanogaster,0.044,0.08
-24,0.068,True,True,0.12,D. melanogaster,0.136,0.06
-25,0.012,True,True,0.23,D. melanogaster,0.024,0.115
-26,0.03,True,True,0.11,D. melanogaster,0.06,0.055
-27,0.039,True,True,0.11,D. melanogaster,0.078,0.055
-28,0.34,True,True,0.29,D. melanogaster,0.68,0.145
-29,0.1,True,True,0.33,D. melanogaster,0.2,0.165
-30,0.4,True,True,0.29,D. melanogaster,0.8,0.145
-31,0.03,True,True,0.26,D. melanogaster,0.06,0.13
-32,0.0047,True,True,0.109,T. thermophila,0.0094,0.0545
-33,0.0205,True,True,0.0198,T. thermophila,0.041,0.0099
-34,0.00337,True,True,0.325,T. thermophila,0.00674,0.1625
-35,0.02,True,True,0.06,C. elegans,0.04,0.03
-36,4.7e-05,True,False,0.22,S. cerevisiae,9.4e-05,0.22
-37,0.157,False,False,0.082,D. pulicaria,0.157,0.082
-38,0.002,False,False,0.141,D. pulicaria,0.002,0.141
-39,0.015,False,False,0.022,D. pulicaria,0.015,0.022
-40,0.02,False,False,0.06,C. elegans,0.02,0.06
-41,0.0083,False,False,0.126,C. elegans,0.0083,0.126
-42,0.0066,False,False,0.182,C. elegans,0.0066,0.182
-43,0.074,False,False,0.051,C. briggsae,0.074,0.051
-44,0.025,False,False,0.099,C. briggsae,0.025,0.099
-45,0.0055,False,False,0.219,O. myriophila,0.0055,0.219
-46,0.005,False,False,0.03,E. coli mutator,0.005,0.03
+,species,U_hapl,s_hom,diploid,hom,method,source
+0,VSV,1.6,0.0022,FALSE,FALSE,BM,Halligan & Keightley 2009
+1,VSV,0.88,0.0024,FALSE,FALSE,BM,Halligan & Keightley 2009
+2,VSV,1.2,0.0022,FALSE,FALSE,BM,Halligan & Keightley 2009
+3,phi6,0.045,0.021,FALSE,FALSE,ML,Halligan & Keightley 2009
+4,E. coli,0.00017,0.012,FALSE,FALSE,BM,Halligan & Keightley 2009
+5,S. cerevisiae,6.30E-05,0.061,TRUE,FALSE,,
+6,A. gloriosa,0.099,0.05,TRUE,TRUE,,
+7,A. douglasiana,0.073,0.18,TRUE,TRUE,,
+8,A. douglasiana,0.088,0.03,TRUE,TRUE,,
+9,A. thaliana,0.05,0.23,TRUE,TRUE,,
+10,A. thaliana,0.06,0.02,TRUE,TRUE,,
+11,A. thaliana,0.1,-0.0012,TRUE,TRUE,,
+12,C. elegans,0.0026,0.21,TRUE,TRUE,,
+13,C. elegans,0.0035,0.1,TRUE,TRUE,,
+14,C. elegans,0.0075,0.22,TRUE,TRUE,,
+15,C. elegans,0.018,0.058,TRUE,TRUE,,
+16,D. melanogaster,0.35,0.027,TRUE,TRUE,,
+17,D. melanogaster,0.011,0.19,TRUE,TRUE,,
+18,D. melanogaster,0.01,0.23,TRUE,TRUE,,
+19,D. melanogaster,0.02,0.1,TRUE,TRUE,,
+20,D. melanogaster,0.0031,0.25,TRUE,TRUE,,
+21,D. melanogaster,0.037,0.083,TRUE,TRUE,,
+22,D. melanogaster,0.0015,0.55,TRUE,TRUE,,
+23,D. melanogaster,0.022,0.16,TRUE,TRUE,,
+24,D. melanogaster,0.068,0.12,TRUE,TRUE,,
+25,D. melanogaster,0.012,0.23,TRUE,TRUE,,
+26,D. melanogaster,0.03,0.11,TRUE,TRUE,,
+27,D. melanogaster,0.039,0.11,TRUE,TRUE,,
+28,D. melanogaster,0.34,0.29,TRUE,TRUE,,
+29,D. melanogaster,0.1,0.33,TRUE,TRUE,,
+30,D. melanogaster,0.4,0.29,TRUE,TRUE,,
+31,D. melanogaster,0.03,0.26,TRUE,TRUE,,
+32,T. thermophila,0.0047,0.109,TRUE,TRUE,,
+33,T. thermophila,0.0205,0.0198,TRUE,TRUE,,
+34,T. thermophila,0.00337,0.325,TRUE,TRUE,,
+35,C. elegans,0.02,0.06,TRUE,TRUE,,
+36,S. cerevisiae,4.70E-05,0.22,TRUE,FALSE,,
+37,D. pulicaria,0.157,0.082,FALSE,FALSE,,
+38,D. pulicaria,0.002,0.141,FALSE,FALSE,,
+39,D. pulicaria,0.015,0.022,FALSE,FALSE,,
+40,C. elegans,0.02,0.06,FALSE,FALSE,,
+41,C. elegans,0.0083,0.126,FALSE,FALSE,,
+42,C. elegans,0.0066,0.182,FALSE,FALSE,,
+43,C. briggsae,0.074,0.051,FALSE,FALSE,,
+44,C. briggsae,0.025,0.099,FALSE,FALSE,,
+45,O. myriophila,0.0055,0.219,FALSE,FALSE,,
+46,E. coli mutator,0.005,0.03,FALSE,FALSE,,
