@@ -1,53 +1,55 @@
-species,mutator,U,s,diploid,hom,method,source
-VSV,FALSE,1.58,0.0022,FALSE,FALSE,BM,Elena & Moya 1999
-VSV,FALSE,0.884,0.0024,FALSE,FALSE,BM,Elena & Moya 1999
-VSV,FALSE,1.16,0.0022,FALSE,FALSE,BM,Elena & Moya 1999
-VSV,FALSE,NA,0.191,NA,FALSE,direct mutagenesis,Sanju‡n et al. 2004
-f1,FALSE,NA,0.111,NA,FALSE,direct mutagenesis,Peris et al. 2010
-phi6,FALSE,0.03,0.093,FALSE,FALSE,ML*,Burch et al. 2007
-E. coli,FALSE,1.70E-04,0.012,FALSE,FALSE,BM,Kibota & Lynch 1996
-E. coli,FALSE,NA,0.031,NA,FALSE,transposition,Elena et al. 1998
-E. coli,FALSE,NA,0.023,NA,FALSE,ML,Loewe et al. 2003
-E. coli,TRUE,0.005,0.03,FALSE,FALSE,ML*,Trindade et al. 2010
-S. cerevisiae,FALSE,6.30E-05,0.061,TRUE,FALSE,ML,Joseph & Hall 2004
-S. cerevisiae,FALSE,1.14E-03,0.086,TRUE,TRUE,Tetrad,Wloch et al. 2001
-S. cerevisiae,FALSE,9.46E-05,0.217,FALSE,FALSE,ML,Zeyl & DeVisser 2001
-A. gloriosa,FALSE,0.099,0.05,TRUE,TRUE,BM,
-A. douglasiana,FALSE,0.073,0.18,TRUE,TRUE,BM,
-A. douglasiana,FALSE,0.088,0.03,TRUE,TRUE,BM,
-A. thaliana,FALSE,0.05,0.23,TRUE,TRUE,BM,
-A. thaliana,FALSE,0.06,0.02,TRUE,TRUE,BM,
-A. thaliana,FALSE,0.1,-0.0012,TRUE,TRUE,BM,
-C. elegans,FALSE,0.0026,0.21,TRUE,TRUE,BM,
-C. elegans,FALSE,0.0035,0.1,TRUE,TRUE,BM,
-C. elegans,FALSE,0.0075,0.22,TRUE,TRUE,BM,
-C. elegans,FALSE,0.018,0.058,TRUE,TRUE,BM,
-D. melanogaster,FALSE,0.35,0.027,TRUE,TRUE,BM,
-D. melanogaster,FALSE,0.011,0.19,TRUE,TRUE,BM,
-D. melanogaster,FALSE,0.01,0.23,TRUE,TRUE,BM,
-D. melanogaster,FALSE,0.02,0.1,TRUE,TRUE,BM,
-D. melanogaster,FALSE,0.0031,0.25,TRUE,TRUE,BM,
-D. melanogaster,FALSE,0.037,0.083,TRUE,TRUE,BM,
-D. melanogaster,FALSE,0.0015,0.55,TRUE,TRUE,BM,
-D. melanogaster,FALSE,0.022,0.16,TRUE,TRUE,BM,
-D. melanogaster,FALSE,0.068,0.12,TRUE,TRUE,BM,
-D. melanogaster,FALSE,0.012,0.23,TRUE,TRUE,BM,
-D. melanogaster,FALSE,0.03,0.11,TRUE,TRUE,BM,
-D. melanogaster,FALSE,0.039,0.11,TRUE,TRUE,BM,
-D. melanogaster,FALSE,0.34,0.29,TRUE,TRUE,BM,
-D. melanogaster,FALSE,0.1,0.33,TRUE,TRUE,BM,
-D. melanogaster,FALSE,0.4,0.29,TRUE,TRUE,BM,
-D. melanogaster,FALSE,0.03,0.26,TRUE,TRUE,BM,
-T. thermophila,FALSE,0.0047,0.109,TRUE,TRUE,BM,
-T. thermophila,FALSE,0.0205,0.0198,TRUE,TRUE,BM,
-T. thermophila,FALSE,0.00337,0.325,TRUE,TRUE,BM,
-C. elegans,FALSE,0.02,0.06,TRUE,TRUE,BM,
-D. pulicaria,FALSE,0.157,0.082,FALSE,FALSE,BM,Latta et al. 2012
-D. pulicaria,FALSE,0.002,0.141,FALSE,FALSE,BM,Latta et al. 2012
-D. pulicaria,FALSE,0.015,0.022,FALSE,FALSE,BM,Latta et al. 2012
-C. elegans,FALSE,0.02,0.06,FALSE,FALSE,BM,
-C. elegans,FALSE,0.0083,0.126,FALSE,FALSE,BM,Baer et al. 2005
-C. elegans,FALSE,0.0066,0.182,FALSE,FALSE,BM,Baer et al. 2005
-C. briggsae,FALSE,0.074,0.051,FALSE,FALSE,BM,Baer et al. 2005
-C. briggsae,FALSE,0.025,0.099,FALSE,FALSE,BM,Baer et al. 2005
-O. myriophila,FALSE,0.0055,0.219,FALSE,FALSE,BM,Baer et al. 2005
+species,mutator,U,s,hom,method,source,notes
+VSV,FALSE,1.58,0.0022,FALSE,BM,Elena & Moya 1999,X constant effects
+VSV,FALSE,0.884,0.0024,FALSE,BM,Elena & Moya 1999,C constant effects
+VSV,FALSE,1.16,0.0022,FALSE,BM,Elena & Moya 1999,R constant effects
+VSV,FALSE,NA,0.191,FALSE,direct mutagenesis,Sanju‡n et al. 2004,
+f1,FALSE,NA,0.111,FALSE,direct mutagenesis,Peris et al. 2010,
+phi6,FALSE,0.03,0.093,FALSE,ML*,Burch et al. 2007,MLE nDEL = 56 correcting for selection
+Escherichia coli,FALSE,1.70E-04,0.012,FALSE,BM,Kibota & Lynch 1996,
+Escherichia coli,FALSE,NA,0.031,FALSE,transposition,Elena et al. 1998,
+Escherichia coli,FALSE,NA,0.023,FALSE,ML,Loewe et al. 2003,U estimate per day not per generation
+Escherichia coli,TRUE,0.005,0.03,FALSE,ML*,Trindade et al. 2010,
+Saccharomyces cerevisiae,FALSE,1.26E-04,0.061,FALSE,ML,Joseph & Hall 2004,
+Saccharomyces cerevisiae,FALSE,1.14E-03,0.086,TRUE,Tetrad,Wloch et al. 2001,effect in haploids
+Saccharomyces cerevisiae,FALSE,9.46E-05,0.217,FALSE,ML,Zeyl & DeVisser 2001,excluding petites
+Saccharomyces cerevisiae,TRUE,2.28E-02,0.015,FALSE,BM,Zeyl & DeVisser 2001,excluding petites
+Triticum durum,FALSE,8.00E-02,0.2,TRUE,?,Bataillon 2000,unpublished
+Amsinckia gloriosa,FALSE,0.198,0.05,TRUE,ML,Schoen 2005,beta = 2 flower number per plant
+Amsinckia douglasiana,FALSE,0.146,0.176,TRUE,ML,Schoen 2005,beta = infinity flower number per plant
+Amsinckia douglasiana,FALSE,0.176,0.03,TRUE,ML,Schoen 2005,beta = infinity plant dry weight
+Arabidopsis thaliana,FALSE,0.0024,0.62,TRUE,BM,Schultz et al. 1999,Proportion of seeds that have germinated
+Arabidopsis thaliana,FALSE,0.003,0.42,TRUE,BM,Schultz et al. 1999,Fruit set per individual germinated seed 
+Arabidopsis thaliana,FALSE,0.054,0.24,TRUE,BM,Schultz et al. 1999,Number of seeds per fruit 
+Arabidopsis thaliana,FALSE,0.1,0.23,TRUE,BM,Schultz et al. 1999,Total fitness
+Arabidopsis thaliana,FALSE,6.00E-04,0.46,TRUE,BM,Shaw et al. 2000,not clear if effects are homozygous or heterozygous
+Arabidopsis thaliana,FALSE,1.60E-02,0.27,TRUE,BM,Shaw et al. 2000,not clear if effects are homozygous or heterozygous
+Arabidopsis thaliana,FALSE,4.00E-03,0.68,TRUE,BM,Shaw et al. 2000,not clear if effects are homozygous or heterozygous
+Daphnia pulicaria,FALSE,9.90E-01,0.21,TRUE,Inbreeding,Deng & Lynch 1997,
+Daphnia pulicaria,FALSE,0.157,0.082,FALSE,BM,Latta et al. 2012,clutch size Marie
+Daphnia pulicaria,FALSE,0.002,0.141,FALSE,BM,Latta et al. 2012,clutch size KlamathSGT
+Daphnia pulicaria,FALSE,0.015,0.022,FALSE,BM,Latta et al. 2012,clutch size KlamathLGT
+Daphnia arenata,FALSE,6.90E-01,0.07,TRUE,Inbreeding,Deng & Lynch 1997,
+Caenorhabditis elegans,FALSE,0.0052,0.21,TRUE,ML,Keightley & Caballero 1997,Productivity
+Caenorhabditis elegans,FALSE,0.015,0.218,TRUE,ML,Vassilieva et al. 2000,"Productivity, generation 214"
+Caenorhabditis elegans,FALSE,0.036,0.058,TRUE,ML,Vassilieva et al. 2000,"Intrinsic rate of increase, generation 214"
+Tetrahymena thermophila,FALSE,0.0094,0.109,TRUE,BM,Long et al. 2013,Single GE lines
+Tetrahymena thermophila,FALSE,0.041,0.0198,TRUE,BM,Long et al. 2013,Multiple GE lines
+Tetrahymena thermophila,FALSE,0.00674,0.325,TRUE,ABC,Long et al. 2013,Viability in GE round II crosses
+Caenorhabditis elegans,FALSE,0.09,0.03,FALSE,BM,Matsuba et al. 2012,median of low lines
+Caenorhabditis elegans,FALSE,0.01,0.16,FALSE,BM,Matsuba et al. 2012,median of high lines
+Oscheius myriophila,FALSE,0.0055,0.219,FALSE,BM,Baer et al. 2005,DF
+Caenorhabditis elegans,FALSE,0.0083,0.126,FALSE,BM,Baer et al. 2005,N2
+Caenorhabditis elegans,FALSE,0.0066,0.182,FALSE,BM,Baer et al. 2005,PB306
+Caenorhabditis briggsae,FALSE,0.074,0.051,FALSE,BM,Baer et al. 2005,HK
+Caenorhabditis briggsae,FALSE,0.025,0.099,FALSE,BM,Baer et al. 2005,PB800
+Drosophila melanogaster,FALSE,0.032,0.103,TRUE,MD,Garcia-Dorado et al. 1998,data from Fern‡ndez & L—pez-Fanjul 1996
+Drosophila melanogaster,FALSE,0.022,0.191,TRUE,MD,Garcia-Dorado et al. 1998,data from Mukai et al. 1972
+Drosophila melanogaster,FALSE,0.02,0.226,TRUE,MD,Garcia-Dorado et al. 1998,data from Ohnishi 1997
+Drosophila melanogaster,FALSE,0.06,0.265,TRUE,MD,Garcia-Dorado et al. 1998,data from Houle et al. 1992
+Drosophila melanogaster,FALSE,0.044,0.16,TRUE,MD,Garcia-Dorado et al. 1999,data from Fry 1999
+Drosophila melanogaster,FALSE,0.68,0.14,FALSE,BM,Gong et al. 2005,viability
+Drosophila melanogaster,FALSE,0.21,0.15,FALSE,BM,Gong et al. 2005,viability
+Drosophila melanogaster,FALSE,0.79,0.15,FALSE,BM,Gong et al. 2005,viability
+Drosophila melanogaster,FALSE,0.02346,0.23,TRUE,BM,Charlesworth et al. 2004,
+Drosophila melanogaster,FALSE,0.06026,0.108,TRUE,BM,Charlesworth et al. 2004,
+Drosophila melanogaster,FALSE,0.07774,0.113,TRUE,BM,Charlesworth et al. 2004,
