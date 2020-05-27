@@ -544,7 +544,7 @@ def melt(n0, s, u, k, plot=False):
 
 
 @jit(nopython=True)
-def ind_step(r, k, u, s):
+def ind_step(r, k, s, u):
     '''
     Take a time step in the branching process model for a single individual
     with k mutations.  Return the number of offspring with k and k + 1
@@ -556,10 +556,10 @@ def ind_step(r, k, u, s):
         Random number
     k : int
         Number of mutations
-    u : float
-        Mutation rate
     s : float
         Deleterious effect of a mutation
+    u : float
+        Mutation rate
 
     Returns
     -------
@@ -589,7 +589,7 @@ def ind_step(r, k, u, s):
 
 
 @jit(nopython=True)
-def class_step(n, k, u, s):
+def class_step(n, k, s, u):
     '''
     Take a time step in the branching process model for n individuals with k
     mutations.  Return the total number of offspring with k and k + 1
@@ -601,10 +601,10 @@ def class_step(n, k, u, s):
         Number of individuals
     k : int
         Number of mutations
-    u : float
-        Mutation rate
     s : float
         Deleterious effect of a mutation
+    u : float
+        Mutation rate
 
     Returns
     -------
@@ -615,7 +615,7 @@ def class_step(n, k, u, s):
     if n > 0:
         rr = rnd.random(n)
         for r in rr:
-            dy, dz = ind_step(r, k, u, s)
+            dy, dz = ind_step(r, k, s, u)
             y += dy
             z += dz
     return y, z
@@ -640,7 +640,7 @@ def trim(x):
     return x
 
 @jit
-def pop_step(h, u, s):
+def pop_step(h, s, u):
     '''
     Take a time step in the branching process model for a population.  Return
     a new population.
@@ -649,10 +649,10 @@ def pop_step(h, u, s):
     ----------
     h : list
         Histogram of number of individuals with k = 0, 1, 2, ... mutations
-    u : float
-        Mutation rate
     s : float
         Deleterious effect of a mutation
+    u : float
+        Mutation rate
 
     Returns
     -------
@@ -666,7 +666,7 @@ def pop_step(h, u, s):
     else:
         k = 0
         for n in h:
-            offspring += [(class_step(n, k, u, s))]
+            offspring += [(class_step(n, k, s, u))]
             k += 1
         for i in range(len(offspring)):
             newh[i] += offspring[i][0]
@@ -676,7 +676,7 @@ def pop_step(h, u, s):
 
 
 @jit
-def sim(h, u, s):
+def sim(h, s, u):
     '''
     Simulate evolution until the population goes extinct.
 
@@ -684,10 +684,10 @@ def sim(h, u, s):
     ----------
     h : list
         Histogram of number of individuals with k = 0, 1, 2, ... mutations
-    u : float
-        Mutation rate
     s : float
         Deleterious effect of a mutation
+    u : float
+        Mutation rate
 
     Returns
     -------
@@ -698,7 +698,7 @@ def sim(h, u, s):
     n = [sum(h)]
     extinct = (n[t] == 0)
     while not extinct:
-        newh = pop_step(h, u, s)
+        newh = pop_step(h, s, u)
         n.append(sum(newh))
         t += 1
         extinct = (n[t] == 0)
@@ -707,7 +707,7 @@ def sim(h, u, s):
 
 
 @jit
-def simult(h, u, s, n):
+def simult(h, s, u, n):
     '''
     Simulate evolution of multiple populations until they all go extinct.
 
@@ -715,10 +715,10 @@ def simult(h, u, s, n):
     ----------
     h : list
         Histogram of number of individuals with k = 0, 1, 2, ... mutations
-    u : float
-        Mutation rate
     s : float
         Deleterious effect of a mutation
+    u : float
+        Mutation rate
     n : int
         Number of replicate populations
 
@@ -729,7 +729,7 @@ def simult(h, u, s, n):
     '''
     tt = []
     for i in range(n):
-        n, t = sim(h, u, s)
+        n, t = sim(h, s, u)
         tt.append(t)
     return np.array(tt, dtype=int)
 

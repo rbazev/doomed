@@ -12,11 +12,13 @@ MS2 bacteriophage,virus,FALSE,NA,0.046,FALSE,MA,Domingo-Calap et al. 2009,
 PhiX174 bacteriophage,virus,FALSE,NA,0.186,FALSE,direct mutagenesis,Domingo-Calap et al. 2009,
 Qbeta bacteriophage,virus,FALSE,NA,0.136,FALSE,direct mutagenesis,Domingo-Calap et al. 2009,
 F1 bacteriophage,virus,FALSE,NA,0.111,FALSE,direct mutagenesis,Peris et al. 2010,
-phi6 bacteriophage,virus,FALSE,0.03,0.093,FALSE,ML*,Burch et al. 2007,MLE nDEL = 56 correcting for selection
+phi6 bacteriophage,virus,FALSE,0.03,0.093,FALSE,ML,Burch et al. 2007,MLE nDEL = 56 correcting for selection
 Escherichia coli,bacteria,FALSE,1.70E-04,0.012,FALSE,BM,Kibota & Lynch 1996,
 Escherichia coli,bacteria,FALSE,NA,0.031,FALSE,transposition,Elena et al. 1998,
 Escherichia coli,bacteria,FALSE,NA,0.023,FALSE,ML,Loewe et al. 2003,U estimate per day not per generation
-Escherichia coli,bacteria,TRUE,0.005,0.03,FALSE,ML*,Trindade et al. 2010,
+Escherichia coli,bacteria,TRUE,0.005,0.03,FALSE,ML,Trindade et al. 2010,deficient in the mismatch repair gene mutS
+Escherichia coli,bacteria,FALSE,0.000946,0.003,FALSE,Novel,Robert et al. 2018,
+Escherichia coli,bacteria,TRUE,0.139,0.0032,FALSE,Novel,Robert et al. 2018,mutH s from Table S7
 Saccharomyces cerevisiae,eukaryote,FALSE,1.26E-04,0.061,FALSE,ML,Joseph & Hall 2004,
 Saccharomyces cerevisiae,eukaryote,FALSE,1.14E-03,0.086,TRUE,Tetrad,Wloch et al. 2001,effect in haploids
 Saccharomyces cerevisiae,eukaryote,FALSE,9.46E-05,0.217,FALSE,ML,Zeyl & DeVisser 2001,excluding petites
