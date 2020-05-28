@@ -1,15 +1,12 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-"""Summary.
-"""
+"""Functions for numerical evaluations and simulations in the paper:
+Muller's Ratchet in Asexual Populations Doomed to Extinction."""
+
 # =============================================================================
 # Created By  : Ricardo Azevedo, Logan Chipkin
 # Last Updated: Thu Apr 30 10:47:11 2020
 # =============================================================================
-
-
-"""Functions for numerical evaluations and simulations in the paper:
-Muller's Ratchet in Asexual Populations Doomed to Extinction."""
 
 
 # =============================================================================
@@ -22,6 +19,7 @@ import numpy as np
 import numpy.random as rnd
 from scipy import stats
 import matplotlib.pyplot as plt
+from matplotlib import rcParams
 import seaborn as sns
 
 
@@ -34,12 +32,11 @@ sns.set_style("ticks")
 
 
 # use LaTeX for typesetting, Helvetica font
-from matplotlib import rcParams
 rcParams['text.usetex'] = True
 rcParams['text.latex.preamble'] = [
-       r'\usepackage{helvet}',
-       r'\usepackage[EULERGREEK]{sansmath}',
-       r'\sansmath'
+    r'\usepackage{helvet}',
+    r'\usepackage[EULERGREEK]{sansmath}',
+    r'\sansmath'
 ]
 
 
@@ -76,7 +73,7 @@ def set_up_axes(ax, xmin, xmax, xstep, ymin, ymax, ystep, rnd, xlabel='', ylabel
     '''
     xtx = np.arange(xmin, xmax + xstep / 2, xstep).round(rnd)
     ytx = np.arange(ymin, ymax + ystep / 2, ystep).round(rnd)
-    if rnd==0:
+    if rnd == 0:
         xtx = np.array(xtx, dtype=int)
         ytx = np.array(ytx, dtype=int)
     xrg = xtx.max() - xtx.min()
@@ -87,8 +84,7 @@ def set_up_axes(ax, xmin, xmax, xstep, ymin, ymax, ystep, rnd, xlabel='', ylabel
     ax.set_ylim(ytx.min(), ytx.max())
     ax.set_yticks(ytx)
     ax.set_yticklabels(ytx)
-    ax.text(xtx.min() - .016 * xrg, ytx.max() + .15 * yrg, part_label, \
-        size=24, ha='center', va='center')
+    ax.text(xtx.min() - .016 * xrg, ytx.max() + .15 * yrg, part_label, size=24, ha='center', va='center')
     ax.set_xlabel(xlabel)
     ax.set_ylabel(ylabel)
     sns.despine(offset=10)
@@ -109,8 +105,7 @@ def set_up_axes2(ax, xmin, xmax, xstep, ymin, ymax, ystep, rnd, xlabel='', ylabe
     ax.set_ylim(ytx.min(), ytx.max())
     ax.set_yticks(ytx)
     ax.set_yticklabels(ytx)
-    ax.text(xtx.min() - .016 * xrg, ytx.max() + .2 * yrg, part_label, \
-        size=24, ha='center', va='center')
+    ax.text(xtx.min() - .016 * xrg, ytx.max() + .2 * yrg, part_label, size=24, ha='center', va='center')
     ax.set_xlabel(xlabel)
     ax.set_ylabel(ylabel)
 
@@ -131,7 +126,7 @@ def w(k, s):
     ----------
     k : int
         Number of mutations
-    s : int
+    s : float
         Deleterious effect of a mutation
 
     Returns
@@ -156,7 +151,7 @@ def phi(x, k, s, u):
         Variable
     k : int
         Number of mutations
-    s : int
+    s : float
         Deleterious effect of a mutation
     u : float
         Mutation rate
@@ -167,7 +162,7 @@ def phi(x, k, s, u):
         PGF
     '''
     y = 1 - u ** 2 - 2 * u * (1 - u) * x - (1 - u) ** 2 * x ** 2
-    return 1 - w(k, s) * y / 2.
+    return 1 - w(k, s) / 2 * y
 
 
 @jit(nopython=True)
@@ -186,7 +181,7 @@ def phit(t, x, k, s, u):
         Variable
     k : int
         Number of mutations
-    s : int
+    s : float
         Deleterious effect of a mutation
     u : float
         Mutation rate
@@ -203,6 +198,108 @@ def phit(t, x, k, s, u):
 
 
 @jit(nopython=True)
+def joint_phi_k(x, k, s, u):
+    '''
+    Joint PGF of the number of k- and k+1-type offspring of a k-type individual.
+
+    Parameters
+    ----------
+    x : list
+        Vector
+    k : int
+        Number of mutations
+    s : float
+        Deleterious effect of a mutation
+    u : float
+        Mutation rate
+
+    Returns
+    -------
+    float
+        PGF
+    '''
+    n = len(x) - 1
+    if k < n:
+        y = 1 - (1 - u) ** 2 * x[k] ** 2 - 2 * u * (1 - u) * x[k] * x[k + 1] - u ** 2 * x[k + 1] ** 2
+    elif k == n:
+        y = 1 - x[n] ** 2
+    return 1 - w(k, s) / 2 * y
+
+
+@jit(nopython=True)
+def joint_phi(x, s, u):
+    '''
+    PGF of the number of n-type offspring of a n-type individual.
+
+    Parameters
+    ----------
+    x : list
+        Vector
+    s : float
+        Deleterious effect of a mutation
+    u : float
+        Mutation rate
+
+    Returns
+    -------
+    float
+        PGF
+    '''
+    n = len(x) - 1
+    phix = []
+    for k in range(n + 1):
+        phix.append(joint_phi_k(x, k, s, u))
+    return phix
+
+
+@jit
+def joint_phit(t, x, s, u):
+    '''
+    Composition of PGF joint_phi() with itself for t generations.
+
+    Parameters
+    ----------
+    x : list
+        Vector
+    s : float
+        Deleterious effect of a mutation
+    u : float
+        Mutation rate
+
+    Returns
+    -------
+    float
+        PGF
+    '''
+    for i in range(t):
+        x = joint_phi(x, s, u)
+    return x
+
+
+@jit
+def p_extinct(n, t, s, u):
+    """Probability that a population of size n will be extinct in generation t.
+
+    Parameters
+    ----------
+    n : int
+        Initial population size.
+    t : int
+        Generation number.
+    s : float
+        Deleterious effect of a mutation
+    u : float
+        Mutation rate
+
+    Returns
+    -------
+    float
+        Probability of extinction
+    """
+    return joint_phi_k(joint_phit(t - 1, np.zeros(t), s, u), 0, s, u) ** n
+
+
+@jit(nopython=True)
 def phisum(nk, k, s, u, tol):
     '''
     Sum term in Equations 6, 12, and 13.
@@ -215,7 +312,7 @@ def phisum(nk, k, s, u, tol):
         Number of k-type individuals
     k : int
         Number of mutations
-    s : int
+    s : float
         Deleterious effect of a mutation
     u : float
         Mutation rate
@@ -276,7 +373,7 @@ def gj(t, j, s, u):
         Number of generations
     j : int
         Type of individual
-    s : int
+    s : float
         Deleterious effect of a mutation
     u : float
         Mutation rate
@@ -307,7 +404,7 @@ def tauk(nk, k, s, u, tol, upper):
         Number of nk individuals at time t = 0
     k : int
         Number of mutations
-    s : int
+    s : float
         Deleterious effect of a mutation
     u : float
         Mutation rate
@@ -341,7 +438,7 @@ def phisum2(nk, k, s, u, tol):
         Number of k-type individuals
     k : int
         Number of mutations
-    s : int
+    s : float
         Deleterious effect of a mutation
     u : float
         Mutation rate
@@ -376,7 +473,7 @@ def vartauk(nk, k, s, u, tol, upper):
         Number of nk individuals at time t = 0
     k : int
         Number of mutations
-    s : int
+    s : float
         Deleterious effect of a mutation
     u : float
         Mutation rate
@@ -406,7 +503,7 @@ def xtk(n0, k, s, u, tol, upper, var):
         Number of unmutated individuals at time t = 0
     k : int
         Number of mutations
-    s : int
+    s : float
         Deleterious effect of a mutation
     u : float
         Mutation rate
@@ -447,7 +544,7 @@ def T(n0, s, u, tol, upper, var):
     ----------
     n0 : int
         Number of mutation-free individuals at time t = 0
-    s : int
+    s : float
         Deleterious effect of a mutation
     u : float
         Mutation rate
@@ -484,7 +581,7 @@ def N(n0, s, u, t):
     ----------
     n0 : int
         Number of mutation-free individuals at time t = 0
-    s : int
+    s : float
         Deleterious effect of a mutation
     u : float
         Mutation rate
@@ -624,7 +721,7 @@ def class_step(n, k, s, u):
     return y, z
 
 
-@jit
+@jit(nopython=True)
 def trim(x):
     '''Delete a zero at the end of a histogram.
 
@@ -642,11 +739,15 @@ def trim(x):
         del x[-1]
     return x
 
+
 @jit
-def pop_step(h, s, u):
+def pop_step(h, s, u, K):
     '''
     Take a time step in the branching process model for a population.  Return
     a new population.
+
+    If population size N exceeds carrying capacity K, kill N – K individuals
+    at random.  If K is infinite, there is no density dependence.
 
     Parameters
     ----------
@@ -656,6 +757,8 @@ def pop_step(h, s, u):
         Deleterious effect of a mutation
     u : float
         Mutation rate
+    K : int
+        Carrying capacity
 
     Returns
     -------
@@ -675,13 +778,21 @@ def pop_step(h, s, u):
             newh[i] += offspring[i][0]
             newh += [offspring[i][1]]
         newh = trim(newh)
-        return newh
+        n = sum(newh)
+        if n <= K:
+            return newh
+        else:
+            print(newh)
+            p = np.array(newh) / n
+            purged = rnd.multinomial(K, p)
+            return purged.tolist()
 
 
 @jit
-def sim(h, s, u):
+def sim(h, s, u, K):
     '''
-    Simulate evolution until the population goes extinct.
+    Simulate evolution until the population goes extinct.  If K is infinite,
+    there is no density dependence.
 
     Parameters
     ----------
@@ -691,6 +802,8 @@ def sim(h, s, u):
         Deleterious effect of a mutation
     u : float
         Mutation rate
+    K : int
+        Carrying capacity
 
     Returns
     -------
@@ -701,7 +814,7 @@ def sim(h, s, u):
     n = [sum(h)]
     extinct = (n[t] == 0)
     while not extinct:
-        newh = pop_step(h, s, u)
+        newh = pop_step(h, s, u, K)
         n.append(sum(newh))
         t += 1
         extinct = (n[t] == 0)
@@ -710,29 +823,39 @@ def sim(h, s, u):
 
 
 @jit
-def simult(h, s, u, n):
+def simult(h, nreps, s, u, K):
     '''
-    Simulate evolution of multiple populations until they all go extinct.
+    Simulate evolution of multiple populations until they all go extinct.  If K
+    is infinite, there is no density dependence.
 
     Parameters
     ----------
     h : list
         Histogram of number of individuals with k = 0, 1, 2, ... mutations
+    nreps : int
+        Number of replicate populations
     s : float
         Deleterious effect of a mutation
     u : float
         Mutation rate
-    n : int
-        Number of replicate populations
+    K : int
+        Carrying capacity
 
     Returns
     -------
-    np.array
-        Extinction times
+    tuple of np.arrays
+        Population sizes (replicate populations in columns), extinction times
     '''
+    nn = []
     tt = []
-    for i in range(n):
-        n, t = sim(h, s, u)
+    for i in range(nreps):
+        n, t = sim(h, s, u, K)
+        nn.append(n)
         tt.append(t)
-    return np.array(tt, dtype=int)
+    ext_times = np.array(tt, dtype=int)
+    pop_sizes = np.zeros((ext_times.max() + 1, nreps))
+    for i in range(nreps):
+        for j in range(len(nn[i])):
+            pop_sizes[j,i] = nn[i][j]
+    return pop_sizes, ext_times
 
