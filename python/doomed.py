@@ -577,10 +577,10 @@ def ind_step(r, k, s, u):
     p1 = (f * (1 - u) ** 2) / 2
     p2 = f * u * (1 - u)
     p3 = (f * u ** 2) / 2
-    # outcome 1: two unmutated offpsring
+    # outcome 1: two unmutated offspring
     if r <= p1:
         y += 2
-    # outcome 2: one mutant offpsring one unmutated offspring
+    # outcome 2: one mutant offspring one unmutated offspring
     elif p1 < r <= p1 + p2:
         y += 1
         z += 1
