@@ -75,11 +75,14 @@ def set_up_axes(ax, xmin, xmax, xstep, ymin, ymax, ystep, rnd, xlabel='', ylabel
         Plot label
     '''
     xtx = np.arange(xmin, xmax + xstep / 2, xstep).round(rnd)
+    ytx = np.arange(ymin, ymax + ystep / 2, ystep).round(rnd)
+    if rnd==0:
+        xtx = np.array(xtx, dtype=int)
+        ytx = np.array(ytx, dtype=int)
     xrg = xtx.max() - xtx.min()
     ax.set_xlim(xtx.min(), xtx.max())
     ax.set_xticks(xtx)
     ax.set_xticklabels(xtx)
-    ytx = np.arange(ymin, ymax + ystep / 2, ystep).round(rnd)
     yrg = ytx.max() - ytx.min()
     ax.set_ylim(ytx.min(), ytx.max())
     ax.set_yticks(ytx)
