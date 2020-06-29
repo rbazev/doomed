@@ -138,49 +138,21 @@ def w(k, s):
 
 
 @jit(nopython=True)
-def phi(x, k, s, u):
+def mt(t, k, j, s, u):
     '''
-    Probability generating function (PGF) of the number of k-type offspring
-    of a k-type individual.
+    Expected number of descendants of type k+j from an individual of type k
+    after t generations.
 
-    Equation 3.
-
-    Parameters
-    ----------
-    x : float
-        Variable
-    k : int
-        Number of mutations
-    s : float
-        Deleterious effect of a mutation
-    u : float
-        Mutation rate
-
-    Returns
-    -------
-    float
-        PGF
-    '''
-    y = 1 - u ** 2 - 2 * u * (1 - u) * x - (1 - u) ** 2 * x ** 2
-    return 1 - w(k, s) / 2 * y
-
-
-@jit(nopython=True)
-def phit(t, x, k, s, u):
-    '''
-    PGF of number of k-type offspring of a k-type individual after t
-    generations.
-
-    Composition of PGF phi() with itself for t generations.
+    Equation ??.
 
     Parameters
     ----------
     t : int
         Number of generations
-    x : float
-        Variable
     k : int
-        Number of mutations
+        Number of mutations in parent
+    j : int
+        Additional number of mutations in offspring
     s : float
         Deleterious effect of a mutation
     u : float
@@ -189,16 +161,170 @@ def phit(t, x, k, s, u):
     Returns
     -------
     float
-        PGF.
+        Number of individuals
     '''
-    x = phi(x, k, s, u)
-    for i in range(1, t):
-        x = phi(x, k, s, u)
+    x = 0
+    if t >= j:
+        x = (1 - u) ** (t - j) * (u ** j) * w(t * k + j * (j - 1) / 2, s)
+        for i in range(1, j + 1):
+            x *= (1 - w(t + 1 - i, s)) / (1 - w(i, s))
     return x
 
 
 @jit(nopython=True)
-def joint_phi_k(x, k, s, u):
+def N(n0, s, u, t):
+    '''
+    Expected total population size at time t.
+
+    Equation ??.
+
+    Parameters
+    ----------
+    n0 : int
+        Number of mutation-free individuals at time t = 0
+    s : float
+        Deleterious effect of a mutation
+    u : float
+        Mutation rate
+    t : int
+        Time (generations)
+
+    Returns
+    -------
+    float
+        Population size
+    '''
+    msum = 0
+    for j in range(t + 1):
+        msum += mt(t, 0, j, s, u)
+    return n0 * msum
+
+
+@jit(nopython=True)
+def mut(s, u, t):
+    '''
+    Expected number of mutations per individual at time t.
+
+    Equation ??.
+
+    Parameters
+    ----------
+    n0 : int
+        Number of mutation-free individuals at time t = 0
+    s : float
+        Deleterious effect of a mutation
+    u : float
+        Mutation rate
+    t : int
+        Time (generations)
+
+    Returns
+    -------
+    float
+        Number of mutations
+    '''
+    numsum = 0
+    densum = 0
+    for j in range(t + 1):
+        m = mt(t, 0, j, s, u)
+        numsum += j * m
+        densum += m
+    return numsum / densum
+
+
+@jit(nopython=True)
+def hist(s, u, t):
+    '''
+    Expected number of mutations per individual at time t.
+
+    Equation ??.
+
+    Parameters
+    ----------
+    n0 : int
+        Number of mutation-free individuals at time t = 0
+    s : float
+        Deleterious effect of a mutation
+    u : float
+        Mutation rate
+    t : int
+        Time (generations)
+
+    Returns
+    -------
+    float
+        Number of mutations
+    '''
+    hist = []
+    for j in range(t + 1):
+        m = mt(t, 0, j, s, u)
+        hist.append(m)
+    hist = np.array(hist)
+    return hist / hist.sum()
+
+
+# @jit(nopython=True)
+# def phi(x, k, s, u):
+#     '''
+#     Probability generating function (PGF) of the number of k-type offspring
+#     of a k-type individual.
+
+#     Equation 3.
+
+#     Parameters
+#     ----------
+#     x : float
+#         Variable
+#     k : int
+#         Number of mutations
+#     s : float
+#         Deleterious effect of a mutation
+#     u : float
+#         Mutation rate
+
+#     Returns
+#     -------
+#     float
+#         PGF
+#     '''
+#     y = 1 - u ** 2 - 2 * u * (1 - u) * x - (1 - u) ** 2 * x ** 2
+#     return 1 - w(k, s) / 2 * y
+
+
+# @jit(nopython=True)
+# def phit(t, x, k, s, u):
+#     '''
+#     PGF of number of k-type offspring of a k-type individual after t
+#     generations.
+
+#     Composition of PGF phi() with itself for t generations.
+
+#     Parameters
+#     ----------
+#     t : int
+#         Number of generations
+#     x : float
+#         Variable
+#     k : int
+#         Number of mutations
+#     s : float
+#         Deleterious effect of a mutation
+#     u : float
+#         Mutation rate
+
+#     Returns
+#     -------
+#     float
+#         PGF.
+#     '''
+#     x = phi(x, k, s, u)
+#     for i in range(1, t):
+#         x = phi(x, k, s, u)
+#     return x
+
+
+@jit(nopython=True)
+def phi_k(x, k, s, u):
     '''
     Joint PGF of the number of k- and k+1-type offspring of a k-type individual.
 
@@ -227,7 +353,7 @@ def joint_phi_k(x, k, s, u):
 
 
 @jit(nopython=True)
-def joint_phi(x, s, u):
+def phi(x, s, u):
     '''
     PGF of the number of n-type offspring of a n-type individual.
 
@@ -248,12 +374,12 @@ def joint_phi(x, s, u):
     n = len(x) - 1
     phix = []
     for k in range(n + 1):
-        phix.append(joint_phi_k(x, k, s, u))
+        phix.append(phi_k(x, k, s, u))
     return phix
 
 
-@jit
-def joint_phit(t, x, s, u):
+@jit(nopython=True)
+def phit(t, x, s, u):
     '''
     Composition of PGF joint_phi() with itself for t generations.
 
@@ -272,20 +398,22 @@ def joint_phit(t, x, s, u):
         PGF
     '''
     for i in range(t):
-        x = joint_phi(x, s, u)
+        x = phi(x, s, u)
     return x
 
 
-@jit
-def p_extinct(n, t, s, u):
+@jit(nopython=True)
+def p_extinct(n0, t, n, s, u):
     """Probability that a population of size n will be extinct in generation t.
 
     Parameters
     ----------
-    n : int
+    n0 : int
         Initial population size.
     t : int
         Generation number.
+    n : int
+        Number of types to consider.
     s : float
         Deleterious effect of a mutation
     u : float
@@ -296,249 +424,13 @@ def p_extinct(n, t, s, u):
     float
         Probability of extinction
     """
-    return joint_phi_k(joint_phit(t - 1, np.zeros(t), s, u), 0, s, u) ** n
+    return phi_k(phit(t - 1, [0.] * n, s, u), 0, s, u) ** n0
 
 
-@jit(nopython=True)
-def phisum(nk, k, s, u, tol):
-    '''
-    Sum term in Equations 6, 12, and 13.
-
-    Calculate to within tolerance tol.
-
-    Parameters
-    ----------
-    nk : int
-        Number of k-type individuals
-    k : int
-        Number of mutations
-    s : float
-        Deleterious effect of a mutation
-    u : float
-        Mutation rate
-    tol : float
-        Tolerance
-
-    Returns
-    -------
-    float
-        Sum
-    '''
-    newsum = 0
-    oldsum = -1
-    t = 1
-    while newsum - oldsum > tol:
-        oldsum = newsum
-        newsum += 1 - phit(t, 0, k, s, u) ** nk
-        t += 1
-    return newsum
-
-
-@jit(nopython=True)
-def t0(n0, u, tol):
-    '''
-    Expected extinction time of mutation-free class (i.e., first click of the
-    ratchet).
-
-    Equation 13.
-
-    Parameters
-    ----------
-    n0 : int
-        Number of mutation-free individuals
-    u : float
-        Mutation rate
-    tol : float
-        Tolerance
-
-    Returns
-    -------
-    float
-        Time
-    '''
-    return 1 + phisum(n0, 0, 0, u, tol)
-
-
-@jit(nopython=True)
-def gj(t, j, s, u):
-    '''
-    Expected number of descendants of type j from a mutation-free individual
-    after t generations.
-
-    Equation 8.
-
-    Parameters
-    ----------
-    t : int
-        Number of generations
-    j : int
-        Type of individual
-    s : float
-        Deleterious effect of a mutation
-    u : float
-        Mutation rate
-
-    Returns
-    -------
-    float
-        Number of individuals
-    '''
-    x = 0
-    if t >= j:
-        x = (1 - u) ** (t - j) * u ** j * w(j * (j - 1) / 2, s)
-        for i in range(1, j + 1):
-            x *= (1 - w(t + 1 - i, s)) / (1 - w(i, s))
-    return x
-
-
-@jit(nopython=True)
-def tauk(nk, k, s, u, tol, upper):
-    '''
-    Expected extinction time of nk type-k individuals.
-
-    Equation 6.
-
-    Parameters
-    ----------
-    nk : int
-        Number of nk individuals at time t = 0
-    k : int
-        Number of mutations
-    s : float
-        Deleterious effect of a mutation
-    u : float
-        Mutation rate
-    tol : float
-        Tolerance
-    upper : bool
-        Whether to use upper bound P(tauk>0)
-
-    Returns
-    -------
-    float
-        Time
-    '''
-    if k == 0:
-        t = t0(nk, u, tol)
-    else:
-        t = phisum(nk, k, s, u, tol)
-        if upper:
-            t += min(1, nk)
-    return t
-
-
-@jit(nopython=True)
-def phisum2(nk, k, s, u, tol):
-    '''
-    Sum term in variance calculation.  Calculate to within tolerance 10 * tol.
-
-    Parameters
-    ----------
-    nk : int
-        Number of k-type individuals
-    k : int
-        Number of mutations
-    s : float
-        Deleterious effect of a mutation
-    u : float
-        Mutation rate
-    tol : float
-        Tolerance
-
-    Returns
-    -------
-    float
-        Sum
-    '''
-    newsum = 0
-    oldsum = -1
-    t = 1
-    while newsum - oldsum > 10 * tol:
-        oldsum = newsum
-        newsum += t * (1 - phit(t, 0, k, s, u) ** nk)
-        t += 1
-    return 2 * newsum
-
-
-@jit(nopython=True)
-def vartauk(nk, k, s, u, tol, upper):
-    '''
-    Variance in extinction time of nk type-k individuals.
-
-    Equation 7.
-
-    Parameters
-    ----------
-    nk : int
-        Number of nk individuals at time t = 0
-    k : int
-        Number of mutations
-    s : float
-        Deleterious effect of a mutation
-    u : float
-        Mutation rate
-    tol : float
-        Tolerance
-    upper : bool
-        Whether to use upper bound P(tauk>0)
-
-    Returns
-    -------
-    float
-        Variance
-    '''
-    t = tauk(nk, k, s, u, tol, upper)
-    return phisum2(nk, k, s, u, tol) + t - t ** 2
-
-
-@jit(nopython=True)
-def xtk(n0, k, s, u, tol, upper, var):
-    '''
-    Expected extinction time of type-k individuals, and size of k-class at
-    extinction time of k - 1 class.
-
-    Parameters
-    ----------
-    n0 : int
-        Number of unmutated individuals at time t = 0
-    k : int
-        Number of mutations
-    s : float
-        Deleterious effect of a mutation
-    u : float
-        Mutation rate
-    tol : float
-        Tolerance
-    upper : bool
-        Whether to use upper bound P(tauk>0)
-    var : bool
-        Whether to calculate variance in time
-
-    Returns
-    -------
-    tuple
-        Expected size, expected time, variance in time.
-    '''
-    x = n0
-    t = t0(n0, u, tol)
-    if var:
-        v = vartauk(n0, 0, s, u, tol, upper)
-    else:
-        v = -1
-    for i in range(1, k + 1):
-        x = n0 * gj(t, i, s, u)
-        t += tauk(x, i, s, u, tol, upper)
-        if var:
-            v += vartauk(x, i, s, u, tol, upper)
-    return x, t, v
-
-
-@jit(nopython=True)
-def T(n0, s, u, tol, upper, var):
+@jit
+def T(n0, n, s, u, tol):
     '''
     Expected extinction time of entire population.
-
-    Equation 10.
 
     Parameters
     ----------
@@ -550,53 +442,261 @@ def T(n0, s, u, tol, upper, var):
         Mutation rate
     tol : float
         Tolerance
-    upper : bool
-        Whether to use upper bound P(tauk>0)
-    var : bool
-        Whether to calculate variance in time
 
     Returns
     -------
     tup of floats
         Expected time, variance in time
     '''
-    newt = 0
-    oldt = -1
-    k = 0
-    while newt - oldt > tol:
-        oldt = newt
-        tmp, newt, vart = xtk(n0, k, s, u, tol, upper, var)
-        k += 1
-    return newt, vart
+
+    newsum = 0
+    oldsum = -1
+    t = 1
+    while (newsum - oldsum) > tol:
+        oldsum = newsum
+        newsum += 1 - p_extinct(n0, t, n, s, u)
+        t += 1
+    return newsum
 
 
-@jit(nopython=True)
-def N(n0, s, u, t):
-    '''
-    Expected total population size at time t.
+# @jit(nopython=True)
+# def phisum(nk, k, s, u, tol):
+#     '''
+#     Sum term in Equations 6, 12, and 13.
 
-    Equation 19.
+#     Calculate to within tolerance tol.
 
-    Parameters
-    ----------
-    n0 : int
-        Number of mutation-free individuals at time t = 0
-    s : float
-        Deleterious effect of a mutation
-    u : float
-        Mutation rate
-    t : int
-        Time (generations)
+#     Parameters
+#     ----------
+#     nk : int
+#         Number of k-type individuals
+#     k : int
+#         Number of mutations
+#     s : float
+#         Deleterious effect of a mutation
+#     u : float
+#         Mutation rate
+#     tol : float
+#         Tolerance
 
-    Returns
-    -------
-    float
-        Size
-    '''
-    gjsum = 0
-    for j in range(t + 1):
-        gjsum += gj(t, j, s, u)
-    return n0 * gjsum
+#     Returns
+#     -------
+#     float
+#         Sum
+#     '''
+#     newsum = 0
+#     oldsum = -1
+#     t = 1
+#     while newsum - oldsum > tol:
+#         oldsum = newsum
+#         newsum += 1 - phit(t, 0, k, s, u) ** nk
+#         t += 1
+#     return newsum
+
+
+# @jit(nopython=True)
+# def t0(n0, u, tol):
+#     '''
+#     Expected extinction time of mutation-free class (i.e., first click of the
+#     ratchet).
+
+#     Equation 13.
+
+#     Parameters
+#     ----------
+#     n0 : int
+#         Number of mutation-free individuals
+#     u : float
+#         Mutation rate
+#     tol : float
+#         Tolerance
+
+#     Returns
+#     -------
+#     float
+#         Time
+#     '''
+#     return 1 + phisum(n0, 0, 0, u, tol)
+
+
+
+# @jit(nopython=True)
+# def tauk(nk, k, s, u, tol, upper):
+#     '''
+#     Expected extinction time of nk type-k individuals.
+
+#     Equation 6.
+
+#     Parameters
+#     ----------
+#     nk : int
+#         Number of nk individuals at time t = 0
+#     k : int
+#         Number of mutations
+#     s : float
+#         Deleterious effect of a mutation
+#     u : float
+#         Mutation rate
+#     tol : float
+#         Tolerance
+#     upper : bool
+#         Whether to use upper bound P(tauk>0)
+
+#     Returns
+#     -------
+#     float
+#         Time
+#     '''
+#     if k == 0:
+#         t = t0(nk, u, tol)
+#     else:
+#         t = phisum(nk, k, s, u, tol)
+#         if upper:
+#             t += min(1, nk)
+#     return t
+
+
+# @jit(nopython=True)
+# def phisum2(nk, k, s, u, tol):
+#     '''
+#     Sum term in variance calculation.  Calculate to within tolerance 10 * tol.
+
+#     Parameters
+#     ----------
+#     nk : int
+#         Number of k-type individuals
+#     k : int
+#         Number of mutations
+#     s : float
+#         Deleterious effect of a mutation
+#     u : float
+#         Mutation rate
+#     tol : float
+#         Tolerance
+
+#     Returns
+#     -------
+#     float
+#         Sum
+#     '''
+#     newsum = 0
+#     oldsum = -1
+#     t = 1
+#     while newsum - oldsum > 10 * tol:
+#         oldsum = newsum
+#         newsum += t * (1 - phit(t, 0, k, s, u) ** nk)
+#         t += 1
+#     return 2 * newsum
+
+
+# @jit(nopython=True)
+# def vartauk(nk, k, s, u, tol, upper):
+#     '''
+#     Variance in extinction time of nk type-k individuals.
+
+#     Equation 7.
+
+#     Parameters
+#     ----------
+#     nk : int
+#         Number of nk individuals at time t = 0
+#     k : int
+#         Number of mutations
+#     s : float
+#         Deleterious effect of a mutation
+#     u : float
+#         Mutation rate
+#     tol : float
+#         Tolerance
+#     upper : bool
+#         Whether to use upper bound P(tauk>0)
+
+#     Returns
+#     -------
+#     float
+#         Variance
+#     '''
+#     t = tauk(nk, k, s, u, tol, upper)
+#     return phisum2(nk, k, s, u, tol) + t - t ** 2
+
+
+# @jit(nopython=True)
+# def xtk(n0, k, s, u, tol, upper, var):
+#     '''
+#     Expected extinction time of type-k individuals, and size of k-class at
+#     extinction time of k - 1 class.
+
+#     Parameters
+#     ----------
+#     n0 : int
+#         Number of unmutated individuals at time t = 0
+#     k : int
+#         Number of mutations
+#     s : float
+#         Deleterious effect of a mutation
+#     u : float
+#         Mutation rate
+#     tol : float
+#         Tolerance
+#     upper : bool
+#         Whether to use upper bound P(tauk>0)
+#     var : bool
+#         Whether to calculate variance in time
+
+#     Returns
+#     -------
+#     tuple
+#         Expected size, expected time, variance in time.
+#     '''
+#     x = n0
+#     t = t0(n0, u, tol)
+#     if var:
+#         v = vartauk(n0, 0, s, u, tol, upper)
+#     else:
+#         v = -1
+#     for i in range(1, k + 1):
+#         x = n0 * gj(t, i, s, u)
+#         t += tauk(x, i, s, u, tol, upper)
+#         if var:
+#             v += vartauk(x, i, s, u, tol, upper)
+#     return x, t, v
+
+
+# @jit(nopython=True)
+# def T(n0, s, u, tol, upper, var):
+#     '''
+#     Expected extinction time of entire population.
+
+#     Equation 10.
+
+#     Parameters
+#     ----------
+#     n0 : int
+#         Number of mutation-free individuals at time t = 0
+#     s : float
+#         Deleterious effect of a mutation
+#     u : float
+#         Mutation rate
+#     tol : float
+#         Tolerance
+#     upper : bool
+#         Whether to use upper bound P(tauk>0)
+#     var : bool
+#         Whether to calculate variance in time
+
+#     Returns
+#     -------
+#     tup of floats
+#         Expected time, variance in time
+#     '''
+#     newt = 0
+#     oldt = -1
+#     k = 0
+#     while newt - oldt > tol:
+#         oldt = newt
+#         tmp, newt, vart = xtk(n0, k, s, u, tol, upper, var)
+#         k += 1
+#     return newt, vart
 
 
 def melt(n0, s, u, k, plot=False):
@@ -740,7 +840,7 @@ def trim(x):
     return x
 
 
-@jit
+# @jit
 def pop_step(h, s, u, K):
     '''
     Take a time step in the branching process model for a population.  Return
@@ -782,13 +882,12 @@ def pop_step(h, s, u, K):
         if n <= K:
             return newh
         else:
-            print(newh)
             p = np.array(newh) / n
             purged = rnd.multinomial(K, p)
             return purged.tolist()
 
 
-@jit
+# @jit
 def sim(h, s, u, K):
     '''
     Simulate evolution until the population goes extinct.  If K is infinite,
@@ -812,17 +911,28 @@ def sim(h, s, u, K):
     '''
     t = 0
     n = [sum(h)]
+    k = [0]
     extinct = (n[t] == 0)
+    clicks = []
     while not extinct:
         newh = pop_step(h, s, u, K)
+        j = range(len(newh))
         n.append(sum(newh))
         t += 1
+        # print(t, newh)
         extinct = (n[t] == 0)
+        if not extinct:
+            k.append(sum([i * newh[i] for i in j]) / sum(newh))
+            i = len(clicks)
+            if newh[i] == 0:
+                clicks.append(t)
+        else:
+            k.append(np.inf)
         h = newh
-    return n, t
+    return n, k, t, clicks
 
 
-@jit
+# @jit
 def simult(h, nreps, s, u, K):
     '''
     Simulate evolution of multiple populations until they all go extinct.  If K
@@ -847,15 +957,20 @@ def simult(h, nreps, s, u, K):
         Population sizes (replicate populations in columns), extinction times
     '''
     nn = []
+    kk = []
     tt = []
+    cc = []
     for i in range(nreps):
-        n, t = sim(h, s, u, K)
+        n, k, t, c = sim(h, s, u, K)
         nn.append(n)
+        kk.append(k)
         tt.append(t)
+        cc.append(c)
     ext_times = np.array(tt, dtype=int)
     pop_sizes = np.zeros((ext_times.max() + 1, nreps))
+    mutations = np.ones((ext_times.max() + 1, nreps)) / np.zeros((ext_times.max() + 1, nreps))
     for i in range(nreps):
         for j in range(len(nn[i])):
-            pop_sizes[j,i] = nn[i][j]
-    return pop_sizes, ext_times
-
+            pop_sizes[j, i] = nn[i][j]
+            mutations[j, i] = kk[i][j]
+    return pop_sizes, mutations, ext_times, cc
