@@ -1,17 +1,17 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """Functions for numerical evaluations and simulations in the paper:
-Muller's Ratchet in Doomed Populations."""
+Mutational meltdown in asexual populations doomed to extinction."""
 
-# =============================================================================
+###############################################################################
 # Created By  : Ricardo Azevedo, Logan Chipkin
 # Last Updated: Thu Apr 30 10:47:11 2020
-# =============================================================================
+###############################################################################
 
 
-# =============================================================================
+###############################################################################
 # Imports
-# =============================================================================
+###############################################################################
 
 
 from numba import jit
@@ -23,21 +23,20 @@ from matplotlib import rcParams
 import seaborn as sns
 
 
-# =============================================================================
+###############################################################################
 # Plotting settings
-# =============================================================================
+###############################################################################
 
 
 sns.set_style("ticks")
+sns.set_context('talk')
 
 
 # use LaTeX for typesetting, Helvetica font
-rcParams['text.usetex'] = True
-rcParams['text.latex.preamble'] = [
-    r'\usepackage{helvet}',
-    r'\usepackage[EULERGREEK]{sansmath}',
-    r'\sansmath'
-]
+# rcParams['text.usetex'] = True
+# rcParams['text.latex.preamble'] = r'\usepackage{helvet}'
+# rcParams['text.latex.preamble'] = r'\usepackage[EULERGREEK]{sansmath}'
+# rcParams['text.latex.preamble'] = r'\sansmath'
 
 
 def set_up_axes(ax, xmin, xmax, xstep, ymin, ymax, ystep, rnd, xlabel='', ylabel='', part_label=''):
@@ -84,7 +83,8 @@ def set_up_axes(ax, xmin, xmax, xstep, ymin, ymax, ystep, rnd, xlabel='', ylabel
     ax.set_ylim(ytx.min(), ytx.max())
     ax.set_yticks(ytx)
     ax.set_yticklabels(ytx)
-    ax.text(xtx.min() - .016 * xrg, ytx.max() + .15 * yrg, part_label, size=24, ha='center', va='center')
+    ax.text(xtx.min() - .016 * xrg, ytx.max() + .15 * yrg,
+            part_label, size=24, ha='center', va='center')
     ax.set_xlabel(xlabel)
     ax.set_ylabel(ylabel)
     sns.despine(offset=10)
@@ -105,14 +105,15 @@ def set_up_axes2(ax, xmin, xmax, xstep, ymin, ymax, ystep, rnd, xlabel='', ylabe
     ax.set_ylim(ytx.min(), ytx.max())
     ax.set_yticks(ytx)
     ax.set_yticklabels(ytx)
-    ax.text(xtx.min() - .016 * xrg, ytx.max() + .2 * yrg, part_label, size=24, ha='center', va='center')
+    ax.text(xtx.min() - .016 * xrg, ytx.max() + .2 * yrg,
+            part_label, size=24, ha='center', va='center')
     ax.set_xlabel(xlabel)
     ax.set_ylabel(ylabel)
 
 
-# =============================================================================
+###############################################################################
 # Theory functions
-# =============================================================================
+###############################################################################
 
 
 @jit(nopython=True)
@@ -274,7 +275,8 @@ def phi_k(x, k, s, u):
     '''
     n = len(x) - 1
     if k < n:
-        y = 1 - (1 - u) ** 2 * x[k] ** 2 - 2 * u * (1 - u) * x[k] * x[k + 1] - u ** 2 * x[k + 1] ** 2
+        y = 1 - (1 - u) ** 2 * x[k] ** 2 - 2 * u * \
+                 (1 - u) * x[k] * x[k + 1] - u ** 2 * x[k + 1] ** 2
     elif k == n:
         y = 1 - x[n] ** 2
     return 1 - w(k, s) / 2 * y
@@ -510,7 +512,6 @@ def ET(z0, n, s, u, tol):
 #     return 1 + phisum(n0, 0, 0, u, tol)
 
 
-
 # @jit(nopython=True)
 # def tauk(nk, k, s, u, tol, upper):
 #     '''
@@ -723,15 +724,16 @@ def melt(n0, s, u, k, plot=False):
     y = np.array(y)
     if plot:
         plt.semilogy(x, y, "o--")
-    slope, intercept, r_value, p_value, std_err = stats.linregress(x,np.log(y))
+    slope, intercept, r_value, p_value, std_err = stats.linregress(
+        x, np.log(y))
     if plot:
         plt.plot(x, np.exp(intercept + slope * x))
     return x, y, np.exp(intercept + slope * x), slope
 
 
-# =============================================================================
+###############################################################################
 # Simulation functions
-# =============================================================================
+###############################################################################
 
 
 @jit(nopython=True)
@@ -959,7 +961,8 @@ def simult(h, nreps, s, u, K):
         cc.append(c)
     ext_times = np.array(tt, dtype=int)
     pop_sizes = np.zeros((ext_times.max() + 1, nreps))
-    mutations = np.ones((ext_times.max() + 1, nreps)) / np.zeros((ext_times.max() + 1, nreps))
+    mutations = np.ones((ext_times.max() + 1, nreps)) / \
+        np.zeros((ext_times.max() + 1, nreps))
     for i in range(nreps):
         for j in range(len(nn[i])):
             pop_sizes[j, i] = nn[i][j]
