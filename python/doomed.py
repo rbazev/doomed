@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """Functions for numerical evaluations and simulations in the paper:
-Muller's Ratchet in Asexual Populations Doomed to Extinction."""
+Muller's Ratchet in Doomed Populations."""
 
 # =============================================================================
 # Created By  : Ricardo Azevedo, Logan Chipkin
@@ -120,8 +120,6 @@ def w(k, s):
     '''
     Fitness of a genotype with k deleterious mutations of effect s.
 
-    Equation 2.
-
     Parameters
     ----------
     k : int
@@ -138,12 +136,10 @@ def w(k, s):
 
 
 @jit(nopython=True)
-def mt(t, k, j, s, u):
+def m(t, k, j, s, u):
     '''
     Expected number of descendants of type k+j from an individual of type k
     after t generations.
-
-    Equation ??.
 
     Parameters
     ----------
@@ -164,30 +160,30 @@ def mt(t, k, j, s, u):
         Number of individuals
     '''
     x = 0
-    if t >= j:
-        x = (1 - u) ** (t - j) * (u ** j) * w(t * k + j * (j - 1) / 2, s)
+    if 0 <= j <= t:
+        x = (u ** j) * (1 - u) ** (t - j) * w(k * t + j * (j - 1) / 2, s)
         for i in range(1, j + 1):
             x *= (1 - w(t + 1 - i, s)) / (1 - w(i, s))
     return x
 
 
 @jit(nopython=True)
-def N(n0, s, u, t):
+def Eztk(z0, t, k, s, u):
     '''
-    Expected total population size at time t.
-
-    Equation ??.
+    Expected number of individuals with k mutations at time t.
 
     Parameters
     ----------
-    n0 : int
-        Number of mutation-free individuals at time t = 0
+    z0 : list
+        Initial number of individuals with 0, 1, ... mutations.
+    t : int
+        Time (generations)
+    k : int
+        Number of mutations.
     s : float
         Deleterious effect of a mutation
     u : float
         Mutation rate
-    t : int
-        Time (generations)
 
     Returns
     -------
@@ -195,132 +191,64 @@ def N(n0, s, u, t):
         Population size
     '''
     msum = 0
-    for j in range(t + 1):
-        msum += mt(t, 0, j, s, u)
-    return n0 * msum
+    for i in range(k + 1):
+        msum += z0[i] * m(t, i, k-i, s, u)
+    return msum
 
 
 @jit(nopython=True)
-def mut(s, u, t):
+def EZt(z0, t, s, u):
     '''
-    Expected number of mutations per individual at time t.
-
-    Equation ??.
+    Expected composition of the population at time t.
 
     Parameters
     ----------
-    n0 : int
-        Number of mutation-free individuals at time t = 0
+    z0 : list
+        Initial number of individuals with 0, 1, ... mutations.
+    t : int
+        Time (generations)
     s : float
         Deleterious effect of a mutation
     u : float
         Mutation rate
-    t : int
-        Time (generations)
 
     Returns
     -------
     float
-        Number of mutations
+        Population size
     '''
-    numsum = 0
-    densum = 0
-    for j in range(t + 1):
-        m = mt(t, 0, j, s, u)
-        numsum += j * m
-        densum += m
-    return numsum / densum
+    z = z0 + [0] * t
+    n = len(z)
+    return [Eztk(z, t, i, s, u) for i in range(n)]
 
 
 @jit(nopython=True)
-def hist(s, u, t):
+def ENt(z0, t, s, u):
     '''
-    Expected number of mutations per individual at time t.
-
-    Equation ??.
+    Expected total population size at time t.
 
     Parameters
     ----------
-    n0 : int
-        Number of mutation-free individuals at time t = 0
+    z0 : list
+        Initial number of individuals with 0, 1, ... mutations.
+    t : int
+        Time (generations)
     s : float
         Deleterious effect of a mutation
     u : float
         Mutation rate
-    t : int
-        Time (generations)
 
     Returns
     -------
     float
-        Number of mutations
+        Population size
     '''
-    hist = []
-    for j in range(t + 1):
-        m = mt(t, 0, j, s, u)
-        hist.append(m)
-    hist = np.array(hist)
-    return hist / hist.sum()
-
-
-# @jit(nopython=True)
-# def phi(x, k, s, u):
-#     '''
-#     Probability generating function (PGF) of the number of k-type offspring
-#     of a k-type individual.
-
-#     Equation 3.
-
-#     Parameters
-#     ----------
-#     x : float
-#         Variable
-#     k : int
-#         Number of mutations
-#     s : float
-#         Deleterious effect of a mutation
-#     u : float
-#         Mutation rate
-
-#     Returns
-#     -------
-#     float
-#         PGF
-#     '''
-#     y = 1 - u ** 2 - 2 * u * (1 - u) * x - (1 - u) ** 2 * x ** 2
-#     return 1 - w(k, s) / 2 * y
-
-
-# @jit(nopython=True)
-# def phit(t, x, k, s, u):
-#     '''
-#     PGF of number of k-type offspring of a k-type individual after t
-#     generations.
-
-#     Composition of PGF phi() with itself for t generations.
-
-#     Parameters
-#     ----------
-#     t : int
-#         Number of generations
-#     x : float
-#         Variable
-#     k : int
-#         Number of mutations
-#     s : float
-#         Deleterious effect of a mutation
-#     u : float
-#         Mutation rate
-
-#     Returns
-#     -------
-#     float
-#         PGF.
-#     '''
-#     x = phi(x, k, s, u)
-#     for i in range(1, t):
-#         x = phi(x, k, s, u)
-#     return x
+    zsum = 0
+    z = z0 + [0] * t
+    n = len(z)
+    for i in range(n):
+        zsum += Eztk(z, t, i, s, u)
+    return zsum
 
 
 @jit(nopython=True)
@@ -403,7 +331,7 @@ def phit(t, x, s, u):
 
 
 @jit(nopython=True)
-def p_extinct(n0, t, n, s, u):
+def px(z0, t, n, s, u):
     """Probability that a population of size n will be extinct in generation t.
 
     Parameters
@@ -424,11 +352,14 @@ def p_extinct(n0, t, n, s, u):
     float
         Probability of extinction
     """
-    return phi_k(phit(t - 1, [0.] * n, s, u), 0, s, u) ** n0
+    p = 1
+    for i in range(len(z0)):
+        p *= phi_k(phit(t - 1, [0.] * n, s, u), i, s, u) ** z0[i]
+    return p
 
 
 @jit
-def T(n0, n, s, u, tol):
+def ET(z0, n, s, u, tol):
     '''
     Expected extinction time of entire population.
 
@@ -454,9 +385,69 @@ def T(n0, n, s, u, tol):
     t = 1
     while (newsum - oldsum) > tol:
         oldsum = newsum
-        newsum += 1 - p_extinct(n0, t, n, s, u)
+        newsum += 1 - px(z0, t, n, s, u)
         t += 1
     return newsum
+
+
+# @jit(nopython=True)
+# def phi(x, k, s, u):
+#     '''
+#     Probability generating function (PGF) of the number of k-type offspring
+#     of a k-type individual.
+
+#     Equation 3.
+
+#     Parameters
+#     ----------
+#     x : float
+#         Variable
+#     k : int
+#         Number of mutations
+#     s : float
+#         Deleterious effect of a mutation
+#     u : float
+#         Mutation rate
+
+#     Returns
+#     -------
+#     float
+#         PGF
+#     '''
+#     y = 1 - u ** 2 - 2 * u * (1 - u) * x - (1 - u) ** 2 * x ** 2
+#     return 1 - w(k, s) / 2 * y
+
+
+# @jit(nopython=True)
+# def phit(t, x, k, s, u):
+#     '''
+#     PGF of number of k-type offspring of a k-type individual after t
+#     generations.
+
+#     Composition of PGF phi() with itself for t generations.
+
+#     Parameters
+#     ----------
+#     t : int
+#         Number of generations
+#     x : float
+#         Variable
+#     k : int
+#         Number of mutations
+#     s : float
+#         Deleterious effect of a mutation
+#     u : float
+#         Mutation rate
+
+#     Returns
+#     -------
+#     float
+#         PGF.
+#     '''
+#     x = phi(x, k, s, u)
+#     for i in range(1, t):
+#         x = phi(x, k, s, u)
+#     return x
 
 
 # @jit(nopython=True)

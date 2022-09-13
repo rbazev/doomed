@@ -43,9 +43,11 @@ Drosophila melanogaster,eukaryote,FALSE,0.022,0.191,TRUE,MD,Garcia-Dorado et al.
 Drosophila melanogaster,eukaryote,FALSE,0.02,0.226,TRUE,MD,Garcia-Dorado et al. 1998,data from Ohnishi 1997
 Drosophila melanogaster,eukaryote,FALSE,0.06,0.265,TRUE,MD,Garcia-Dorado et al. 1998,data from Houle et al. 1992
 Drosophila melanogaster,eukaryote,FALSE,0.044,0.16,TRUE,MD,Garcia-Dorado et al. 1999,data from Fry 1999
+Drosophila melanogaster,eukaryote,FALSE,,,TRUE,BM,Chavarr’as et al. 2001,average of 2 viability measures
 Drosophila melanogaster,eukaryote,FALSE,0.088,0.145,FALSE,BM,Fry & Heinsohn 2002,data from Fry 2001
 Drosophila melanogaster,eukaryote,FALSE,0.68,0.15,FALSE,BM,Gong et al. 2005,median of 3 experiments
 Drosophila melanogaster,eukaryote,FALSE,0.06026,0.113,TRUE,BM,Charlesworth et al. 2004,median of 3 experiments
 Chlamydomonas reinhardtii,eukaryote,FALSE,0.000816,0.02645,FALSE,BM,Morgan et al. 2014,median of 5 experiments
 Chlamydomonas reinhardtii,eukaryote,FALSE,NA,0.0179,FALSE,MA,Kraemer et al. 2017,median of s2 in Supplemental Table 1 setting CC-2937 to 0
 Chlamydomonas reinhardtii,eukaryote,FALSE,NA,0.024,FALSE,MA RL,Bondel et al. 2019,Table 3 three-category model
+Daktulosphaira vitifoliae,eukaryote,FALSE,0.0234,0.116,FALSE,BM,Downie 2003,"Day 29 survivorship, average of 2 generations"
