@@ -15,6 +15,8 @@ Mutational meltdown in asexual populations doomed to extinction."""
 
 
 from numba import jit
+from numba import njit
+from numba.typed import List
 import numpy as np
 import numpy.random as rnd
 from scipy import stats
@@ -116,7 +118,7 @@ def set_up_axes2(ax, xmin, xmax, xstep, ymin, ymax, ystep, rnd, xlabel='', ylabe
 ###############################################################################
 
 
-@jit(nopython=True)
+@njit
 def w(k, s):
     '''
     Fitness of a genotype with k deleterious mutations of effect s.
@@ -136,8 +138,8 @@ def w(k, s):
     return (1 - s) ** k
 
 
-@jit(nopython=True)
-def m(t, k, j, s, u):
+@njit
+def mt(t, k, j, s, u):
     '''
     Expected number of descendants of type k+j from an individual of type k
     after t generations.
@@ -153,7 +155,7 @@ def m(t, k, j, s, u):
     s : float
         Deleterious effect of a mutation
     u : float
-        Mutation rate
+        Deleterious mutation rate
 
     Returns
     -------
@@ -168,14 +170,14 @@ def m(t, k, j, s, u):
     return x
 
 
-@jit(nopython=True)
+@njit
 def Eztk(z0, t, k, s, u):
     '''
     Expected number of individuals with k mutations at time t.
 
     Parameters
     ----------
-    z0 : list
+    z0 : typed.List
         Initial number of individuals with 0, 1, ... mutations.
     t : int
         Time (generations)
@@ -184,7 +186,7 @@ def Eztk(z0, t, k, s, u):
     s : float
         Deleterious effect of a mutation
     u : float
-        Mutation rate
+        Deleterious mutation rate
 
     Returns
     -------
@@ -192,52 +194,54 @@ def Eztk(z0, t, k, s, u):
         Population size
     '''
     msum = 0
-    for i in range(k + 1):
-        msum += z0[i] * m(t, i, k-i, s, u)
+    for i in range(len(z0)):
+        if k >= i:
+            msum += z0[i] * mt(t, i, k-i, s, u)
     return msum
 
 
-@jit(nopython=True)
+@njit
 def EZt(z0, t, s, u):
     '''
     Expected composition of the population at time t.
 
     Parameters
     ----------
-    z0 : list
+    z0 : typed.List
         Initial number of individuals with 0, 1, ... mutations.
     t : int
         Time (generations)
     s : float
         Deleterious effect of a mutation
     u : float
-        Mutation rate
+        Deleterious mutation rate
 
     Returns
     -------
     float
         Population size
     '''
-    z = z0 + [0] * t
-    n = len(z)
-    return [Eztk(z, t, i, s, u) for i in range(n)]
+    for i in range(t):
+        z0.append(0)
+    n = len(z0)
+    return [Eztk(z0, t, i, s, u) for i in range(n)]
 
 
-@jit(nopython=True)
+@njit
 def ENt(z0, t, s, u):
     '''
     Expected total population size at time t.
 
     Parameters
     ----------
-    z0 : list
+    z0 : typed.List
         Initial number of individuals with 0, 1, ... mutations.
     t : int
         Time (generations)
     s : float
         Deleterious effect of a mutation
     u : float
-        Mutation rate
+        Deleterious mutation rate
 
     Returns
     -------
@@ -245,14 +249,15 @@ def ENt(z0, t, s, u):
         Population size
     '''
     zsum = 0
-    z = z0 + [0] * t
-    n = len(z)
+    for i in range(t):
+        z0.append(0)
+    n = len(z0)
     for i in range(n):
-        zsum += Eztk(z, t, i, s, u)
+        zsum += Eztk(z0, t, i, s, u)
     return zsum
 
 
-@jit(nopython=True)
+@njit
 def phi_k(x, k, s, u):
     '''
     Joint PGF of the number of k- and k+1-type offspring of a k-type individual.
@@ -266,7 +271,7 @@ def phi_k(x, k, s, u):
     s : float
         Deleterious effect of a mutation
     u : float
-        Mutation rate
+        Deleterious mutation rate
 
     Returns
     -------
@@ -276,13 +281,13 @@ def phi_k(x, k, s, u):
     n = len(x) - 1
     if k < n:
         y = 1 - (1 - u) ** 2 * x[k] ** 2 - 2 * u * \
-                 (1 - u) * x[k] * x[k + 1] - u ** 2 * x[k + 1] ** 2
+            (1 - u) * x[k] * x[k + 1] - u ** 2 * x[k + 1] ** 2
     elif k == n:
         y = 1 - x[n] ** 2
     return 1 - w(k, s) / 2 * y
 
 
-@jit(nopython=True)
+@njit
 def phi(x, s, u):
     '''
     PGF of the number of n-type offspring of a n-type individual.
@@ -294,7 +299,7 @@ def phi(x, s, u):
     s : float
         Deleterious effect of a mutation
     u : float
-        Mutation rate
+        Deleterious mutation rate
 
     Returns
     -------
@@ -308,7 +313,7 @@ def phi(x, s, u):
     return phix
 
 
-@jit(nopython=True)
+@njit
 def phit(t, x, s, u):
     '''
     Composition of PGF joint_phi() with itself for t generations.
@@ -320,7 +325,7 @@ def phit(t, x, s, u):
     s : float
         Deleterious effect of a mutation
     u : float
-        Mutation rate
+        Deleterious mutation rate
 
     Returns
     -------
@@ -332,7 +337,7 @@ def phit(t, x, s, u):
     return x
 
 
-@jit(nopython=True)
+@njit
 def px(z0, t, n, s, u):
     """Probability that a population of size n will be extinct in generation t.
 
@@ -347,7 +352,7 @@ def px(z0, t, n, s, u):
     s : float
         Deleterious effect of a mutation
     u : float
-        Mutation rate
+        Deleterious mutation rate
 
     Returns
     -------
@@ -372,7 +377,7 @@ def ET(z0, n, s, u, tol):
     s : float
         Deleterious effect of a mutation
     u : float
-        Mutation rate
+        Deleterious mutation rate
     tol : float
         Tolerance
 
@@ -392,7 +397,7 @@ def ET(z0, n, s, u, tol):
     return newsum
 
 
-# @jit(nopython=True)
+# @njit
 # def phi(x, k, s, u):
 #     '''
 #     Probability generating function (PGF) of the number of k-type offspring
@@ -420,7 +425,7 @@ def ET(z0, n, s, u, tol):
 #     return 1 - w(k, s) / 2 * y
 
 
-# @jit(nopython=True)
+# @njit
 # def phit(t, x, k, s, u):
 #     '''
 #     PGF of number of k-type offspring of a k-type individual after t
@@ -452,7 +457,7 @@ def ET(z0, n, s, u, tol):
 #     return x
 
 
-# @jit(nopython=True)
+# @njit
 # def phisum(nk, k, s, u, tol):
 #     '''
 #     Sum term in Equations 6, 12, and 13.
@@ -487,7 +492,7 @@ def ET(z0, n, s, u, tol):
 #     return newsum
 
 
-# @jit(nopython=True)
+# @njit
 # def t0(n0, u, tol):
 #     '''
 #     Expected extinction time of mutation-free class (i.e., first click of the
@@ -512,7 +517,7 @@ def ET(z0, n, s, u, tol):
 #     return 1 + phisum(n0, 0, 0, u, tol)
 
 
-# @jit(nopython=True)
+# @njit
 # def tauk(nk, k, s, u, tol, upper):
 #     '''
 #     Expected extinction time of nk type-k individuals.
@@ -548,7 +553,7 @@ def ET(z0, n, s, u, tol):
 #     return t
 
 
-# @jit(nopython=True)
+# @njit
 # def phisum2(nk, k, s, u, tol):
 #     '''
 #     Sum term in variance calculation.  Calculate to within tolerance 10 * tol.
@@ -581,7 +586,7 @@ def ET(z0, n, s, u, tol):
 #     return 2 * newsum
 
 
-# @jit(nopython=True)
+# @njit
 # def vartauk(nk, k, s, u, tol, upper):
 #     '''
 #     Variance in extinction time of nk type-k individuals.
@@ -612,7 +617,7 @@ def ET(z0, n, s, u, tol):
 #     return phisum2(nk, k, s, u, tol) + t - t ** 2
 
 
-# @jit(nopython=True)
+# @njit
 # def xtk(n0, k, s, u, tol, upper, var):
 #     '''
 #     Expected extinction time of type-k individuals, and size of k-class at
@@ -654,7 +659,7 @@ def ET(z0, n, s, u, tol):
 #     return x, t, v
 
 
-# @jit(nopython=True)
+# @njit
 # def T(n0, s, u, tol, upper, var):
 #     '''
 #     Expected extinction time of entire population.
@@ -691,44 +696,44 @@ def ET(z0, n, s, u, tol):
 #     return newt, vart
 
 
-def melt(n0, s, u, k, plot=False):
-    """
-    Calculate rate of mutational meltdown.
-
-    Parameters
-    ----------
-    n0 : int
-        Number of mutation-free individuals at time t = 0
-    s : float
-        Deleterious effect of a mutation
-    u : float
-        Mutation rate
-    k : int
-        Maximum number of mutations to consider
-    plot : bool, optional
-        Whether to plot.
-
-    Returns
-    -------
-    tuple
-        Clicks, time between clicks, fitted values, rate of meltdown
-    """
-    y = []
-    x = range(k)
-    oldt = 0
-    for i in x:
-        n, t, v = xtk(n0, i, s, u, 1e-6, False, False)
-        y.append(t - oldt)
-        oldt = t
-    x = np.array(x)
-    y = np.array(y)
-    if plot:
-        plt.semilogy(x, y, "o--")
-    slope, intercept, r_value, p_value, std_err = stats.linregress(
-        x, np.log(y))
-    if plot:
-        plt.plot(x, np.exp(intercept + slope * x))
-    return x, y, np.exp(intercept + slope * x), slope
+# def melt(n0, s, u, k, plot=False):
+#     """
+#     Calculate rate of mutational meltdown.
+#
+#     Parameters
+#     ----------
+#     n0 : int
+#         Number of mutation-free individuals at time t = 0
+#     s : float
+#         Deleterious effect of a mutation
+#     u : float
+#         Mutation rate
+#     k : int
+#         Maximum number of mutations to consider
+#     plot : bool, optional
+#         Whether to plot.
+#
+#     Returns
+#     -------
+#     tuple
+#         Clicks, time between clicks, fitted values, rate of meltdown
+#     """
+#     y = []
+#     x = range(k)
+#     oldt = 0
+#     for i in x:
+#         n, t, v = xtk(n0, i, s, u, 1e-6, False, False)
+#         y.append(t - oldt)
+#         oldt = t
+#     x = np.array(x)
+#     y = np.array(y)
+#     if plot:
+#         plt.semilogy(x, y, "o--")
+#     slope, intercept, r_value, p_value, std_err = stats.linregress(
+#         x, np.log(y))
+#     if plot:
+#         plt.plot(x, np.exp(intercept + slope * x))
+#     return x, y, np.exp(intercept + slope * x), slope
 
 
 ###############################################################################
@@ -736,85 +741,83 @@ def melt(n0, s, u, k, plot=False):
 ###############################################################################
 
 
-@jit(nopython=True)
-def ind_step(r, k, s, u):
-    '''
-    Take a time step in the branching process model for a single individual
-    with k mutations.  Return the number of offspring with k and k + 1
-    mutations.
+# @njit
+# def ind_step(r, k, s, u):
+#     '''
+#     Take a time step in the branching process model for a single individual
+#     with k mutations.  Return the number of offspring with k and k + 1
+#     mutations.
+#
+#     Parameters
+#     ----------
+#     r : float
+#         Random number
+#     k : int
+#         Number of mutations
+#     s : float
+#         Deleterious effect of a mutation
+#     u : float
+#         Deleterious mutation rate
+#
+#     Returns
+#     -------
+#     tuple
+#         Number of offspring with k and k + 1 mutations, respectively
+#     '''
+#     z0 = 0
+#     z1 = 0
+#     wk = w(k, s)
+#     v = 1 - u
+#     # probabilities of different outcomes
+#     p1 = (wk * v ** 2) / 2
+#     p2 = wk * u * v
+#     p3 = (wk * u ** 2) / 2
+#     # outcome 1: two unmutated offspring
+#     if r <= p1:
+#         z0 += 2
+#     # outcome 2: one mutant offspring one unmutated offspring
+#     elif p1 < r <= p1 + p2:
+#         z0 += 1
+#         z1 += 1
+#     # outcome 3: two mutant offspring
+#     elif p1 + p2 < r <= p1 + p2 + p3:
+#         z1 += 2
+#     # outcome 4: death (no offspring)
+#     return z0, z1
+#
+#
+# @njit
+# def class_step(z, k, s, u):
+#     '''
+#     Take a time step in the branching process model for z individuals with k
+#     mutations.  Return the total number of offspring with k and k + 1
+#     mutations.
+#
+#     Parameters
+#     ----------
+#     z : int
+#         Number of individuals
+#     k : int
+#         Number of mutations
+#     s : float
+#         Deleterious effect of a mutation
+#     u : float
+#         Deleterious mutation rate
+#
+#     Returns
+#     -------
+#     tuple
+#         Number of offspring with k and k + 1 mutations, respectively
+#     '''
+#     z0, z1 = 0, 0
+#     if z > 0:
+#         for r in rnd.random(z):
+#             dz0, dz1 = ind_step(r, k, s, u)
+#             z0 += dz0
+#             z1 += dz1
+#     return z0, z1
 
-    Parameters
-    ----------
-    r : float
-        Random number
-    k : int
-        Number of mutations
-    s : float
-        Deleterious effect of a mutation
-    u : float
-        Mutation rate
 
-    Returns
-    -------
-    tuple
-        Number of offspring with k and k + 1 mutations, respectively
-    '''
-    # fitness
-    f = w(k, s)
-    y = 0
-    z = 0
-    # probabilities of different outcomes
-    p1 = (f * (1 - u) ** 2) / 2
-    p2 = f * u * (1 - u)
-    p3 = (f * u ** 2) / 2
-    # outcome 1: two unmutated offspring
-    if r <= p1:
-        y += 2
-    # outcome 2: one mutant offspring one unmutated offspring
-    elif p1 < r <= p1 + p2:
-        y += 1
-        z += 1
-    # outcome 3: two mutant offspring
-    elif p1 + p2 < r <= p1 + p2 + p3:
-        z += 2
-    # outcome 4: death (no offspring)
-    return y, z
-
-
-@jit(nopython=True)
-def class_step(n, k, s, u):
-    '''
-    Take a time step in the branching process model for n individuals with k
-    mutations.  Return the total number of offspring with k and k + 1
-    mutations.
-
-    Parameters
-    ----------
-    n : int
-        Number of individuals
-    k : int
-        Number of mutations
-    s : float
-        Deleterious effect of a mutation
-    u : float
-        Mutation rate
-
-    Returns
-    -------
-    tuple
-        Number of offspring with k and k + 1 mutations, respectively
-    '''
-    y, z = 0, 0
-    if n > 0:
-        rr = rnd.random(n)
-        for r in rr:
-            dy, dz = ind_step(r, k, s, u)
-            y += dy
-            z += dz
-    return y, z
-
-
-@jit(nopython=True)
 def trim(x):
     '''Delete a zero at the end of a histogram.
 
@@ -833,116 +836,193 @@ def trim(x):
     return x
 
 
-# @jit
-def pop_step(h, s, u, K):
-    '''
-    Take a time step in the branching process model for a population.  Return
-    a new population.
+# def pop_step(zz, s, u):
+#     '''
+#     Take a time step in the branching process model for a population.  Return
+#     a new population.
+#
+#     Parameters
+#     ----------
+#     zz : list
+#         Histogram of number of individuals with k = 0, 1, 2, ... mutations
+#     s : float
+#         Deleterious effect of a mutation
+#     u : float
+#         Deleterious mutation rate
+#
+#     Returns
+#     -------
+#     list
+#         New histogram
+#     '''
+#     offspring = []
+#     newzz = [0]
+#     if sum(zz) == 0:
+#         return zz
+#     else:
+#         k = 0
+#         for z in zz:
+#             offspring.append(class_step(z, k, s, u))
+#             k += 1
+#         for i in range(len(offspring)):
+#             newzz[i] += offspring[i][0]
+#             newzz.append(offspring[i][1])
+#         newzz = trim(newzz)
+#         return newzz
+#
+#
+# def sim(z, s, u):
+#     '''
+#     Simulate evolution until the population goes extinct.
+#
+#     Parameters
+#     ----------
+#     z : list
+#         Histogram of number of individuals with k = 0, 1, 2, ... mutations
+#     s : float
+#         Deleterious effect of a mutation
+#     u : float
+#         Deleterious mutation rate
+#
+#     Returns
+#     -------
+#     tuple
+#         Population sizes, extinction time
+#     '''
+#     t = 0
+#     n = sum(z)
+#     extinct = (n == 0)
+#     zz = [z]
+#     nn = [n]
+#     k = []
+#     j = range(len(z))
+#     k.append(sum([i * z[i] for i in j]) / n)
+#     clicks = []
+#     while not extinct:
+#         newz = trim(pop_step(z, s, u))
+#         j = range(len(newz))
+#         n = sum(newz)
+#         nn.append(n)
+#         t += 1
+#         extinct = (n == 0)
+#         if not extinct:
+#             k.append(sum([i * newz[i] for i in j]) / n)
+#             i = len(clicks)
+#             if newz[i] == 0:
+#                 clicks.append(t)
+#         else:
+#             k.append(np.inf)
+#         z = newz
+#         zz.append(z)
+#     return nn, k, t, clicks, zz
 
-    If population size N exceeds carrying capacity K, kill N – K individuals
-    at random.  If K is infinite, there is no density dependence.
+
+def type_offspring(n, k, s, u):
+    '''Take a time step in the branching process model for n individuals with k
+    mutations.  Return the total number of offspring with k and k + 1
+    mutations.
 
     Parameters
     ----------
-    h : list
-        Histogram of number of individuals with k = 0, 1, 2, ... mutations
+    n : int
+        Number of individuals
+    k : int
+        Number of deleterious mutations
     s : float
         Deleterious effect of a mutation
     u : float
-        Mutation rate
-    K : int
-        Carrying capacity
-
-    Returns
-    -------
-    list
-        New histogram
-    '''
-    offspring = []
-    newh = [0]
-    if sum(h) == 0:
-        return h
-    else:
-        k = 0
-        for n in h:
-            offspring += [(class_step(n, k, s, u))]
-            k += 1
-        for i in range(len(offspring)):
-            newh[i] += offspring[i][0]
-            newh += [offspring[i][1]]
-        newh = trim(newh)
-        n = sum(newh)
-        if n <= K:
-            return newh
-        else:
-            p = np.array(newh) / n
-            purged = rnd.multinomial(K, p)
-            return purged.tolist()
-
-
-# @jit
-def sim(h, s, u, K):
-    '''
-    Simulate evolution until the population goes extinct.  If K is infinite,
-    there is no density dependence.
-
-    Parameters
-    ----------
-    h : list
-        Histogram of number of individuals with k = 0, 1, 2, ... mutations
-    s : float
-        Deleterious effect of a mutation
-    u : float
-        Mutation rate
-    K : int
-        Carrying capacity
+        Deleterious mutation rate
 
     Returns
     -------
     tuple
-        Population sizes, extinction time
+        Number of offspring with k and k + 1 mutations, respectively
     '''
-    t = 0
-    n = [sum(h)]
-    k = [0]
-    extinct = (n[t] == 0)
-    clicks = []
-    while not extinct:
-        newh = pop_step(h, s, u, K)
-        j = range(len(newh))
-        n.append(sum(newh))
-        t += 1
-        # print(t, newh)
-        extinct = (n[t] == 0)
-        if not extinct:
-            k.append(sum([i * newh[i] for i in j]) / sum(newh))
-            i = len(clicks)
-            if newh[i] == 0:
-                clicks.append(t)
-        else:
-            k.append(np.inf)
-        h = newh
-    return n, k, t, clicks
+    if n > 0:
+        v = 1 - u
+        # probabilities of different outcomes
+        p = w(k, s) * np.array([(v ** 2) / 2, u * v, (u ** 2) / 2])
+        p = np.append(p, 1 - p.sum())
+        outcomes = rnd.multinomial(n, p)
+        # offspring
+        unmutated = 2 * outcomes[0] + outcomes[1]
+        mutant = outcomes[1] + 2 * outcomes[2]
+        return unmutated, mutant
+    else:
+        return 0, 0
 
 
-# @jit
-def simult(h, nreps, s, u, K):
-    '''
-    Simulate evolution of multiple populations until they all go extinct.  If K
-    is infinite, there is no density dependence.
+def next_gen(Z, s, u):
+    '''Generate the next generation.
 
     Parameters
     ----------
-    h : list
+    Z : list
+        Histogram of number of individuals with k = 0, 1, 2, ... mutations
+    s : float
+        Deleterious effect of a mutation
+    u : float
+        Deleterious mutation rate
+
+    Returns
+    -------
+    list
+        Histogram
+    '''
+    ntypes = len(Z)
+    next_Z = [0] * (ntypes + 1)
+    for k in range(ntypes):
+        if Z[k] > 0:
+            offspring = type_offspring(Z[k], k, s, u)
+            next_Z[k] += offspring[0]
+            next_Z[k+1] += offspring[1]
+    return trim(next_Z)
+
+
+def to_extinction(Z, s, u):
+    '''Simulate evolution until the population goes extinct.
+
+    Parameters
+    ----------
+    Z : list
+        Histogram of number of individuals with k = 0, 1, 2, ... mutations
+    s : float
+        Deleterious effect of a mutation
+    u : float
+        Deleterious mutation rate
+
+    Returns
+    -------
+    tuple
+        Population sizes, compositions, extinction time
+    '''
+    t = 0
+    N = sum(Z)
+    Z_history = [Z]
+    N_history = [N]
+    while N > 0:
+        t += 1
+        Z = next_gen(Z, s, u)
+        N = sum(Z)
+        Z_history.append(Z)
+        N_history.append(N)
+    return N_history, Z_history, t
+
+
+def multiple_extinctions(z, nreps, s, u):
+    '''
+    Simulate evolution of multiple populations until they all go extinct.
+
+    Parameters
+    ----------
+    z : list
         Histogram of number of individuals with k = 0, 1, 2, ... mutations
     nreps : int
         Number of replicate populations
     s : float
         Deleterious effect of a mutation
     u : float
-        Mutation rate
-    K : int
-        Carrying capacity
+        Deleterious mutation rate
 
     Returns
     -------
@@ -952,19 +1032,191 @@ def simult(h, nreps, s, u, K):
     nn = []
     kk = []
     tt = []
-    cc = []
+    clicks = []
     for i in range(nreps):
-        n, k, t, c = sim(h, s, u, K)
+        n, k, t, c, zz = sim(z, s, u)
         nn.append(n)
         kk.append(k)
         tt.append(t)
-        cc.append(c)
+        clicks.append(c)
     ext_times = np.array(tt, dtype=int)
     pop_sizes = np.zeros((ext_times.max() + 1, nreps))
-    mutations = np.ones((ext_times.max() + 1, nreps)) / \
-        np.zeros((ext_times.max() + 1, nreps))
     for i in range(nreps):
         for j in range(len(nn[i])):
             pop_sizes[j, i] = nn[i][j]
-            mutations[j, i] = kk[i][j]
-    return pop_sizes, mutations, ext_times, cc
+    return pop_sizes, ext_times, clicks
+
+
+# def simult(z, nreps, s, u):
+#     '''
+#     Simulate evolution of multiple populations until they all go extinct.
+#
+#     Parameters
+#     ----------
+#     z : list
+#         Histogram of number of individuals with k = 0, 1, 2, ... mutations
+#     nreps : int
+#         Number of replicate populations
+#     s : float
+#         Deleterious effect of a mutation
+#     u : float
+#         Deleterious mutation rate
+#
+#     Returns
+#     -------
+#     tuple of np.arrays
+#         Population sizes (replicate populations in columns), extinction times
+#     '''
+#     nn = []
+#     kk = []
+#     tt = []
+#     clicks = []
+#     for i in range(nreps):
+#         n, k, t, c, zz = sim(z, s, u)
+#         nn.append(n)
+#         kk.append(k)
+#         tt.append(t)
+#         clicks.append(c)
+#     ext_times = np.array(tt, dtype=int)
+#     pop_sizes = np.zeros((ext_times.max() + 1, nreps))
+#     for i in range(nreps):
+#         for j in range(len(nn[i])):
+#             pop_sizes[j, i] = nn[i][j]
+#     return pop_sizes, ext_times, clicks
+
+
+# @jit
+# def pop_step(h, s, u, K):
+#     '''
+#     Take a time step in the branching process model for a population.  Return
+#     a new population.
+#
+#     If population size N exceeds carrying capacity K, kill N – K individuals
+#     at random.  If K is infinite, there is no density dependence.
+#
+#     Parameters
+#     ----------
+#     h : list
+#         Histogram of number of individuals with k = 0, 1, 2, ... mutations
+#     s : float
+#         Deleterious effect of a mutation
+#     u : float
+#         Mutation rate
+#     K : int
+#         Carrying capacity
+#
+#     Returns
+#     -------
+#     list
+#         New histogram
+#     '''
+#     offspring = []
+#     newh = [0]
+#     if sum(h) == 0:
+#         return h
+#     else:
+#         k = 0
+#         for n in h:
+#             offspring += [(class_step(n, k, s, u))]
+#             k += 1
+#         for i in range(len(offspring)):
+#             newh[i] += offspring[i][0]
+#             newh += [offspring[i][1]]
+#         newh = trim(newh)
+#         n = sum(newh)
+#         if n <= K:
+#             return newh
+#         else:
+#             p = np.array(newh) / n
+#             purged = rnd.multinomial(K, p)
+#             return purged.tolist()
+
+
+# @jit
+# def sim(h, s, u, K):
+#     '''
+#     Simulate evolution until the population goes extinct.  If K is infinite,
+#     there is no density dependence.
+#
+#     Parameters
+#     ----------
+#     h : list
+#         Histogram of number of individuals with k = 0, 1, 2, ... mutations
+#     s : float
+#         Deleterious effect of a mutation
+#     u : float
+#         Mutation rate
+#     K : int
+#         Carrying capacity
+#
+#     Returns
+#     -------
+#     tuple
+#         Population sizes, extinction time
+#     '''
+#     t = 0
+#     n = [sum(h)]
+#     k = [0]
+#     extinct = (n[t] == 0)
+#     clicks = []
+#     while not extinct:
+#         newh = pop_step(h, s, u, K)
+#         j = range(len(newh))
+#         n.append(sum(newh))
+#         t += 1
+#         # print(t, newh)
+#         extinct = (n[t] == 0)
+#         if not extinct:
+#             k.append(sum([i * newh[i] for i in j]) / sum(newh))
+#             i = len(clicks)
+#             if newh[i] == 0:
+#                 clicks.append(t)
+#         else:
+#             k.append(np.inf)
+#         h = newh
+#     return n, k, t, clicks
+
+
+# @jit
+# def simult(h, nreps, s, u, K):
+#     '''
+#     Simulate evolution of multiple populations until they all go extinct.  If K
+#     is infinite, there is no density dependence.
+#
+#     Parameters
+#     ----------
+#     h : list
+#         Histogram of number of individuals with k = 0, 1, 2, ... mutations
+#     nreps : int
+#         Number of replicate populations
+#     s : float
+#         Deleterious effect of a mutation
+#     u : float
+#         Mutation rate
+#     K : int
+#         Carrying capacity
+#
+#     Returns
+#     -------
+#     tuple of np.arrays
+#         Population sizes (replicate populations in columns), extinction times
+#     '''
+#     nn = []
+#     kk = []
+#     tt = []
+#     cc = []
+#     for i in range(nreps):
+#         n, k, t, c = sim(h, s, u, K)
+#         nn.append(n)
+#         kk.append(k)
+#         tt.append(t)
+#         cc.append(c)
+#     ext_times = np.array(tt, dtype=int)
+#     pop_sizes = np.zeros((ext_times.max() + 1, nreps))
+#     mutations = np.ones((ext_times.max() + 1, nreps)) / \
+#         np.zeros((ext_times.max() + 1, nreps))
+#     for i in range(nreps):
+#         for j in range(len(nn[i])):
+#             pop_sizes[j, i] = nn[i][j]
+#             mutations[j, i] = kk[i][j]
+#     return pop_sizes, mutations, ext_times, cc
