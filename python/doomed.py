@@ -1009,15 +1009,14 @@ def to_extinction(Z, s, u):
     return N_history, Z_history, t
 
 
-def multiple_extinctions(z, nreps, s, u):
-    '''
-    Simulate evolution of multiple populations until they all go extinct.
+def multiple_extinctions(Z, n, s, u):
+    '''Simulate evolution of multiple populations until they all go extinct.
 
     Parameters
     ----------
-    z : list
+    Z : list
         Histogram of number of individuals with k = 0, 1, 2, ... mutations
-    nreps : int
+    n : int
         Number of replicate populations
     s : float
         Deleterious effect of a mutation
@@ -1029,18 +1028,14 @@ def multiple_extinctions(z, nreps, s, u):
     tuple of np.arrays
         Population sizes (replicate populations in columns), extinction times
     '''
-    nn = []
-    kk = []
+    NN = []
     tt = []
-    clicks = []
-    for i in range(nreps):
-        n, k, t, c, zz = sim(z, s, u)
-        nn.append(n)
-        kk.append(k)
+    for i in range(n):
+        N_history, Z_history, t = to_extinction(Z, s, u)
+        NN.append(N_history)
         tt.append(t)
-        clicks.append(c)
-    ext_times = np.array(tt, dtype=int)
-    pop_sizes = np.zeros((ext_times.max() + 1, nreps))
+    tt = np.array(tt, dtype=int)
+    NN = np.zeros((ext_times.max() + 1, n))
     for i in range(nreps):
         for j in range(len(nn[i])):
             pop_sizes[j, i] = nn[i][j]
