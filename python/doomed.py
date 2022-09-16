@@ -120,8 +120,7 @@ def set_up_axes2(ax, xmin, xmax, xstep, ymin, ymax, ystep, rnd, xlabel='', ylabe
 
 @njit
 def w(k, s):
-    '''
-    Fitness of a genotype with k deleterious mutations of effect s.
+    '''Fitness of a genotype with k deleterious mutations of effect s.
 
     Parameters
     ----------
@@ -140,8 +139,7 @@ def w(k, s):
 
 @njit
 def mt(t, k, j, s, u):
-    '''
-    Expected number of descendants of type k+j from an individual of type k
+    '''Expected number of descendants of type k+j from an individual of type k
     after t generations.
 
     Parameters
@@ -171,13 +169,12 @@ def mt(t, k, j, s, u):
 
 
 @njit
-def Eztk(z0, t, k, s, u):
-    '''
-    Expected number of individuals with k mutations at time t.
+def Eztk(Z0, t, k, s, u):
+    '''Expected number of individuals with k mutations at time t.
 
     Parameters
     ----------
-    z0 : typed.List
+    Z0 : typed.List
         Initial number of individuals with 0, 1, ... mutations.
     t : int
         Time (generations)
@@ -194,20 +191,20 @@ def Eztk(z0, t, k, s, u):
         Population size
     '''
     msum = 0
-    for i in range(len(z0)):
+    l = len(Z0)
+    for i in range(l):
         if k >= i:
-            msum += z0[i] * mt(t, i, k-i, s, u)
+            msum += Z0[i] * mt(t, i, k-i, s, u)
     return msum
 
 
 @njit
-def EZt(z0, t, s, u):
-    '''
-    Expected composition of the population at time t.
+def EZt(Z0, t, s, u):
+    '''Expected composition of the population at time t.
 
     Parameters
     ----------
-    z0 : typed.List
+    Z0 : typed.List
         Initial number of individuals with 0, 1, ... mutations.
     t : int
         Time (generations)
@@ -222,19 +219,18 @@ def EZt(z0, t, s, u):
         Population size
     '''
     for i in range(t):
-        z0.append(0)
-    n = len(z0)
-    return [Eztk(z0, t, i, s, u) for i in range(n)]
+        Z0.append(0)
+    l = len(Z0)
+    return [Eztk(Z0, t, k, s, u) for k in range(l)]
 
 
 @njit
-def ENt(z0, t, s, u):
-    '''
-    Expected total population size at time t.
+def ENt(Z0, t, s, u):
+    '''Expected total population size at time t. 
 
     Parameters
     ----------
-    z0 : typed.List
+    Z0 : typed.List
         Initial number of individuals with 0, 1, ... mutations.
     t : int
         Time (generations)
@@ -248,23 +244,23 @@ def ENt(z0, t, s, u):
     float
         Population size
     '''
-    zsum = 0
-    for i in range(t):
-        z0.append(0)
-    n = len(z0)
-    for i in range(n):
-        zsum += Eztk(z0, t, i, s, u)
-    return zsum
+    N = 0
+    l = len(Z0)
+    for k in range(l):
+        x = 0
+        for j in range(t+1):
+            x += mt(t, k, j, s, u)
+        N += Z0[k] * x
+    return N
 
-
+    
 @njit
 def phi_k(x, k, s, u):
-    '''
-    Joint PGF of the number of k- and k+1-type offspring of a k-type individual.
+    '''Joint pgf of the number of k- and k+1-type offspring of a k-type individual.
 
     Parameters
     ----------
-    x : list
+    x : typed.List
         Vector
     k : int
         Number of mutations
@@ -276,25 +272,26 @@ def phi_k(x, k, s, u):
     Returns
     -------
     float
-        PGF
+        Probability
     '''
     n = len(x) - 1
+    v = 1 - u
     if k < n:
-        y = 1 - (1 - u) ** 2 * x[k] ** 2 - 2 * u * \
-            (1 - u) * x[k] * x[k + 1] - u ** 2 * x[k + 1] ** 2
+        y = 1 - v ** 2 * x[k] ** 2 - 2 * u * v * x[k] * x[k + 1] - \
+            u ** 2 * x[k + 1] ** 2
     elif k == n:
         y = 1 - x[n] ** 2
-    return 1 - w(k, s) / 2 * y
+    return 1 - y * w(k, s) / 2
 
 
 @njit
-def phi(x, s, u):
+def phi1(x, s, u):
     '''
-    PGF of the number of n-type offspring of a n-type individual.
+    Joint pgf of Z_1.
 
     Parameters
     ----------
-    x : list
+    x : typed.List
         Vector
     s : float
         Deleterious effect of a mutation
@@ -304,10 +301,10 @@ def phi(x, s, u):
     Returns
     -------
     float
-        PGF
+        Probability
     '''
     n = len(x) - 1
-    phix = []
+    phix = List()
     for k in range(n + 1):
         phix.append(phi_k(x, k, s, u))
     return phix
@@ -316,11 +313,13 @@ def phi(x, s, u):
 @njit
 def phit(t, x, s, u):
     '''
-    Composition of PGF joint_phi() with itself for t generations.
+    Joint pgf of Z_t. Composition of phi1() with itself for t generations.
 
     Parameters
     ----------
-    x : list
+    t : int
+        Number of generations
+    x : typed.List
         Vector
     s : float
         Deleterious effect of a mutation
@@ -330,21 +329,21 @@ def phit(t, x, s, u):
     Returns
     -------
     float
-        PGF
+        Probability
     '''
     for i in range(t):
-        x = phi(x, s, u)
+        x = phi1(x, s, u)
     return x
 
 
 @njit
-def px(z0, t, n, s, u):
-    """Probability that a population of size n will be extinct in generation t.
+def prob_extinct(Z0, t, n, s, u):
+    """Probability that a population goes extinct by generation t.
 
     Parameters
     ----------
-    n0 : int
-        Initial population size.
+    Z0 : typed.List
+        Initial number of individuals with 0, 1, ... mutations.
     t : int
         Generation number.
     n : int
@@ -360,20 +359,20 @@ def px(z0, t, n, s, u):
         Probability of extinction
     """
     p = 1
-    for i in range(len(z0)):
-        p *= phi_k(phit(t - 1, [0.] * n, s, u), i, s, u) ** z0[i]
+    for k in range(len(Z0)):
+        p *= phi_k(phit(t - 1, List([0.] * n), s, u), k, s, u) ** Z0[k]
     return p
 
 
-@jit
-def ET(z0, n, s, u, tol):
+@njit
+def ET(Z0, n, s, u, tol):
     '''
-    Expected extinction time of entire population.
+    Expected extinction time of a population.
 
     Parameters
     ----------
-    n0 : int
-        Number of mutation-free individuals at time t = 0
+    Z0 : typed.List
+        Initial number of individuals with 0, 1, ... mutations.
     s : float
         Deleterious effect of a mutation
     u : float
@@ -386,15 +385,14 @@ def ET(z0, n, s, u, tol):
     tup of floats
         Expected time, variance in time
     '''
-
     newsum = 0
     oldsum = -1
     t = 1
     while (newsum - oldsum) > tol:
         oldsum = newsum
-        newsum += 1 - px(z0, t, n, s, u)
+        newsum += 1 - prob_extinct(Z0, t, n, s, u)
         t += 1
-    return newsum
+    return 1 + newsum
 
 
 # @njit
@@ -1035,11 +1033,11 @@ def multiple_extinctions(Z, n, s, u):
         NN.append(N_history)
         tt.append(t)
     tt = np.array(tt, dtype=int)
-    NN = np.zeros((ext_times.max() + 1, n))
-    for i in range(nreps):
-        for j in range(len(nn[i])):
-            pop_sizes[j, i] = nn[i][j]
-    return pop_sizes, ext_times, clicks
+    NN_array = np.zeros((tt.max() + 1, n))
+    for i in range(n):
+        for j in range(len(NN[i])):
+            NN_array[j, i] = NN[i][j]
+    return NN_array, tt
 
 
 # def simult(z, nreps, s, u):
