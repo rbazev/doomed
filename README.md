@@ -11,10 +11,10 @@ Submitted to *Journal of Mathematical Biology* (February 10, 2023).
 * `figures`: Folder containing all figures.
     * `figure 1`: pars.pdf
     * `figure 2`: branch.pdf (and TeX source)
-    * `figure 3`: hist.pdf
-    * `figure 4`: heat.pdf
+    * `figure 3`: N.pdf
+    * `figure 4`: hist.pdf
+    * `figure 5`: heat.pdf
 * `python`: Folder containing code and data to generate figures.
     * `doomed.py`: Python 3.7 code to do numerical calculations and run simulations.
     * `pars.ipynb`: Jupyter notebook to generate `figures/pars.pdf`
-
-
+    * `hist.ipynb`: Jupyter notebook to generate `figures/hist.pdf`
