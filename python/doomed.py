@@ -10,16 +10,11 @@ Mutational meltdown in asexual populations doomed to extinction."""
 ###############################################################################
 
 
-from calendar import leapdays
 from numba import jit
 from numba import njit
 from numba.typed import List
 import numpy as np
 import numpy.random as rnd
-from scipy import stats
-import matplotlib.pyplot as plt
-from matplotlib import rcParams
-import seaborn as sns
 
 
 ###############################################################################
@@ -33,7 +28,7 @@ sns.set_context('talk')
 
 def set_up_axes(ax, xmin, xmax, xstep, ymin, ymax, ystep, rnd, xlabel='', ylabel='', part_label=''):
     '''
-    Format plot.  Use for Figures 2-4.
+    Format plot. 
 
     Breaks for log-transformed axes.
 
@@ -81,26 +76,6 @@ def set_up_axes(ax, xmin, xmax, xstep, ymin, ymax, ystep, rnd, xlabel='', ylabel
     ax.set_ylabel(ylabel)
     sns.despine(offset=10)
     sns.set_context("talk")
-
-
-def set_up_axes2(ax, xmin, xmax, xstep, ymin, ymax, ystep, rnd, xlabel='', ylabel='', part_label=''):
-    '''
-    Modified version of the previous function for Figure 5.
-    '''
-    xtx = np.arange(xmin, xmax + xstep / 2, xstep).round(rnd)
-    xrg = xtx.max() - xtx.min()
-    ax.set_xlim(xtx.min(), xtx.max())
-    ax.set_xticks(xtx)
-    ax.set_xticklabels(xtx)
-    ytx = np.arange(ymin, ymax + ystep / 2, ystep).round(rnd)
-    yrg = ytx.max() - ytx.min()
-    ax.set_ylim(ytx.min(), ytx.max())
-    ax.set_yticks(ytx)
-    ax.set_yticklabels(ytx)
-    ax.text(xtx.min() - .016 * xrg, ytx.max() + .2 * yrg,
-            part_label, size=24, ha='center', va='center')
-    ax.set_xlabel(xlabel)
-    ax.set_ylabel(ylabel)
 
 
 ###############################################################################
@@ -406,8 +381,6 @@ def extinction_time(Z0, n, s, u, tol):
 def phi_k(x, k, s, u):
     '''
     Pgf of the number of k-type offspring of a k-type individual.
-
-    Equation 3.
 
     Parameters
     ----------
