@@ -2,6 +2,8 @@
 
 Submitted to *Journal of Mathematical Biology* (February 10, 2023).
 
+*Update in progress...  Check back later.*
+
 ## Contents
 
 * `README.md`: This file.
