@@ -12,14 +12,14 @@ in bioRxiv.](https://www.biorxiv.org/content/10.1101/448563v3)
     * `pars.csv`: empirical estimates of mutational parameters used to generate
       figure 1.
 * `figures`: Folder containing all figures.
-    * `figure 1`: pars.pdf
-    * `figure 2`: branch.pdf (and TeX source)
-    * `figure 3`: N.pdf
-    * `figure 4`: hist.pdf
-    * `figure 5`: heat.pdf
+    * figure 1: [`pars.pdf`](figures/pars.pdf)
+    * figure 2: [`branch.pdf`](figures/branch.pdf) (and TeX source)
+    * figure 3: [`N.pdf`](figures/N.pdf)
+    * figure 4: [`hist.pdf`](figures/hist.pdf)
+    * figure 5: [`heat.pdf`](figures/heat.pdf)
 * `python`: Folder containing code and data to generate figures.
-    * `doomed.py`: Python 3.7 code to do numerical calculations and run simulations.
+    * [`doomed.py`](python/doomed.py): Python 3.7 code to do numerical calculations and run simulations.
     * [`pars.ipynb`](python/pars.ipynb): Jupyter notebook to generate `figures/pars.pdf` (figure 1)
-    * `N.ipynb`: Jupyter notebook to generate `figures/N.pdf` (figure 3)
-    * `hist.ipynb`: Jupyter notebook to generate `figures/hist.pdf` (figure 4)
-    * `heat.ipynb`: Jupyter notebook to generate `figures/heat.pdf` (figure 5)
+    * [`N.ipynb`](python/N.ipynb): Jupyter notebook to generate `figures/N.pdf` (figure 3)
+    * [`hist.ipynb`](python/hist.ipynb): Jupyter notebook to generate `figures/hist.pdf` (figure 4)
+    * [`heat.ipynb`](python/heat.ipynb): Jupyter notebook to generate `figures/heat.pdf` (figure 5)
