@@ -10,11 +10,13 @@ Mutational meltdown in asexual populations doomed to extinction."""
 ###############################################################################
 
 
-from numba import jit
 from numba import njit
 from numba.typed import List
 import numpy as np
 import numpy.random as rnd
+import matplotlib.pyplot as plt
+from matplotlib import rcParams
+import seaborn as sns
 
 
 ###############################################################################
