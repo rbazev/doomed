@@ -1,6 +1,10 @@
 # Mutational meltdown in asexual populations doomed to extinction 
 
-Submitted to *Journal of Mathematical Biology* (February 10, 2023).
+
+Peter Olofsson, Logan Chipkin, Ryan C. Daileda, Ricardo B. R. Azevedo
+
+Submitted to *Journal of Mathematical Biology* (February 10, 2023).  [Available
+in bioRxiv](https://www.biorxiv.org/content/10.1101/448563v3)
 
 ## Contents
 

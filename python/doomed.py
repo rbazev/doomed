@@ -6,7 +6,7 @@ Mutational meltdown in asexual populations doomed to extinction."""
 
 ###############################################################################
 ### CREATED BY  : Ricardo Azevedo, Logan Chipkin                            ###
-### LAST UPDATED: 17/09/2022                                                ###
+### LAST UPDATED: 02/10/2023                                                ###
 ###############################################################################
 
 
@@ -29,13 +29,6 @@ import seaborn as sns
 
 sns.set_style('ticks')
 sns.set_context('talk')
-
-
-# use LaTeX for typesetting, Helvetica font
-# rcParams['text.usetex'] = True
-# rcParams['text.latex.preamble'] = r'\usepackage{helvet}'
-# rcParams['text.latex.preamble'] = r'\usepackage[EULERGREEK]{sansmath}'
-# rcParams['text.latex.preamble'] = r'\sansmath'
 
 
 def set_up_axes(ax, xmin, xmax, xstep, ymin, ymax, ystep, rnd, xlabel='', ylabel='', part_label=''):
@@ -619,36 +612,3 @@ def to_extinction(Z, s, u):
         Z_history.append(Z)
         N_history.append(N)
     return N_history, Z_history, t
-
-
-def multiple_extinctions(Z, n, s, u):
-    '''Simulate evolution of multiple populations until they all go extinct.
-
-    Parameters
-    ----------
-    Z : list
-        Histogram of number of individuals with k = 0, 1, 2, ... mutations
-    n : int
-        Number of replicate populations
-    s : float
-        Deleterious effect of a mutation
-    u : float
-        Deleterious mutation rate
-
-    Returns
-    -------
-    tuple of np.arrays
-        Population sizes (replicate populations in columns), extinction times
-    '''
-    NN = []
-    tt = []
-    for i in range(n):
-        N_history, Z_history, t = to_extinction(Z, s, u)
-        NN.append(N_history)
-        tt.append(t)
-    tt = np.array(tt, dtype=int)
-    NN_array = np.zeros((tt.max() + 1, n))
-    for i in range(n):
-        for j in range(len(NN[i])):
-            NN_array[j, i] = NN[i][j]
-    return NN_array, tt
