@@ -1,4 +1,4 @@
-# Mutational meltdown in asexual populations doomed to extinction: Code and Data 
+# Mutational Meltdown in Asexual Populations Doomed to Extinction: Code and Data 
 
 Peter Olofsson, Logan Chipkin, Ryan C. Daileda, Ricardo B. R. Azevedo
 
