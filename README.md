@@ -2,8 +2,6 @@
 
 Submitted to *Journal of Mathematical Biology* (February 10, 2023).
 
-*Update in progress...  Check back later.*
-
 ## Contents
 
 * `README.md`: This file.
@@ -21,3 +19,4 @@ Submitted to *Journal of Mathematical Biology* (February 10, 2023).
     * `pars.ipynb`: Jupyter notebook to generate `figures/pars.pdf` (figure 1)
     * `N.ipynb`: Jupyter notebook to generate `figures/N.pdf` (figure 3)
     * `hist.ipynb`: Jupyter notebook to generate `figures/hist.pdf` (figure 4)
+    * `heat.ipynb`: Jupyter notebook to generate `figures/heat.pdf` (figure 5)
