@@ -15,7 +15,6 @@ from numba.typed import List
 import numpy as np
 import numpy.random as rnd
 import matplotlib.pyplot as plt
-from matplotlib import rcParams
 import seaborn as sns
 
 
