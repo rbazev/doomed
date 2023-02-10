@@ -19,7 +19,7 @@ in bioRxiv.](https://www.biorxiv.org/content/10.1101/448563v3)
     * `figure 5`: heat.pdf
 * `python`: Folder containing code and data to generate figures.
     * `doomed.py`: Python 3.7 code to do numerical calculations and run simulations.
-    * `pars.ipynb`: Jupyter notebook to generate `figures/pars.pdf` (figure 1)
+    * [`pars.ipynb`](python/pars.ipynb): Jupyter notebook to generate `figures/pars.pdf` (figure 1)
     * `N.ipynb`: Jupyter notebook to generate `figures/N.pdf` (figure 3)
     * `hist.ipynb`: Jupyter notebook to generate `figures/hist.pdf` (figure 4)
     * `heat.ipynb`: Jupyter notebook to generate `figures/heat.pdf` (figure 5)
