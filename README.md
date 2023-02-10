@@ -13,9 +13,8 @@ Submitted to *Journal of Mathematical Biology* (February 10, 2023).
     * `figure 2`: branch.pdf (and TeX source)
     * `figure 3`: hist.pdf
     * `figure 4`: heat.pdf
-
 * `python`: Folder containing code and data to generate figures.
     * `doomed.py`: Python 3.7 code to do numerical calculations and run simulations.
-    * `.ipynb`: Jupyter notebook to generate `figures/.pdf`
+    * `pars.ipynb`: Jupyter notebook to generate `figures/pars.pdf`
 
 
