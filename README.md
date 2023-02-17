@@ -26,4 +26,13 @@ in bioRxiv.](https://www.biorxiv.org/content/10.1101/448563v3)
     * [`pars.ipynb`](python/pars.ipynb): Jupyter notebook to generate [figure 1](figures/pars.pdf).
     * [`N.ipynb`](python/N.ipynb): Jupyter notebook to generate [figure 3](figures/N.pdf).
     * [`hist.ipynb`](python/hist.ipynb): Jupyter notebook to generate [figure 4](figures/hist.pdf).
-    * [`heat.ipynb`](python/heat.ipynb): Jupyter notebook to generate [figure 5](figures/heat.pdf).
+    * [`heat.ipynb`](python/heat.ipynb): Jupyter notebook to generate [figure
+      5](figures/heat.pdf).
+
+**Note:** python code was last tested with 
+* python 3.7.12
+* numba 0.53.1
+* numpy 1.20.3
+* matplotlib 3.4.2
+* seaborn 0.11.1 
+* pandas 1.3.5 
