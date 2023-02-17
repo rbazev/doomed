@@ -27,6 +27,14 @@ sns.set_style('ticks')
 sns.set_context('talk')
 
 
+red = sns.xkcd_rgb["pale red"]
+gol = sns.xkcd_rgb["golden"]
+ora = sns.xkcd_rgb["light orange"]
+gre = sns.xkcd_rgb["dark grey"]
+grn = sns.xkcd_rgb["medium green"] 
+blu = sns.xkcd_rgb["azure"]
+
+
 def set_up_axes(ax, xmin, xmax, xstep, ymin, ymax, ystep, rnd, xlabel='', ylabel='', part_label=''):
     '''
     Format plot. 
