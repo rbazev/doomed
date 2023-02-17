@@ -6,7 +6,7 @@ Mutational meltdown in asexual populations doomed to extinction."""
 
 ###############################################################################
 ### CREATED BY  : Ricardo Azevedo, Logan Chipkin                            ###
-### LAST UPDATED: 02/10/2023                                                ###
+### LAST UPDATED: 02/17/2023                                                ###
 ###############################################################################
 
 
@@ -25,6 +25,13 @@ import seaborn as sns
 
 sns.set_style('ticks')
 sns.set_context('talk')
+
+
+from matplotlib import rcParams
+rcParams['text.usetex'] = True
+rcParams['font.family'] = 'sans-serif'
+rcParams['font.sans-serif'] = 'Helvetica'
+rcParams['text.latex.preamble'] = [r'\usepackage{sansmath}', r'\sansmath']
 
 
 red = sns.xkcd_rgb["pale red"]
