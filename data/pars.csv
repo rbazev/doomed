@@ -43,7 +43,7 @@ Drosophila melanogaster,eukaryote,FALSE,0.022,0.191,TRUE,MD,Garcia-Dorado et al 
 Drosophila melanogaster,eukaryote,FALSE,0.02,0.226,TRUE,MD,Garcia-Dorado et al 1998,data from Ohnishi 1997
 Drosophila melanogaster,eukaryote,FALSE,0.06,0.265,TRUE,MD,Garcia-Dorado et al 1998,data from Houle et al 1992
 Drosophila melanogaster,eukaryote,FALSE,0.044,0.16,TRUE,MD,Garcia-Dorado et al 1999,data from Fry 1999
-Drosophila melanogaster,eukaryote,FALSE,,,TRUE,BM,Chavarrias et al 2001,average of 2 viability measures
+Drosophila melanogaster,eukaryote,FALSE,0.0116,0.081,TRUE,BM,Chavarrias et al 2001,joint analysis  of viability in two generations
 Drosophila melanogaster,eukaryote,FALSE,0.088,0.145,FALSE,BM,Fry & Heinsohn 2002,data from Fry 2001
 Drosophila melanogaster,eukaryote,FALSE,0.68,0.15,FALSE,BM,Gong et al 2005,median of 3 experiments
 Drosophila melanogaster,eukaryote,FALSE,0.06026,0.113,TRUE,BM,Charlesworth et al 2004,median of 3 experiments
