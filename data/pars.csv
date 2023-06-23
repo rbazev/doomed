@@ -1,4 +1,4 @@
-species,group,mutator,U,s,hom,method,source,notes
+species,group,mutator,u,s,hom,method,source,notes
 Vesicular Stomatitis Virus,virus,FALSE,1.16,0.0022,FALSE,BM,Elena & Moya 1999,median of 3 experiments
 Vesicular Stomatitis Virus,virus,FALSE,NA,0.191,FALSE,direct mutagenesis,Sanjuan et al 2004,
 Tobacco Etch Virus,virus,FALSE,NA,0.411,FALSE,direct mutagenesis,Carrasco et al 2007,
