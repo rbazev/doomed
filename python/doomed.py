@@ -31,7 +31,7 @@ from matplotlib import rcParams
 rcParams['text.usetex'] = True
 rcParams['font.family'] = 'sans-serif'
 rcParams['font.sans-serif'] = 'Helvetica'
-rcParams['text.latex.preamble'] = [r'\usepackage{sansmath}', r'\sansmath']
+rcParams['text.latex.preamble'] = [r'\usepackage{sansmath}', r'\sansmath', r'\usepackage{helvet}']
 
 
 red = sns.xkcd_rgb["pale red"]
