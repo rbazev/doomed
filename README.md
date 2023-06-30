@@ -4,7 +4,7 @@ Peter Olofsson, Logan Chipkin, Ryan C. Daileda, Ricardo B. R. Azevedo
 
 Preprint: [bioRxiv 10.1101/448563](https://www.biorxiv.org/content/10.1101/448563v3)
 
-Last updated: February 17, 2023.
+Last updated: June 30, 2023.
 
 ## Contents
 
@@ -12,7 +12,8 @@ Last updated: February 17, 2023.
 * [`data`](data): Folder containing data to generate figures.
     * [`pars.csv`](data/pars.csv): empirical estimates of mutational parameters used to generate
       figure 1.
-    * `hist.npy`: extinction times from stochastic simulations under default mutational parameters. 
+    * `hist.npy`: extinction times from stochastic simulations under default
+      mutational parameters used to generate figure 4. 
     * `heatA.npy`: data for heat maps in figure 5 (mean extinction time).
     * `heatB.npy`: data for heat maps in figure 5 (variance in extinction time).
     * `heatC.npy`: data for heat maps in figure 5 (time to first click).
