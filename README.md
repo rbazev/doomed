@@ -1,7 +1,7 @@
 # Mutational Meltdown in Asexual Populations Doomed to Extinction: Code and Data
 
 Peter Olofsson, Logan Chipkin, Ryan C. Daileda, Ricardo B. R. Azevedo. Mutational meltdown in asexual populations doomed to extinction.
-*Journal of Mathematical Biology* 87: 88, 2023 [doi: 10.1007/s00285-023-02019-y](https://doi.org/10.1007/s00285-023-02019-y)
+*Journal of Mathematical Biology* 87: 88, 2023 ([doi: 10.1007/s00285-023-02019-y](https://doi.org/10.1007/s00285-023-02019-y)).
 
 Last updated: January 10, 2024.
 
