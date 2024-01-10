@@ -1,10 +1,9 @@
-# Mutational Meltdown in Asexual Populations Doomed to Extinction: Code and Data 
+# Mutational Meltdown in Asexual Populations Doomed to Extinction: Code and Data
 
-Peter Olofsson, Logan Chipkin, Ryan C. Daileda, Ricardo B. R. Azevedo
+Peter Olofsson, Logan Chipkin, Ryan C. Daileda, Ricardo B. R. Azevedo. Mutational meltdown in asexual populations doomed to extinction.
+*Journal of Mathematical Biology* 87: 88, 2023 [doi: 10.1007/s00285-023-02019-y](https://doi.org/10.1007/s00285-023-02019-y)
 
-Preprint: [bioRxiv 10.1101/448563](https://www.biorxiv.org/content/10.1101/448563v3)
-
-Last updated: June 30, 2023.
+Last updated: January 10, 2024.
 
 ## Contents
 
@@ -13,7 +12,7 @@ Last updated: June 30, 2023.
     * [`pars.csv`](data/pars.csv): empirical estimates of mutational parameters used to generate
       figure 1.
     * `hist.npy`: extinction times from stochastic simulations under default
-      mutational parameters used to generate figure 4. 
+      mutational parameters used to generate figure 4.
     * `heatA.npy`: data for heat maps in figure 5 (mean extinction time).
     * `heatB.npy`: data for heat maps in figure 5 (variance in extinction time).
     * `heatC.npy`: data for heat maps in figure 5 (time to first click).
@@ -31,10 +30,10 @@ Last updated: June 30, 2023.
     * [`heat.ipynb`](python/heat.ipynb): Jupyter notebook to generate [figure
       5](figures/heat.pdf).
 
-**Note:** python code was last tested with 
+**Note:** python code was last tested with
 * python 3.7.12
 * numba 0.53.1
 * numpy 1.20.3
 * matplotlib 3.4.2
-* seaborn 0.11.1 
-* pandas 1.3.5 
+* seaborn 0.11.1
+* pandas 1.3.5
